@@ -2,7 +2,7 @@
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class SitterRegistrationRequestModel
+    public class SitterUpdateRequestModel
     {
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -28,7 +28,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        [JsonPropertyName("password")]
-        public string Password { get; set; }
-    } 
+    }
 }

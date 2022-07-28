@@ -9,6 +9,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
     public class RegistrationTests
     {
         private ClientSteps _clientSteps = new ClientSteps();
+        private SitterSteps _sitterSteps = new SitterSteps();
         private Authorizations _authorization = new Authorizations();
 
         [Test]
@@ -45,6 +46,44 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 IsDeleted = false,
             };
             _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
+        }
+
+        [Test]
+        public void SitterCreation_WhenSitterModelIsCorrect_ShouldCreateSitter()
+        {
+            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
+            {
+                Name = "Валера",
+                LastName = "Пет",
+                Email = "pet@gmail.com",
+                Phone = "+79514125547",
+                Age = 20,
+                Description = "Description",
+                Experience = 10,
+                Sex = 1,
+                Password = "12345678",
+            };
+            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = sitterModel.Email,
+                Password = sitterModel.Password,
+            };
+            string token = _authorization.Authorize(authModel);
+
+            SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
+            {
+                Name = sitterModel.Name,
+                LastName = sitterModel.LastName,
+                Phone = sitterModel.Phone,
+                Email = sitterModel.Email,
+                Age = sitterModel.Age,
+                Description = sitterModel.Description,
+                Experience = sitterModel.Experience,
+                Sex = sitterModel.Sex
+            };
+            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
         }
     }
 }
