@@ -498,7 +498,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "sad",
                 Experience = 10,
                 Sex = 1,
-                Password = "1234567890"
+                Password = "12345678"
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
 

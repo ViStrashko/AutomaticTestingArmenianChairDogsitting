@@ -1,12 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AutomaticTestingArmenianChairDogsitting.Models.Response
+namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class PriceCatalogResponsModel
+    public class PriceCatalogUpdateRequestModel
     {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
         [JsonPropertyName("service")]
         public int Service { get; set; }
 

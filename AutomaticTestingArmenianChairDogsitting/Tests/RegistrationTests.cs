@@ -3,6 +3,7 @@ using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using AutomaticTestingArmenianChairDogsitting.Steps;
 using System;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -61,6 +62,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel()
+                    {
+                        Service = 1,
+                        Price = 500,
+                    }
+                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -74,6 +83,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
             SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
             {
+                Id = sitterId,
                 Name = sitterModel.Name,
                 LastName = sitterModel.LastName,
                 Phone = sitterModel.Phone,
@@ -81,7 +91,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Age = sitterModel.Age,
                 Description = sitterModel.Description,
                 Experience = sitterModel.Experience,
-                Sex = sitterModel.Sex
+                Sex = sitterModel.Sex,
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel()
+                    {
+                        Service = 1,
+                        Price = 500,
+                        SitterId = sitterId,
+                        IsDeleted = false,
+                    },
+                },
+                IsDeleted = false,
             };
             _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
         }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
@@ -27,6 +28,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("email")]
         public string Email { get; set; }
+
+        [JsonPropertyName("priceCatalog")]
+        public List<PriceCatalogRequestModel> PriceCatalog { get; set; }
 
         [JsonPropertyName("password")]
         public string Password { get; set; }
