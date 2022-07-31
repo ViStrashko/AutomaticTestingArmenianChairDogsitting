@@ -2,7 +2,7 @@
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class PriceCatalogRequestModel
+    public class PriceCatalogUpdateRequestModel
     {
         [JsonPropertyName("service")]
         public int Service { get; set; }

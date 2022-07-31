@@ -9,8 +9,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
     public class EditingAProfileTests
     {
-        private ClientSteps _clientSteps = new ClientSteps();
         private Authorizations _authorization = new Authorizations();
+        private ClientSteps _clientSteps = new ClientSteps();
+        private SitterSteps _sitterSteps = new SitterSteps();
 
         [Test]
         public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile()
@@ -429,6 +430,138 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 IsDeleted = true,
             };
             _clientSteps.GetAllInfoAnimalById(animalId, token, expectedAnimal);
+        }
+
+        [Test]
+        public void EditingSitterProfile_WhenSitterModelIsCorrect_ShouldEditingSitterProfile()
+        {
+            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
+            {
+                Name = "Валера",
+                LastName = "Пет",
+                Email = "pet@gmail.com",
+                Age = 20,
+                Description = "Description",
+                Experience = 10,
+                Sex = 1,
+                Phone = "+79514125547",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel()
+                    {
+                        Service = 1,
+                        Price = 500,
+                    },
+                },
+                Password = "12345678",
+
+            };
+            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = sitterModel.Email,
+                Password = sitterModel.Password,
+            };
+            string token = _authorization.Authorize(authModel);
+
+            SitterUpdateRequestModel sitterUpdateModel = new SitterUpdateRequestModel()
+            {
+                Name = sitterModel.Name,
+                LastName = sitterModel.LastName,
+                Email = sitterModel.Email,
+                Age = sitterModel.Age,
+                Sex = sitterModel.Sex,
+                Experience = sitterModel.Experience,
+                Description = sitterModel.Description,
+                Phone = "+79518741247",
+                PriceCatalog = new List<PriceCatalogUpdateRequestModel>()
+                {
+                    new PriceCatalogUpdateRequestModel()
+                    {
+                        Service = sitterModel.PriceCatalog[1].Service,
+                        Price =  sitterModel.PriceCatalog[1].Price,
+                    },
+                },
+            };
+            _sitterSteps.UpdateSitterById(sitterId, token, sitterUpdateModel);
+
+            SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
+            {
+                Id = sitterId,
+                Name = sitterUpdateModel.Name,
+                LastName = sitterUpdateModel.LastName,
+                Phone = sitterUpdateModel.Phone,
+                Email = sitterUpdateModel.Email,
+                Age= sitterUpdateModel.Age,
+                Description = sitterUpdateModel.Description,
+                Sex = sitterUpdateModel.Sex,
+                Experience= sitterUpdateModel.Experience,
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel()
+                    {
+                        SitterId = sitterId,
+                        Service = sitterUpdateModel.PriceCatalog[1].Service,
+                        Price =  sitterUpdateModel.PriceCatalog[1].Price,
+                        IsDeleted = false,
+                    },
+                },
+                IsDeleted  = false,
+            };
+            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
+        }
+
+        [Test]
+        public void DeletingSitterProfile_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
+        {
+            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
+            {
+                Name = "Валера",
+                LastName = "Пет",
+                Email = "pet@gmail.com",
+                Phone = "+79514125547",
+                Age = 20,
+                Description = "Description",
+                Experience = 10,
+                Sex = 1,
+                Password = "12345678"
+            };
+            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+
+            AuthRequestModel authModel = new AuthRequestModel()
+            {
+                Email = sitterModel.Email,
+                Password = sitterModel.Password,
+            };
+            string token = _authorization.Authorize(authModel);
+
+            _sitterSteps.DeleteSitterById(sitterId, token);
+
+            SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
+            {
+                Id = sitterId,
+                Name = sitterModel.Name,
+                LastName = sitterModel.LastName,
+                Email = sitterModel.Email,
+                Phone = sitterModel.Phone,
+                Age = sitterModel.Age,
+                Description = sitterModel.Description,
+                Experience= sitterModel.Experience,
+                Sex= sitterModel.Sex,
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel()
+                    {
+                        SitterId = sitterId,
+                        Service = sitterModel.PriceCatalog[1].Service,
+                        Price =  sitterModel.PriceCatalog[1].Price,
+                        IsDeleted = false,
+                    },
+                },
+                IsDeleted = false,
+            };
+            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
         }
     }
 }

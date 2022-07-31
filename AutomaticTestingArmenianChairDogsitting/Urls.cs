@@ -5,7 +5,6 @@
         public const string Host = $"https://piter-education.ru:10000";
 
         public const string Clients = $"{Host}/Clients";
-        public const string ClientsDelete = $"{Host}/Clients?id=";
         public const string Auth = $"{Host}/Auth";
         public const string Animals = $"{Host}/Animals";
         public const string Orders = $"{Host}/Orders";

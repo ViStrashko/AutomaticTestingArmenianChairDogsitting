@@ -8,16 +8,15 @@ using AutomaticTestingArmenianChairDogsitting.Models.Request;
 
 namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
-    public class ClientsClient
+    public class SittersClient
     {
-        private ClientsClient _clientsClient;
+        private SittersClient _sittersClient;
 
-        public ClientsClient()
+        public SittersClient()
         {
-            _clientsClient = new ClientsClient();   
+            _sittersClient = new SittersClient();
         }
-
-        public HttpContent RegisterClient(ClientRegisrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterSitter(SitterRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -25,7 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
-                RequestUri = new System.Uri(Urls.Clients),
+                RequestUri = new System.Uri(Urls.Sitters),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -36,14 +35,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent GetAllInfoClientById(int id, string token, HttpStatusCode expectedCode)
+        public HttpContent GetAllInfoSitterById(int id, string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Get,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}")
+                RequestUri = new System.Uri($"{Urls.Sitters}/{id}")
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
@@ -53,7 +52,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateClientById(int id, string token, ClientUpdateRequestModel model, HttpStatusCode expectedCode)
+        public void UpdateSitterById(int id, string token, SitterUpdateRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -62,7 +61,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+                RequestUri = new System.Uri($"{Urls.Sitters}/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -71,14 +70,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void DeleteClientById(int id, string token, HttpStatusCode expectedCode)
+        public void DeleteSitterById(int id, string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+                RequestUri = new System.Uri($"{Urls.Sitters}/{id}"),
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
@@ -87,3 +86,4 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
         }
     }
 }
+

@@ -11,9 +11,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class ClientSteps
     {
+        private ClientSteps _clientSteps;
         private ClientsClient _clientsClient = new ClientsClient();
         private AnimalsClient _animalsClient = new AnimalsClient();
         private OrdersClient _ordersClient = new OrdersClient();
+
+        public ClientSteps()
+        {
+            _clientSteps = new ClientSteps();
+        }
 
         public int RegisterClient(ClientRegisrationRequestModel model)
         {
@@ -21,7 +27,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
             HttpContent content = _clientsClient.RegisterClient(model, expectedRegistrationCode);
-            int? actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
@@ -43,7 +49,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void UpdateClientById(int id, string token, ClientUpdateRequestModel model)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.OK;
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _clientsClient.UpdateClientById(id, token, model, expectedUpdateCode);
         }
@@ -62,7 +68,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
             HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, expectedRegistrationCode);
-            int? actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
@@ -95,7 +101,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void UpdateAnimalById(int id, string token, AnimalUpdateRequestModel model)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.OK;
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _animalsClient.UpdateAnimalById(id, token, model, expectedUpdateCode);
         }
@@ -114,7 +120,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
             HttpContent content = _ordersClient.RegisterOrder(model, expectedRegistrationCode);
-            int? actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
@@ -136,7 +142,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void UpdateOrderById(int id, string token, OrderUpdateRequestModel model)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.OK;
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _ordersClient.UpdateOrderById(id, token, model, expectedUpdateCode);
         }
