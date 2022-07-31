@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
@@ -13,6 +14,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("text")]
         public string Text { get; set; }
 
+        [JsonPropertyName("timeCreated")]
+        public DateTime TimeCreated { get; set; }
+
+        [JsonPropertyName("timeUpdated")]
+        public DateTime TimeUpdated { get; set; }
+
+        [JsonPropertyName("clientId")]
+        public int ClientId { get; set; }
+
         [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
@@ -22,6 +32,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Id == model.Id &&
                    Rating == model.Rating &&
                    Text == model.Text &&
+                   TimeCreated == model.TimeCreated &&
+                   TimeUpdated == model.TimeUpdated &&
+                   ClientId == model.ClientId &&
                    IsDeleted == model.IsDeleted;
         }
     }
