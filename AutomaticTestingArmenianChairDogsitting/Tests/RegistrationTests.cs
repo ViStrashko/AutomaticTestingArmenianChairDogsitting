@@ -16,7 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",

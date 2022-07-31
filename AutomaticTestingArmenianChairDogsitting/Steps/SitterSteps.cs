@@ -25,7 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
             HttpContent content = _sittersClient.RegisterSitter(model, expectedRegistrationCode);
-            int? actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);

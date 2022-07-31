@@ -21,7 +21,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientSteps = new ClientSteps();
         }
 
-        public int RegisterClient(ClientRegisrationRequestModel model)
+        public int RegisterClient(ClientRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;

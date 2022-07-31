@@ -23,7 +23,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public int Status { get; set; }
 
         [JsonPropertyName("price")]
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         [JsonPropertyName("date")]
         public DateTime Date { get; set; }
