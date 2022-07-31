@@ -9,9 +9,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
     public class RegistrationTests
     {
+        private Authorizations _authorization = new Authorizations();
         private ClientSteps _clientSteps = new ClientSteps();
         private SitterSteps _sitterSteps = new SitterSteps();
-        private Authorizations _authorization = new Authorizations();
 
         [Test]
         public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient()
@@ -68,7 +68,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     {
                         Service = 1,
                         Price = 500,
-                    }
+                    },
+                    new PriceCatalogRequestModel()
+                    {
+                        Service = 2,
+                        Price = 700,
+                    },
+                    new PriceCatalogRequestModel()
+                    {
+                        Service = 3,
+                        Price = 1000,
+                    },
+                    new PriceCatalogRequestModel()
+                    {
+                        Service = 4,
+                        Price = 1500,
+                    },
                 },
                 Password = "12345678",
             };
@@ -96,8 +111,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 {
                     new PriceCatalogResponseModel()
                     {
-                        Service = 1,
-                        Price = 500,
+                        Service = sitterModel.PriceCatalog[1].Service,
+                        Price = sitterModel.PriceCatalog[1].Price,
+                        SitterId = sitterId,
+                        IsDeleted = false,
+                    },
+                    new PriceCatalogResponseModel()
+                    {
+                        Service = sitterModel.PriceCatalog[2].Service,
+                        Price = sitterModel.PriceCatalog[2].Price,
+                        SitterId = sitterId,
+                        IsDeleted = false,
+                    },
+                    new PriceCatalogResponseModel()
+                    {
+                        Service = sitterModel.PriceCatalog[3].Service,
+                        Price = sitterModel.PriceCatalog[3].Price,
+                        SitterId = sitterId,
+                        IsDeleted = false,
+                    },
+                    new PriceCatalogResponseModel()
+                    {
+                        Service = sitterModel.PriceCatalog[4].Service,
+                        Price = sitterModel.PriceCatalog[4].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },

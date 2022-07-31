@@ -11,7 +11,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class SitterSteps
     {
+        private SitterSteps _sitterSteps;
         private SittersClient _sittersClient = new SittersClient();
+
+        public SitterSteps()
+        {
+            _sitterSteps = new SitterSteps();
+        }
 
         public int RegisterSitter(SitterRegistrationRequestModel model)
         {
@@ -41,7 +47,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void UpdateSitterById(int id, string token, SitterUpdateRequestModel model)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.OK;
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _sittersClient.UpdateSitterById(id, token, model, expectedUpdateCode);
         }

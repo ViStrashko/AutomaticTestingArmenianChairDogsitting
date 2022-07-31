@@ -10,6 +10,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class ClientsClient
     {
+        private ClientsClient _clientsClient;
+
+        public ClientsClient()
+        {
+            _clientsClient = new ClientsClient();   
+        }
+
         public HttpContent RegisterClient(ClientRegisrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
@@ -71,7 +78,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new System.Uri($"{Urls.ClientsDelete}{id}"),
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;

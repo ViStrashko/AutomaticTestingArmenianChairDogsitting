@@ -8,8 +8,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class Authorizations
     {
+        private Authorizations _authorization;
         private AuthClient _authClient = new AuthClient();
 
+        public Authorizations()
+        {
+            _authorization = new Authorizations();
+        }
         public string Authorize(AuthRequestModel authModel)
         {
             //Given
