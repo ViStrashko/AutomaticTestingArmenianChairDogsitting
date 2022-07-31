@@ -16,7 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -60,9 +60,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         [Test]
-        public void DeletingClientProfile_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
+        public void DeleteClientProfile_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -100,7 +100,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void AddingAnimalToClientProfile_WhenAnimalModelIsCorrect_ShouldAddingAnimalToClientProfile()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -189,7 +189,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void AddingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_ShouldAddingAnimalToClientProfileWithPropertyBreedIsLarge()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -278,7 +278,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void EditingAnimalToClientProfile_WhenAnimalModelIsCorrect_ShouldEditingAnimalToClientProfile()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -333,7 +333,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void EditingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_ShouldEditingAnimalToClientProfileWithPropertyBreedIsLarge()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -388,7 +388,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_ShouldDeleteAnimalToClientProfile()
         {
-            ClientRegisrationRequestModel clientModel = new ClientRegisrationRequestModel()
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -513,7 +513,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         [Test]
-        public void DeletingSitterProfile_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
+        public void DeleteSitterProfile_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
         {
             SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
             {
@@ -559,7 +559,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                         IsDeleted = false,
                     },
                 },
-                IsDeleted = false,
+                IsDeleted = true,
             };
             _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
         }

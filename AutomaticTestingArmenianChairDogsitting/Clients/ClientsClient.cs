@@ -17,7 +17,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             _clientsClient = new ClientsClient();   
         }
 
-        public HttpContent RegisterClient(ClientRegisrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterClient(ClientRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
