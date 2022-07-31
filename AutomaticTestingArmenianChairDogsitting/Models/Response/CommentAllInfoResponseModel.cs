@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         public DateTime TimeCreated { get; set; }
 
         [JsonPropertyName("timeUpdated")]
-        public DateTime TimeUpdated { get; set; }
+        public DateTime? TimeUpdated { get; set; }
 
         [JsonPropertyName("clientId")]
         public int ClientId { get; set; }
