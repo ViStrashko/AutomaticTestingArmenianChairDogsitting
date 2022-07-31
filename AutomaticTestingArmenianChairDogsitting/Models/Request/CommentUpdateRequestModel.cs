@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class CommentRegistrationRequestModel
+    public class CommentUpdateRequestModel
     {
         [JsonPropertyName("rating")]
         public int Rating { get; set; }
@@ -11,10 +11,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("text")]
         public string Text { get; set; }
 
-        [JsonPropertyName("timeCreated")]
-        public DateTime TimeCreated { get; set; }
-
-        [JsonPropertyName("orderId")]
-        public int OrderId { get; set; }
+        [JsonPropertyName("timeUpdated")]
+        public DateTime TimeUpdated { get; set; }
     }
 }
