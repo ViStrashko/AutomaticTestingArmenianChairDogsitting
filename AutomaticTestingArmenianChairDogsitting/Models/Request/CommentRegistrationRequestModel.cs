@@ -16,5 +16,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("orderId")]
         public int OrderId { get; set; }
+
+        [JsonPropertyName("clientId")]
+        public int ClientId { get; set; }
     }
 }

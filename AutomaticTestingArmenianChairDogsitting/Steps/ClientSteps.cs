@@ -15,6 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         private ClientsClient _clientsClient = new ClientsClient();
         private AnimalsClient _animalsClient = new AnimalsClient();
         private OrdersClient _ordersClient = new OrdersClient();
+        private CommentsClient _commentsClient = new CommentsClient();
 
         public ClientSteps()
         {
@@ -153,6 +154,47 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _ordersClient.DeleteOrderById(id, token, expectedUpdateCode);
+        }
+
+        public int RegisterComment(CommentRegistrationRequestModel model)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            //When
+            HttpContent content = _commentsClient.RegisterComment(model, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            return (int)actualId;
+        }
+
+        public CommentAllInfoResponseModel GetAllInfoCommentById(int id, string token, CommentAllInfoResponseModel expectedOrder)
+        {
+            //When
+            HttpContent content = _commentsClient.GetAllInfoCommentById(id, token, HttpStatusCode.OK);
+            CommentAllInfoResponseModel actualOrder = JsonSerializer.Deserialize<CommentAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            //Then
+            Assert.AreEqual(expectedOrder, actualOrder);
+
+            return actualOrder;
+        }
+
+        public void UpdateCommentById(int id, string token, CommentUpdateRequestModel model)
+        {
+            //Given
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            _commentsClient.UpdateCommentById(id, token, model, expectedUpdateCode);
+        }
+
+        public void DeleteCommentById(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            _commentsClient.DeleteCommentById(id, token, expectedUpdateCode);
         }
     }
 }

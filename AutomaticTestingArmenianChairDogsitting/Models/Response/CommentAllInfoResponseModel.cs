@@ -20,6 +20,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("timeUpdated")]
         public DateTime TimeUpdated { get; set; }
 
+        [JsonPropertyName("clientId")]
+        public int ClientId { get; set; }
+
         [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
@@ -31,6 +34,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Text == model.Text &&
                    TimeCreated == model.TimeCreated &&
                    TimeUpdated == model.TimeUpdated &&
+                   ClientId == model.ClientId &&
                    IsDeleted == model.IsDeleted;
         }
     }
