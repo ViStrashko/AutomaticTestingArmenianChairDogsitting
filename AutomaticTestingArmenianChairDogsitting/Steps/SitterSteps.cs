@@ -11,15 +11,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class SitterSteps
     {
-        private SitterSteps _sitterSteps;
-        private SittersClient _sittersClient = new SittersClient();
+        private SittersClient _sittersClient;
 
         public SitterSteps()
         {
-            _sitterSteps = new SitterSteps();
+            _sittersClient = new SittersClient();
         }
 
-        public int RegisterSitter(SitterRegistrationRequestModel model)
+    public int RegisterSitter(SitterRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;

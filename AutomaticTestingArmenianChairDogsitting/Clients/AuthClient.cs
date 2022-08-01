@@ -9,13 +9,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class AuthClient
     {
-        private AuthClient _authClient;
-
-        public AuthClient()
-        {
-            _authClient = new AuthClient();
-        }
-
         public HttpContent Authorize(AuthRequestModel authModel, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(authModel);

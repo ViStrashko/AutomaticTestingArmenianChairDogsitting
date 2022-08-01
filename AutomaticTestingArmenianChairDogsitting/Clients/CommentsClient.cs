@@ -10,13 +10,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class CommentsClient
     {
-        private CommentsClient _commentsClient;
-
-        public CommentsClient()
-        {
-            _commentsClient = new CommentsClient();
-        }
-
         public HttpContent RegisterComment(CommentRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);

@@ -10,12 +10,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class SittersClient
     {
-        private SittersClient _sittersClient;
-
-        public SittersClient()
-        {
-            _sittersClient = new SittersClient();
-        }
         public HttpContent RegisterSitter(SitterRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
