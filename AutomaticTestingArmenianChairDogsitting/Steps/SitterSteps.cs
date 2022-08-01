@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
@@ -58,6 +59,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _sittersClient.DeleteSitterById(id, token, expectedUpdateCode);
+        }
+
+        public List<SitterAllInfoResponseModel> GetAllInfoAllSitters(string token, List<SitterAllInfoResponseModel> expectedAllSitters)
+        {
+            HttpContent content = _sittersClient.GetAllInfoAllSitters(token, HttpStatusCode.OK);
+            List<SitterAllInfoResponseModel> actualAllSitters = JsonSerializer.Deserialize<List<SitterAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            
+            CollectionAssert.AreEqual(expectedAllSitters, actualAllSitters);
+            return actualAllSitters;
+
         }
     }
 }
