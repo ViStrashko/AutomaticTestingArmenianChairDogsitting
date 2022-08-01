@@ -9,9 +9,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
     public class EditingAProfileTests
     {
-        private Authorizations _authorization = new Authorizations();
-        private ClientSteps _clientSteps = new ClientSteps();
-        private SitterSteps _sitterSteps = new SitterSteps();
+        private Authorizations _authorization;
+        private ClientSteps _clientSteps;
+        private SitterSteps _sitterSteps;
+
+        public EditingAProfileTests()
+        {
+            _authorization = new Authorizations();
+            _clientSteps = new ClientSteps();
+            _sitterSteps = new SitterSteps();
+    }
 
         [Test]
         public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile()

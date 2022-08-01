@@ -11,18 +11,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class ClientSteps
     {
-        private ClientSteps _clientSteps;
-        private ClientsClient _clientsClient = new ClientsClient();
-        private AnimalsClient _animalsClient = new AnimalsClient();
-        private OrdersClient _ordersClient = new OrdersClient();
-        private CommentsClient _commentsClient = new CommentsClient();
+        private ClientsClient _clientsClient;
+        private AnimalsClient _animalsClient;
+        private OrdersClient _ordersClient;
+        private CommentsClient _commentsClient;
 
         public ClientSteps()
         {
-            _clientSteps = new ClientSteps();
+            _clientsClient = new ClientsClient();
+            _animalsClient = new AnimalsClient();
+            _ordersClient = new OrdersClient();
+            _commentsClient = new CommentsClient();
         }
 
-        public int RegisterClient(ClientRegistrationRequestModel model)
+    public int RegisterClient(ClientRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
