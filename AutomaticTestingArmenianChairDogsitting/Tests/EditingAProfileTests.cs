@@ -4,6 +4,9 @@ using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using AutomaticTestingArmenianChairDogsitting.Steps;
 using System;
 using System.Collections.Generic;
+using AutomaticTestingArmenianChairDogsitting.Support;
+using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
+using AutomaticTestingArmenianChairDogsitting.Tests.TestSourses.ClientTestSourses;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -12,119 +15,75 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private Authorizations _authorization;
         private ClientSteps _clientSteps;
         private SitterSteps _sitterSteps;
+        private ClearingTables _clearingTables;
+        private AuthMappers _authMapper;
+        private ClientMappers _clientMappers;
+        private string _token;
+        private int _clientId;
+        private int _sitterId;
+        private ClientRegistrationRequestModel _clientModel;
+
 
         public EditingAProfileTests()
         {
             _authorization = new Authorizations();
             _clientSteps = new ClientSteps();
             _sitterSteps = new SitterSteps();
-    }
-
-        [Test]
-        public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile()
-        {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
+            _clearingTables = new ClearingTables();
+            _authMapper = new AuthMappers();
+            _clientMappers = new ClientMappers();
+            _clientModel = new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
+                 Name = "Вася",
+                 LastName = "Петров",
+                 Email = "petrov@gmail.com",
+                 Phone = "+79514125547",
+                 Address = "ул. Итальянская, дом. 10",
+                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClient(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.Authorize(authModel);
-
-            ClientUpdateRequestModel clientUpdateModel = new ClientUpdateRequestModel()
-            {
-                Name = clientModel.Name,
-                LastName = clientModel.LastName,
-                Email = clientModel.Email,
-                Phone = "+79518741247",
-                Address = clientModel.Address,
-            };
-            _clientSteps.UpdateClientById(clientId, token, clientUpdateModel);
-
-            ClientAllInfoResponseModel expectedClient = new ClientAllInfoResponseModel()
-            {
-                Id = clientId,
-                Name = clientUpdateModel.Name,
-                LastName = clientUpdateModel.LastName,
-                Phone = clientUpdateModel.Phone,
-                Address = clientUpdateModel.Address,
-                Email = clientUpdateModel.Email,
-                RegistrationDate = DateTime.Now.Date,
-                Dogs = null,
-                IsDeleted = false,
-            };
-            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
         }
 
-        [Test]
-        public void DeleteClientProfile_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            _clearingTables.AfterScenario();
+        }
 
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.Authorize(authModel);
+        [SetUp]
+        public void SetUp()
+        {
+            _clientId = _clientSteps.RegisterClient(_clientModel);
 
-            _clientSteps.DeleteClientById(clientId, token);
+            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
+            _token = _authorization.Authorize(authModel);
 
-            ClientAllInfoResponseModel expectedClient = new ClientAllInfoResponseModel()
-            {
-                Id = clientId,
-                Name = clientModel.Name,
-                LastName = clientModel.LastName,
-                Phone = clientModel.Phone,
-                Address = clientModel.Address,
-                Email = clientModel.Email,
-                RegistrationDate = DateTime.Now.Date,
-                Dogs = null,
-                IsDeleted = true,
-            };
-            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            _clearingTables.AfterScenario();
+        }
+
+        [TestCaseSource(typeof(EditingClientProfile_WhenClientModelIsCorrect_TestSours))]
+        public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile(ClientUpdateRequestModel clientUpdateModel)
+        {
+            _clientSteps.UpdateClientById(_clientId, _token, clientUpdateModel);
+
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel(clientUpdateModel, _clientId);
+            _clientSteps.GetAllInfoClientById(_clientId, _token, expectedClient);
+        }
+
+        [TestCaseSource(typeof(DeleteClientProfile_WhenClientModelIsCorrect_TestSours))]
+        public void DeleteClientProfile_WhenClientIdIsCorrect_ShouldDeletingClientProfile(ClientAllInfoResponseModel expectedClient)
+        {
+            _clientSteps.DeleteClientById(_clientId, _token);
+
+            _clientSteps.GetAllInfoClientById(_clientId, _token, expectedClient);
         }
 
         [Test]
         public void AddingAnimalToClientProfile_WhenAnimalModelIsCorrect_ShouldAddingAnimalToClientProfile()
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClient(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.Authorize(authModel);
-
             AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
@@ -132,7 +91,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
-                ClientId = clientId,
+                ClientId = _clientId,
             };
             int animalId = _clientSteps.RegisterAnimalToClientProfile(animalModel);
 
@@ -146,7 +105,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = animalModel.Size,
                 IsDeleted = false,
             };
-            _clientSteps.GetAllInfoAnimalById(animalId, token, expectedAnimal);
+            _clientSteps.GetAllInfoAnimalById(animalId, _token, expectedAnimal);
 
             ClientAnimalsResponseModels expectedAnimals = new ClientAnimalsResponseModels()
             {
@@ -164,7 +123,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     }
                 }
             };
-            _clientSteps.GetAnimalsByClientId(clientId, token, expectedAnimals);
+            _clientSteps.GetAnimalsByClientId(_clientId, _token, expectedAnimals);
 
             ClientAllInfoResponseModel expectedClient = new ClientAllInfoResponseModel()
             {
@@ -190,7 +149,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 },
                 IsDeleted = false,
             };
-            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
+            _clientSteps.GetAllInfoClientById(_clientId, _token, expectedClient);
         }
 
         [Test]

@@ -2,8 +2,10 @@
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using AutomaticTestingArmenianChairDogsitting.Steps;
-using System;
 using System.Collections.Generic;
+using AutomaticTestingArmenianChairDogsitting.Tests.TestSourses.ClientTestSourses;
+using AutomaticTestingArmenianChairDogsitting.Support;
+using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -12,48 +14,45 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private Authorizations _authorization;
         private ClientSteps _clientSteps;
         private SitterSteps _sitterSteps;
+        private ClearingTables _clearingTables;
+        private AuthMappers _authMapper;
+        private ClientMappers _clientMappers;
+        private string _token;
+        private int _clientId;
+        private int _sitterId;
 
         public RegistrationTests()
         {
             _authorization = new Authorizations();
             _clientSteps = new ClientSteps();
             _sitterSteps = new SitterSteps();
+            _clearingTables = new ClearingTables();
+            _authMapper = new AuthMappers();
+            _clientMappers = new ClientMappers();
         }
 
-        [Test]
-        public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            _clearingTables.AfterScenario();
+        }
 
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.Authorize(authModel);
+        [TearDown]
+        public void TearDown()
+        {
+            _clearingTables.AfterScenario();
+        }
 
-            ClientAllInfoResponseModel expectedClient = new ClientAllInfoResponseModel()
-            {
-                Id = clientId,
-                Name = clientModel.Name,
-                LastName = clientModel.LastName,
-                Phone = clientModel.Phone,
-                Address = clientModel.Address,
-                Email = clientModel.Email,
-                RegistrationDate = DateTime.Now.Date,
-                Dogs = null,
-                IsDeleted = false,
-            };
-            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
+        [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrect_TetsSours))]
+        public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
+        {
+            _clientId = _clientSteps.RegisterClient(clientModel);
+
+            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
+            _token = _authorization.Authorize(authModel);
+
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientModel, _clientId);
+            _clientSteps.GetAllInfoClientById(_clientId, _token, expectedClient);
         }
 
         [Test]
@@ -94,18 +93,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 },
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            _sitterId = _sitterSteps.RegisterSitter(sitterModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = sitterModel.Email,
                 Password = sitterModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            _token = _authorization.Authorize(authModel);
 
             SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
             {
-                Id = sitterId,
+                Id = _sitterId,
                 Name = sitterModel.Name,
                 LastName = sitterModel.LastName,
                 Phone = sitterModel.Phone,
@@ -120,34 +119,34 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     {
                         Service = sitterModel.PriceCatalog[1].Service,
                         Price = sitterModel.PriceCatalog[1].Price,
-                        SitterId = sitterId,
+                        SitterId = _sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[2].Service,
                         Price = sitterModel.PriceCatalog[2].Price,
-                        SitterId = sitterId,
+                        SitterId = _sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[3].Service,
                         Price = sitterModel.PriceCatalog[3].Price,
-                        SitterId = sitterId,
+                        SitterId = _sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[4].Service,
                         Price = sitterModel.PriceCatalog[4].Price,
-                        SitterId = sitterId,
+                        SitterId = _sitterId,
                         IsDeleted = false,
                     },
                 },
                 IsDeleted = false,
             };
-            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
+            _sitterSteps.GetAllInfoSitterById(_sitterId, _token, expectedSitter);
         }
     }
 }
