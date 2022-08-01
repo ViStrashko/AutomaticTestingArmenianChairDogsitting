@@ -11,10 +11,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
     public class SittersClient
     {
         private SittersClient _sittersClient;
+        //private HttpClient _client
 
         public SittersClient()
         {
             _sittersClient = new SittersClient();
+            //_client = new HttpClient();
         }
         public HttpContent RegisterSitter(SitterRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
@@ -83,6 +85,24 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpStatusCode actualCode = response.StatusCode;
 
             Assert.AreEqual(expectedCode, actualCode);
+        }
+
+        public HttpContent GetAllInfoAllSitters(string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new System.Uri(Urls.Sitters)
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
+
         }
     }
 }
