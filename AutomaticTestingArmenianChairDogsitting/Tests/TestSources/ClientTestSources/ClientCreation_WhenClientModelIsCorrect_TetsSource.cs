@@ -1,9 +1,9 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using System.Collections;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSourses.ClientTestSourses
+namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources
 {
-    public class ClientCreation_WhenClientModelIsCorrect_TetsSours : IEnumerable
+    public class ClientCreation_WhenClientModelIsCorrect_TetsSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

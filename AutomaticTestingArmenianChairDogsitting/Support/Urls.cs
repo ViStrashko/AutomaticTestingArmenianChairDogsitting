@@ -1,4 +1,4 @@
-﻿namespace AutomaticTestingArmenianChairDogsitting
+﻿namespace AutomaticTestingArmenianChairDogsitting.Support
 {
     public class Urls
     {

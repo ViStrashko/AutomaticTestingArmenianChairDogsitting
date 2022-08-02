@@ -3,9 +3,10 @@ using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using AutomaticTestingArmenianChairDogsitting.Steps;
 using System.Collections.Generic;
-using AutomaticTestingArmenianChairDogsitting.Tests.TestSourses.ClientTestSourses;
+using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
+using System;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -17,9 +18,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private ClearingTables _clearingTables;
         private AuthMappers _authMapper;
         private ClientMappers _clientMappers;
-        private string _token;
-        private int _clientId;
-        private int _sitterId;
 
         public RegistrationTests()
         {
@@ -34,25 +32,26 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _clearingTables.AfterScenario();
+            _clearingTables.ClearAllDB();
         }
 
         [TearDown]
         public void TearDown()
         {
-            _clearingTables.AfterScenario();
+            _clearingTables.ClearAllDB();
         }
 
-        [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrect_TetsSours))]
+        [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrect_TetsSource))]
         public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
         {
-            _clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClient(clientModel);
+            var date = DateTime.Now.Date;
 
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
-            _token = _authorization.Authorize(authModel);
+            string token = _authorization.Authorize(authModel);
 
-            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientModel, _clientId);
-            _clientSteps.GetAllInfoClientById(_clientId, _token, expectedClient);
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientModel, clientId, date);
+            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
         }
 
         [Test]
@@ -93,18 +92,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 },
                 Password = "12345678",
             };
-            _sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = sitterModel.Email,
                 Password = sitterModel.Password,
             };
-            _token = _authorization.Authorize(authModel);
+            string token = _authorization.Authorize(authModel);
 
             SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
             {
-                Id = _sitterId,
+                Id = sitterId,
                 Name = sitterModel.Name,
                 LastName = sitterModel.LastName,
                 Phone = sitterModel.Phone,
@@ -119,34 +118,34 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     {
                         Service = sitterModel.PriceCatalog[1].Service,
                         Price = sitterModel.PriceCatalog[1].Price,
-                        SitterId = _sitterId,
+                        SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[2].Service,
                         Price = sitterModel.PriceCatalog[2].Price,
-                        SitterId = _sitterId,
+                        SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[3].Service,
                         Price = sitterModel.PriceCatalog[3].Price,
-                        SitterId = _sitterId,
+                        SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
                         Service = sitterModel.PriceCatalog[4].Service,
                         Price = sitterModel.PriceCatalog[4].Price,
-                        SitterId = _sitterId,
+                        SitterId = sitterId,
                         IsDeleted = false,
                     },
                 },
                 IsDeleted = false,
             };
-            _sitterSteps.GetAllInfoSitterById(_sitterId, _token, expectedSitter);
+            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
         }
     }
 }

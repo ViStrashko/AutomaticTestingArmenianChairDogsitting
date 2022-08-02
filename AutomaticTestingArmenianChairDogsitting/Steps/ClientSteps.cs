@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
@@ -24,7 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _commentsClient = new CommentsClient();
         }
 
-    public int RegisterClient(ClientRegistrationRequestModel model)
+        public int RegisterClient(ClientRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
@@ -90,16 +91,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualAnimal;
         }
 
-        public ClientAnimalsResponseModels GetAnimalsByClientId(int id, string token, ClientAnimalsResponseModels expectedAnimals)
+        public List<AnimalAllInfoResponseModel> GetAnimalsByClientId(int id, string token, AnimalAllInfoResponseModel expectedAnimal)
         {
             //When
             HttpContent content = _animalsClient.GetAnimalsByClientId(id, token, HttpStatusCode.OK);
-            ClientAnimalsResponseModels actualAnimals = JsonSerializer.Deserialize<ClientAnimalsResponseModels>(content.ReadAsStringAsync().Result)!;
+            List<AnimalAllInfoResponseModel> actualAnimals = JsonSerializer.Deserialize<List<AnimalAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
-            Assert.AreEqual(expectedAnimals, actualAnimals);
+            CollectionAssert.Contains(actualAnimals, expectedAnimal);
 
             return actualAnimals;
         }
+
+        public List<AnimalAllInfoResponseModel> GetAnimalsByClientIdToProfile(int id, string token, AnimalAllInfoResponseModel expectedAnimal)
+        {
+            //When
+            HttpContent content = _clientsClient.GetAllInfoClientById(id, token, HttpStatusCode.OK);
+            ClientAllInfoResponseModel actualClient = JsonSerializer.Deserialize<ClientAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            List<AnimalAllInfoResponseModel> actualAnimals = actualClient.Dogs;
+            //Then
+            CollectionAssert.Contains(actualAnimals, expectedAnimal);
+
+            return actualAnimals;
+        }
+
 
         public void UpdateAnimalById(int id, string token, AnimalUpdateRequestModel model)
         {

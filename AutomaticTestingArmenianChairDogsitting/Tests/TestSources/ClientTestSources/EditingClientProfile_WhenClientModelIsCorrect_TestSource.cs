@@ -1,13 +1,13 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using System.Collections;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSourses.ClientTestSourses
+namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources
 {
-    public class EditingClientProfile_WhenClientModelIsCorrect_TestSours : IEnumerable
+    public class EditingClientProfile_WhenClientModelIsCorrect_TestSource
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new ClientUpdateRequestModel()
+            yield return new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
