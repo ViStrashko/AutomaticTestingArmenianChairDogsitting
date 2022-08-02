@@ -9,9 +9,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
     public class OrderingServicesTests
     {
-        private Authorizations _authorization = new Authorizations();
-        private ClientSteps _clientSteps = new ClientSteps();
-        private SitterSteps _sitterSteps = new SitterSteps();
+        private Authorizations _authorization;
+        private ClientSteps _clientSteps;
+        private SitterSteps _sitterSteps;
+
+        public OrderingServicesTests()
+        {
+            _authorization = new Authorizations();
+            _clientSteps = new ClientSteps();
+            _sitterSteps = new SitterSteps();
+        }
 
         [Test]
         public void OrderingServicesWalking_WhenOrderModelIsCorrect_ShouldOrderingServicesWalking()
