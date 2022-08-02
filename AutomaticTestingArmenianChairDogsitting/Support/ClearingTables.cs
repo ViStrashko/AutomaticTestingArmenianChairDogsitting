@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Support
                 SqlCommand command = new SqlCommand();
 
                 command.CommandText = "delete from dbo.[Animal]";
-                command.ExecuteNonQuery();
                 command.Connection = connection;
                 var i = command.ExecuteNonQuery();
 

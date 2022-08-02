@@ -116,6 +116,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 {
                     new PriceCatalogResponseModel()
                     {
+                        Service = sitterModel.PriceCatalog[0].Service,
+                        Price = sitterModel.PriceCatalog[0].Price,
+                        SitterId = sitterId,
+                        IsDeleted = false,
+                    },
+                    new PriceCatalogResponseModel()
+                    {
                         Service = sitterModel.PriceCatalog[1].Service,
                         Price = sitterModel.PriceCatalog[1].Price,
                         SitterId = sitterId,
@@ -132,13 +139,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     {
                         Service = sitterModel.PriceCatalog[3].Service,
                         Price = sitterModel.PriceCatalog[3].Price,
-                        SitterId = sitterId,
-                        IsDeleted = false,
-                    },
-                    new PriceCatalogResponseModel()
-                    {
-                        Service = sitterModel.PriceCatalog[4].Service,
-                        Price = sitterModel.PriceCatalog[4].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },

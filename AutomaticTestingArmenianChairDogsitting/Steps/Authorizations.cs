@@ -17,7 +17,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public string Authorize(AuthRequestModel authModel)
         {
             //Given
-            HttpStatusCode expectedAuthCode = HttpStatusCode.Created;
+            HttpStatusCode expectedAuthCode = HttpStatusCode.OK;
             //When
             HttpContent content = _authClient.Authorize(authModel, expectedAuthCode);
             string actualToken = content.ReadAsStringAsync().Result;
