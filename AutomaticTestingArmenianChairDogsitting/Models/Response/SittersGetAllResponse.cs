@@ -30,5 +30,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Experience == model.Experience;
         }
 
+        public override string ToString()
+        {
+            return $"id:{Id}, Name:{Name}, LastName:{LastName}, Experience:{Experience}";
+        }
     }
 }
