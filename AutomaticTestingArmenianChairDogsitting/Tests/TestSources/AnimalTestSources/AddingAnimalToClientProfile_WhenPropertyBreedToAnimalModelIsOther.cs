@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSources
 {
-    public class AddingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_TestSource
+    public class AddingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

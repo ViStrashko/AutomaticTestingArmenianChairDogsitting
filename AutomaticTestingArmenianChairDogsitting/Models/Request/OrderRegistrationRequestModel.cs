@@ -22,6 +22,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public string Address { get; set; }
 
         [JsonPropertyName("animals")]
-        public List<AnimalRegistrationRequestModel> Animals { get; set; }
+        public List<int> Animals { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSources
 {
-    public class DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_TestSource
+    public class DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

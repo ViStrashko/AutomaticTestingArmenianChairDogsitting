@@ -10,14 +10,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("text")]
         public string Text { get; set; }
-
-        [JsonPropertyName("timeCreated")]
-        public DateTime TimeCreated { get; set; }
-
-        [JsonPropertyName("orderId")]
-        public int OrderId { get; set; }
-
-        [JsonPropertyName("clientId")]
-        public int ClientId { get; set; }
     }
 }
