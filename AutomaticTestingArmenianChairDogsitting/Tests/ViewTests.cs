@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using AutomaticTestingArmenianChairDogsitting.TestsCaseSources;
 using AutomaticTestingArmenianChairDogsitting.DBController;
+using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -15,6 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private ClientSteps _clientSteps;
         private SitterSteps _sitterSteps;
         private ClearBase _clearBase;
+        private SittersMapper _mapper;
 
         public ViewTests()
         {
@@ -22,6 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps = new ClientSteps();
             _sitterSteps = new SitterSteps();
             _clearBase = new ClearBase();
+            _mapper = new SittersMapper();
         }
 
         [OneTimeSetUp]
@@ -39,27 +42,31 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [TestCaseSource(typeof(GetAllSittes_ByAllRolesTestCaseSource))]
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters, ClientRegistrationRequestModel client)
         {
-            int[] sittersIds = new int[sitters.Count];
+            List<int> sittersIds = new List<int>();
             List<string> tokens = new List<string>();
             List<AuthRequestModel> sittersAuthRequests = new List<AuthRequestModel>();
-
-            for (int i = 0; i<sittersIds.Length; i++)
+            List<SittersGetAllResponse> expectedAllSitters = new List<SittersGetAllResponse>();
+            foreach(var sitter in sitters)
             {
-                sittersIds[i] = _sitterSteps.RegisterSitter(sitters[i]);
-                tokens.Add(_authorization.Authorize(sittersAuthRequests[i]));
+                sittersIds.Add(_sitterSteps.RegisterSitter(sitter));
+            }
+            for(int i = 0; i < sittersIds.Count; i++)
+            {
+                expectedAllSitters.Add(_mapper.MapSitterRegistModelToSitterGetAllResponse(sitters[i], sittersIds[i]));
+                sittersAuthRequests.Add(_mapper.MapSitterRegistModelToAuthModel(sitters[i]));
+            }
+            foreach (var sitter in sittersAuthRequests)
+            {
+                tokens.Add(_authorization.Authorize(sitter));
             }
             int clientId = _clientSteps.RegisterClient(client);
             tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = client.Email, Password = client.Password }));
             tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = null,Password = null }));
             //tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = ,Password = })); for admin role
-
-            
-            List<SittersGetAllResponse> expectedAllSitters = new List<SittersGetAllResponse>();
-
-            _sitterSteps.GetAllInfoAllSitters(tokenNonAuthorized, expectedAllSitters);
-            _sitterSteps.GetAllInfoAllSitters(tokenSitter0, expectedAllSitters);
-            _sitterSteps.GetAllInfoAllSitters(tokenSitter1, expectedAllSitters);
-            _sitterSteps.GetAllInfoAllSitters(tokenClient, expectedAllSitters);
+            foreach (var token in tokens)
+            {
+                _sitterSteps.GetAllSitters(token, expectedAllSitters);
+            }
         }
     }
 }
