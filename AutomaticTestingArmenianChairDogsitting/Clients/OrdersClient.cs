@@ -66,7 +66,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdateOrderStatusByOrderById(int id, string token, int statusUpdate, HttpStatusCode expectedCode)
+        public void UpdateOrderStatusByOrderId(int id, string token, int statusUpdate, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(statusUpdate);
 
@@ -104,7 +104,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent GetAllInfoCommentByOrderId(int id, string token, HttpStatusCode expectedCode)
+        public HttpContent GetAllInfoCommentsByOrderId(int id, string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);

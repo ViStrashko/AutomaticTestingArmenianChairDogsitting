@@ -14,7 +14,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             _authClient = new AuthClient();
         }
-        public string Authorize(AuthRequestModel authModel)
+        public string AuthorizeTest(AuthRequestModel authModel)
         {
             //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.OK;
