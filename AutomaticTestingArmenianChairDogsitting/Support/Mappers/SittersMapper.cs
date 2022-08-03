@@ -25,14 +25,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
         //}
         public AuthRequestModel MapSitterRegistModelToAuthModel(SitterRegistrationRequestModel sitter)
         {
-            //var config = new MapperConfiguration(cfg => cfg.CreateMap<AuthRequestModel, SitterRegistrationRequestModel>());
-            //Mapper mapper = new Mapper(config);
-            //var responseModel = mapper.Map<AuthRequestModel>(sitter);
-            //return responseModel;
-            AuthRequestModel authRequestModel = new AuthRequestModel();
-            authRequestModel.Email = sitter.Email;
-            authRequestModel.Password = sitter.Password;
-            return authRequestModel;
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<AuthRequestModel, SitterRegistrationRequestModel>().ReverseMap());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<AuthRequestModel>(sitter);
+            return responseModel;
+            //AuthRequestModel authRequestModel = new AuthRequestModel();
+            //authRequestModel.Email = sitter.Email;
+            //authRequestModel.Password = sitter.Password;
+            //return authRequestModel;
         }
         public SittersGetAllResponse MapSitterRegistModelToSitterGetAllResponse(SitterRegistrationRequestModel sitter, int id)
         {

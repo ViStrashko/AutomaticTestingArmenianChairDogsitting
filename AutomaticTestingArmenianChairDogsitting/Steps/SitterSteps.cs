@@ -69,12 +69,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualAllSitters;
 
         }
-        public List<SittersGetAllResponse> GetAllSitters(string token, List<SittersGetAllResponse> expectedAllSitters)
+        public List<SittersGetAllResponse> GetAllSittersTest(string token, List<SittersGetAllResponse> expectedAllSitters)
         {
             HttpContent content = _sittersClient.GetAllInfoAllSitters(token, HttpStatusCode.OK);
             List<SittersGetAllResponse> actualAllSitters = JsonSerializer.Deserialize<List<SittersGetAllResponse>>(content.ReadAsStringAsync().Result)!;
 
-            CollectionAssert.AreEqual(expectedAllSitters, actualAllSitters);
+            CollectionAssert.AreEquivalent(expectedAllSitters, actualAllSitters);
             return actualAllSitters;
         }
     }

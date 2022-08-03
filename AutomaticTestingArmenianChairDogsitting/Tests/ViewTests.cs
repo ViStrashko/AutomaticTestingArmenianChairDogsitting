@@ -27,17 +27,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _mapper = new SittersMapper();
         }
 
-        //[OneTimeSetUp]
-        //public void OneTimeSetUp()
-        //{
-        //    _clearBase.ClearAllBase();
-        //}
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _clearBase.ClearAllBase();
+        }
 
-        //[TearDown]
-        //public void TearDown()
-        //{
-        //    _clearBase.ClearAllBase();
-        //}
+        [TearDown]
+        public void TearDown()
+        {
+            _clearBase.ClearAllBase();
+        }
 
         [TestCaseSource(typeof(GetAllSittes_ByAllRolesTestCaseSource))]
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters, ClientRegistrationRequestModel client)
@@ -61,11 +61,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             }
             //int clientId = _clientSteps.RegisterClient(client);
             //tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = client.Email, Password = client.Password }));
-            //tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = null,Password = null }));
+            tokens.Add(null);
             //tokens.Add(_authorization.Authorize(new AuthRequestModel() { Email = ,Password = })); for admin role
             foreach (var token in tokens)
             {
-                _sitterSteps.GetAllSitters(token, expectedAllSitters);
+                _sitterSteps.GetAllSittersTest(token, expectedAllSitters);
             }
         }
     }
