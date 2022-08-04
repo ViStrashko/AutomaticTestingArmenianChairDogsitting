@@ -120,6 +120,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
 
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterModel, _sitterId);
+            expectedSitter.IsDeleted = true;
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
     }

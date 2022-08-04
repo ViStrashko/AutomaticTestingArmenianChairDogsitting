@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
-using System;
 
 namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
