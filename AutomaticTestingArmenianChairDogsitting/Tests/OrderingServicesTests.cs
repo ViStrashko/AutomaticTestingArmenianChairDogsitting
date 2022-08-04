@@ -24,6 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private int _clientId;
         private int _sitterId;
         private int _animalId;
+        private List<ClientsAnimalsResponseModel> _animals;
         private ClientRegistrationRequestModel _clientModel;
         private SitterRegistrationRequestModel _sitterModel;
         private AnimalRegistrationRequestModel _animalModel;
@@ -37,6 +38,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _authMapper = new AuthMappers();
             _orderMappers = new OrderMappers();
             _animalMappers = new AnimalMappers();
+            _animals = new List<ClientsAnimalsResponseModel>();
         }
 
         [OneTimeSetUp]
@@ -89,6 +91,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 ClientId = _clientId,
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_clientToken, _animalModel);
+            _animals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalModel, _animalId));
+
         }
 
         [TearDown]
@@ -115,12 +119,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             };
             int orderId = _clientSteps.RegisterOrderTest(_clientToken, orderModel);
 
-            ClientsAnimalsResponseModel animal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalModel, _animalId);
-            List<ClientsAnimalsResponseModel> animals = new List<ClientsAnimalsResponseModel>();
-            animals.Add(animal);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderModel, orderId, date, priceCatalog.Price, animals);
+                (orderModel, orderId, date, priceCatalog.Price, _animals);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
 
