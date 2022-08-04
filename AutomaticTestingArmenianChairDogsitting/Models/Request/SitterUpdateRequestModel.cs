@@ -25,11 +25,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("sex")]
         public int Sex { get; set; }
-
-        [JsonPropertyName("email")]
-        public string Email { get; set; }
-
-        [JsonPropertyName("priceCatalog")]
-        public List<PriceCatalogUpdateRequestModel> PriceCatalog { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using NUnit.Framework;
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
+using AutomaticTestingArmenianChairDogsitting.Support;
 
 namespace AutomaticTestingArmenianChairDogsitting.Clients
 {

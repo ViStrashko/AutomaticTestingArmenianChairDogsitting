@@ -32,10 +32,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public string Address { get; set; }
 
         [JsonPropertyName("animals")]
-        public List<AnimalAllInfoResponseModel> Animals { get; set; }
+        public List<ClientsAnimalsResponseModel> Animals { get; set; }
 
         [JsonPropertyName("comments")]
-        public List<CommentAllInfoResponseModel> Comments { get; set; }
+        public List<CommentResponseModel> Comments { get; set; }
 
         [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
@@ -51,8 +51,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
                    Price == model.Price &&
                    Date == model.Date &&
                    Address == model.Address &&
-                   EqualityComparer<List<AnimalAllInfoResponseModel>>.Default.Equals(Animals, model.Animals) &&
-                   EqualityComparer<List<CommentAllInfoResponseModel>>.Default.Equals(Comments, model.Comments) &&
+                   EqualityComparer<List<ClientsAnimalsResponseModel>>.Default.Equals(Animals, model.Animals) &&
+                   EqualityComparer<List<CommentResponseModel>>.Default.Equals(Comments, model.Comments) &&
                    IsDeleted == model.IsDeleted;
         }
     }

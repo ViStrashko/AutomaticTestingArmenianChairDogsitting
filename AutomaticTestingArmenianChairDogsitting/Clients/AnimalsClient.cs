@@ -5,16 +5,18 @@ using System.Text;
 using System.Text.Json;
 using NUnit.Framework;
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
+using AutomaticTestingArmenianChairDogsitting.Support;
 
 namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class AnimalsClient
     {
-        public HttpContent RegisterAnimalToClientProfile(AnimalRegistrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterAnimalToClientProfile(string token, AnimalRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
             HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,

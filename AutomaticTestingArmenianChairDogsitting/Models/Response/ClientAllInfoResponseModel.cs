@@ -28,7 +28,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         public DateTime RegistrationDate { get; set; }
 
         [JsonPropertyName("dogs")]
-        public List<AnimalAllInfoResponseModel> Dogs { get; set; }
+        public List<ClientsAnimalsResponseModel> Dogs { get; set; }
 
         [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
@@ -43,7 +43,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Address == model.Address &&
                    Email == model.Email &&
                    RegistrationDate == model.RegistrationDate &&
-                   EqualityComparer<List<AnimalAllInfoResponseModel>>.Default.Equals(Dogs, model.Dogs) &&
+                   EqualityComparer<List<ClientsAnimalsResponseModel>>.Default.Equals(Dogs, model.Dogs) &&
                    IsDeleted == model.IsDeleted;
         }
     }
