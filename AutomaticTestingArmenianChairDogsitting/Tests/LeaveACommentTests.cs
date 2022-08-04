@@ -74,7 +74,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Sex = 1,
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {

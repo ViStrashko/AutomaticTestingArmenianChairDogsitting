@@ -7,13 +7,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new ClientRegistrationRequestModel()
+            yield return new ClientUpdateRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
-                Email = "petrov@gmail.com",
                 Phone = "+79518741247",
                 Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
             };
         }
     }

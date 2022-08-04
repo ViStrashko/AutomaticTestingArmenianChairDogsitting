@@ -4,6 +4,8 @@ using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using AutomaticTestingArmenianChairDogsitting.Steps;
 using System;
 using System.Collections.Generic;
+using AutomaticTestingArmenianChairDogsitting.Support;
+using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -11,14 +13,54 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
     {
         private Authorizations _authorization;
         private ClientSteps _clientSteps;
+        private ClearingTables _clearingTables;
+        private AuthMappers _authMapper;
+        private AnimalMappers _animalMappers;
+        private string _token;
+        private int _clientId;
+        private ClientRegistrationRequestModel _clientModel;
+
         private SitterSteps _sitterSteps;
 
         public OrderingServicesTests()
         {
             _authorization = new Authorizations();
             _clientSteps = new ClientSteps();
+            _clearingTables = new ClearingTables();
+            _authMapper = new AuthMappers();
+            _animalMappers = new AnimalMappers();
             _sitterSteps = new SitterSteps();
         }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _clearingTables.ClearAllDB();
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            _clientModel = new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Email = "petrov@gmail.com",
+                Phone = "+79514125547",
+                Address = "ул. Итальянская, дом. 10",
+                Password = "12345678",
+            };
+            _clientId = _clientSteps.RegisterClientTest(_clientModel);
+
+            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
+            _token = _authorization.AuthorizeTest(authModel);
+        }
+        [TearDown]
+        public void TearDown()
+        {
+            _clearingTables.ClearAllDB();
+        }
+
 
         [Test]
         public void OrderingServicesWalking_WhenOrderModelIsCorrect_ShouldOrderingServicesWalking()
@@ -74,7 +116,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Sex = 1,
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
@@ -162,7 +204,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Sex = 1,
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
@@ -281,7 +323,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Sex = 1,
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
@@ -380,7 +422,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Sex = 1,
                 Password = "12345678",
             };
-            int sitterId = _sitterSteps.RegisterSitter(sitterModel);
+            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {

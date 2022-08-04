@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient = new SittersClient();
         }
 
-    public int RegisterSitter(SitterRegistrationRequestModel model)
+    public int RegisterSitterTest(SitterRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
@@ -32,18 +32,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return (int)actualId;
         }
 
-        public SitterAllInfoResponseModel GetAllInfoSitterById(int id, string token, SitterAllInfoResponseModel expectedClient)
+        public SitterAllInfoResponseModel GetAllInfoSitterByIdTest(int id, string token, SitterAllInfoResponseModel expectedSitter)
         {
             //When
             HttpContent content = _sittersClient.GetAllInfoSitterById(id, token, HttpStatusCode.OK);
-            SitterAllInfoResponseModel actualClient = JsonSerializer.Deserialize<SitterAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            SitterAllInfoResponseModel actualSitter = JsonSerializer.Deserialize<SitterAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
             //Then
-            Assert.AreEqual(expectedClient, actualClient);
+            Assert.AreEqual(expectedSitter, actualSitter);
 
-            return actualClient;
+            return actualSitter;
         }
 
-        public void UpdateSitterById(int id, string token, SitterUpdateRequestModel model)
+        public void UpdateSitterByIdTest(int id, string token, SitterUpdateRequestModel model)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
@@ -51,7 +51,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.UpdateSitterById(id, token, model, expectedUpdateCode);
         }
 
-        public void DeleteSitterById(int id, string token)
+        public void DeleteSitterByIdTest(int id, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
