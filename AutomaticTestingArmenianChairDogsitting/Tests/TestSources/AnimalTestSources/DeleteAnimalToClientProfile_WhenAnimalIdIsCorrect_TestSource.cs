@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSo
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
-                ClientId = 1,
             };
         }
     }

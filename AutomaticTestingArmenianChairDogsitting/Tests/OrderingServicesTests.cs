@@ -32,14 +32,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = clientModel.Email,
                 Password = clientModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
             {
@@ -50,7 +50,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = clientId,
             };
-            int animalId = _clientSteps.RegisterAnimalToClientProfile(animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
             AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalId,
@@ -72,14 +72,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 1,
-                        Price = 500,
-                    },
-                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -88,15 +80,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 ClienId = clientId,
                 SitterId = sitterId,
-                Type = sitterModel.PriceCatalog[1].Service,
                 Date = DateTime.UtcNow,
                 Address = clientModel.Address,
-                Animals = new List<AnimalRegistrationRequestModel>()
+                Animals = new List<int>()
                 {
-                    animalModel,
+                    animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrder(orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
 
             OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
             {
@@ -105,17 +96,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 SitterId = sitterId,
                 Type = orderModel.Type,
                 Status = 1,
-                Price = sitterModel.PriceCatalog[1].Price,
                 Date = orderModel.Date,
                 Address = orderModel.Address,
-                Animals = new List<AnimalAllInfoResponseModel>()
+                Animals = new List<ClientsAnimalsResponseModel>()
                 {
-                    expectedAnimal,
+                    //expectedAnimal,
                 },
                 Comments = null,
                 IsDeleted = false,
             };
-            _clientSteps.GetAllInfoOrderById(orderId, token, expectedOrder);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
         }
 
         [Test]
@@ -130,14 +120,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = clientModel.Email,
                 Password = clientModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
             {
@@ -148,7 +138,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = clientId,
             };
-            int animalId = _clientSteps.RegisterAnimalToClientProfile(animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
             AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalId,
@@ -170,14 +160,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 1,
-                        Price = 500,
-                    },
-                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -186,33 +168,25 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 ClienId = clientId,
                 SitterId = sitterId,
-                Type = sitterModel.PriceCatalog[1].Service,
                 Date = DateTime.UtcNow,
                 Address = clientModel.Address,
-                Animals = new List<AnimalRegistrationRequestModel>()
+                Animals = new List<int>()
                 {
-                    animalModel,
+                    animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrder(orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
 
             OrderUpdateRequestModel orderUpdateModel = new OrderUpdateRequestModel()
             {
                 Address = "Каменноостровский проспект, дом 10",
                 Date = orderModel.Date,
-                Animals = new List<AnimalUpdateRequestModel>()
+                Animals = new List<int>()
                 {
-                    new AnimalUpdateRequestModel()
-                    {
-                        Name = animalModel.Name,
-                        Age = animalModel.Age,
-                        RecommendationsForCare = animalModel.RecommendationsForCare,
-                        Breed = animalModel.Breed,
-                        Size = animalModel.Size,
-                    },
+                    animalId
                 },
             };
-            _clientSteps.UpdateOrderById(orderId, token, orderUpdateModel);
+            _clientSteps.UpdateOrderByIdTest(orderId, token, orderUpdateModel);
 
             OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
             {
@@ -221,17 +195,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 SitterId = sitterId,
                 Type = orderModel.Type,
                 Status = 1,
-                Price = sitterModel.PriceCatalog[1].Price,
                 Date = orderUpdateModel.Date,
                 Address = orderUpdateModel.Address,
-                Animals = new List<AnimalAllInfoResponseModel>()
+                Animals = new List<ClientsAnimalsResponseModel>()
                 {
-                    expectedAnimal,
+                    //expectedAnimal,
                 },
                 Comments = null,
                 IsDeleted = false,
             };
-            _clientSteps.GetAllInfoOrderById(orderId, token, expectedOrder);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
         }
 
         public void EditingServicesWalking_WhenAddingAnimalAndOrderModelIsCorrect_ShouldEditingServicesWalking()
@@ -245,14 +218,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = clientModel.Email,
                 Password = clientModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
             {
@@ -263,7 +236,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = clientId,
             };
-            int animalId = _clientSteps.RegisterAnimalToClientProfile(animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
             AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalId,
@@ -284,7 +257,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 7,
                 ClientId = clientId,
             };
-            int animalTwoId = _clientSteps.RegisterAnimalToClientProfile(animalTwoModel);
+            int animalTwoId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalTwoModel);
             AnimalAllInfoResponseModel expectedTwoAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalTwoId,
@@ -306,14 +279,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 1,
-                        Price = 500,
-                    },
-                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -322,38 +287,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 ClienId = clientId,
                 SitterId = sitterId,
-                Type = sitterModel.PriceCatalog[1].Service,
                 Date = DateTime.UtcNow,
                 Address = clientModel.Address,
-                Animals = new List<AnimalRegistrationRequestModel>()
+                Animals = new List<int>()
                 {
-                    animalModel,
+                    animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrder(orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
 
             OrderUpdateRequestModel orderUpdateModel = new OrderUpdateRequestModel()
             {
                 Address = orderModel.Address,
                 Date = orderModel.Date,
-                Animals = new List<AnimalUpdateRequestModel>()
+                Animals = new List<int>()
                 {
-                    new AnimalUpdateRequestModel()
-                    {
-                        Name = animalModel.Name,
-                        Age = animalModel.Age,
-                        RecommendationsForCare = animalModel.RecommendationsForCare,
-                        Breed = animalModel.Breed,
-                        Size = animalModel.Size,
-                    },
-                    new AnimalUpdateRequestModel()
-                    {
-                        Name = animalTwoModel.Name,
-                        Age = animalTwoModel.Age,
-                        RecommendationsForCare = animalTwoModel.RecommendationsForCare,
-                        Breed = animalTwoModel.Breed,
-                        Size = animalTwoModel.Size,
-                    },
+                    animalId,
+                    animalTwoId,
                 },
             };
 
@@ -364,18 +314,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 SitterId = sitterId,
                 Type = orderModel.Type,
                 Status = 1,
-                Price = sitterModel.PriceCatalog[1].Price,
                 Date = orderUpdateModel.Date,
                 Address = orderUpdateModel.Address,
-                Animals = new List<AnimalAllInfoResponseModel>()
+                Animals = new List<ClientsAnimalsResponseModel>()
                 {
-                    expectedAnimal,
-                    expectedTwoAnimal,
+                    //expectedAnimal,
+                    //expectedTwoAnimal,
                 },
                 Comments = null,
                 IsDeleted = false,
             };
-            _clientSteps.GetAllInfoOrderById(orderId, token, expectedOrder);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
         }
 
         public void DeleteServicesWalking_WhenOrderIdIsCorrect_ShouldDeleteServicesWalking()
@@ -389,14 +338,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
 
             AuthRequestModel authModel = new AuthRequestModel()
             {
                 Email = clientModel.Email,
                 Password = clientModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
             {
@@ -407,7 +356,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = clientId,
             };
-            int animalId = _clientSteps.RegisterAnimalToClientProfile(animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
             AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalId,
@@ -429,14 +378,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 1,
-                        Price = 500,
-                    },
-                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -445,17 +386,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 ClienId = clientId,
                 SitterId = sitterId,
-                Type = sitterModel.PriceCatalog[1].Service,
                 Date = DateTime.UtcNow,
                 Address = clientModel.Address,
-                Animals = new List<AnimalRegistrationRequestModel>()
+                Animals = new List<int>()
                 {
-                    animalModel,
+                    animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrder(orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
 
-            _clientSteps.DeleteOrderById(orderId, token);
+            _clientSteps.DeleteOrderByIdTest(orderId, token);
 
             OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
             {
@@ -464,17 +404,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 SitterId = sitterId,
                 Type = orderModel.Type,
                 Status = 1,
-                Price = sitterModel.PriceCatalog[1].Price,
                 Date = orderModel.Date,
                 Address = orderModel.Address,
-                Animals = new List<AnimalAllInfoResponseModel>()
+                Animals = new List<ClientsAnimalsResponseModel>()
                 {
-                    expectedAnimal,
+                    //expectedAnimal,
                 },
                 Comments = null,
                 IsDeleted = true,
             };
-            _clientSteps.GetAllInfoOrderById(orderId, token, expectedOrder);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
         }
     }
 }

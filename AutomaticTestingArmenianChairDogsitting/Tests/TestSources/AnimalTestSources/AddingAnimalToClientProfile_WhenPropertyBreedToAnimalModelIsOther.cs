@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSo
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Другая",
                 Size = 35,
-                ClientId = 1,
             };
         }
     }

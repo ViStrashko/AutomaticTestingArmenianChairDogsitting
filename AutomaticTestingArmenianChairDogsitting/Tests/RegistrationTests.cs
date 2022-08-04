@@ -44,14 +44,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrect_TetsSource))]
         public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
         {
-            int clientId = _clientSteps.RegisterClient(clientModel);
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
             var date = DateTime.Now.Date;
 
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientModel, clientId, date);
-            _clientSteps.GetAllInfoClientById(clientId, token, expectedClient);
+            _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
         }
 
         [Test]
@@ -67,29 +67,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Description = "Description",
                 Experience = 10,
                 Sex = 1,
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 1,
-                        Price = 500,
-                    },
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 2,
-                        Price = 700,
-                    },
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 3,
-                        Price = 1000,
-                    },
-                    new PriceCatalogRequestModel()
-                    {
-                        Service = 4,
-                        Price = 1500,
-                    },
-                },
                 Password = "12345678",
             };
             int sitterId = _sitterSteps.RegisterSitter(sitterModel);
@@ -99,7 +76,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Email = sitterModel.Email,
                 Password = sitterModel.Password,
             };
-            string token = _authorization.Authorize(authModel);
+            string token = _authorization.AuthorizeTest(authModel);
 
             SitterAllInfoResponseModel expectedSitter = new SitterAllInfoResponseModel()
             {
@@ -116,29 +93,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 {
                     new PriceCatalogResponseModel()
                     {
-                        Service = sitterModel.PriceCatalog[0].Service,
-                        Price = sitterModel.PriceCatalog[0].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
-                        Service = sitterModel.PriceCatalog[1].Service,
-                        Price = sitterModel.PriceCatalog[1].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
-                        Service = sitterModel.PriceCatalog[2].Service,
-                        Price = sitterModel.PriceCatalog[2].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },
                     new PriceCatalogResponseModel()
                     {
-                        Service = sitterModel.PriceCatalog[3].Service,
-                        Price = sitterModel.PriceCatalog[3].Price,
                         SitterId = sitterId,
                         IsDeleted = false,
                     },
