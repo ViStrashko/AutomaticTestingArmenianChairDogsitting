@@ -140,7 +140,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 },
                 IsDeleted  = false,
             };
-            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
+            _sitterSteps.GetAllSitterInfoById(sitterId, token, expectedSitter);
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 },
                 IsDeleted = true,
             };
-            _sitterSteps.GetAllInfoSitterById(sitterId, token, expectedSitter);
+            _sitterSteps.GetAllSitterInfoById(sitterId, token, expectedSitter);
         }
     }
 }

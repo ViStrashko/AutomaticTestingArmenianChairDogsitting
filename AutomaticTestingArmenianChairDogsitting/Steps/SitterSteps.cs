@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient = new SittersClient();
         }
 
-    public int RegisterSitter(SitterRegistrationRequestModel model)
+        public int RegisterSitter(SitterRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
@@ -29,10 +29,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
-        public SitterAllInfoResponseModel GetAllInfoSitterById(int id, string token, SitterAllInfoResponseModel expectedClient)
+        public SitterAllInfoResponseModel GetAllSitterInfoById(int id, string token, SitterAllInfoResponseModel expectedClient)
         {
             //When
             HttpContent content = _sittersClient.GetAllInfoSitterById(id, token, HttpStatusCode.OK);
@@ -57,6 +57,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
             _sittersClient.DeleteSitterById(id, token, expectedUpdateCode);
+        }
+
+        public void ChangSittersPassword(ChangSitterPasswordRequestModel model, int id, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            _sittersClient.UpdateSittersPassword(model, id, token, expectedUpdateCode);
         }
     }
 }
