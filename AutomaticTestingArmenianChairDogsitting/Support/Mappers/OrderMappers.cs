@@ -9,7 +9,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
     public class OrderMappers
     {
         public OrderAllInfoResponseModel MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-            (OrderRegistrationRequestModel model, int id, DateTime date, decimal price, List<ClientsAnimalsResponseModel> animals)
+            (int id, DateTime date, decimal price, List<ClientsAnimalsResponseModel> animals, OrderRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<OrderRegistrationRequestModel, OrderAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -21,6 +21,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Animals = animals;
             responseModel.Comments = null;
             responseModel.IsDeleted = false;
+            return responseModel;
+        }
+        public OrderUpdateRequestModel MappOrderRegistrationRequestModelToOrderUpdateRequestModel(DateTime date, OrderRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<OrderRegistrationRequestModel, OrderUpdateRequestModel>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<OrderUpdateRequestModel>(model);
+            responseModel.Date = date;
             return responseModel;
         }
     }

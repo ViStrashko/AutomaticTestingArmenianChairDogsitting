@@ -50,7 +50,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = clientId,
             };
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, token);
             AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
             {
                 Id = animalId,
@@ -87,14 +87,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, token);
 
             CommentRegistrationRequestModel commentModel = new CommentRegistrationRequestModel()
             {
                 Rating = 5,
                 Text = "Собачка была под хорошим присмотром, и я не порвала себе сердце от беспокойства за неё.",
             };
-            int commentId = _clientSteps.RegisterCommentToOrderTest(orderId, token, commentModel);
+            int commentId = _clientSteps.RegisterCommentToOrderTest(orderId, commentModel, token);
 
             OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
             {

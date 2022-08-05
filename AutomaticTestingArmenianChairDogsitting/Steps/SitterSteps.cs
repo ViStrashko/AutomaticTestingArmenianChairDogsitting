@@ -43,12 +43,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualSitter;
         }
 
-        public void UpdateSitterByIdTest(int id, string token, SitterUpdateRequestModel model)
+        public void UpdateSitterByIdTest(int id, SitterUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _sittersClient.UpdateSitterById(id, token, model, expectedUpdateCode);
+            _sittersClient.UpdateSitterById(id, model, token, expectedUpdateCode);
         }
 
         public void DeleteSitterByIdTest(int id, string token)

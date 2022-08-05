@@ -6,7 +6,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
     public class SitterMappers
     {
-        public SitterAllInfoResponseModel MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(SitterRegistrationRequestModel model, int id)
+        public SitterAllInfoResponseModel MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(int id, SitterRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SitterAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -17,7 +17,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public SitterAllInfoResponseModel MappSitterUpdateRequestModelToSitterAllInfoResponseModel(SitterUpdateRequestModel model, int id)
+        public SitterAllInfoResponseModel MappSitterUpdateRequestModelToSitterAllInfoResponseModel(int id, SitterUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterUpdateRequestModel, SitterAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);

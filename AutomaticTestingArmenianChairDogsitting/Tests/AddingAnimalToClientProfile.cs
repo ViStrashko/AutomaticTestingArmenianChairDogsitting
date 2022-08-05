@@ -61,24 +61,24 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         public void RegisterAnimalToClientProfile_WhenAnimalModelIsCorrect_ShouldAddingAnimalToClientProfileAddGetAllInfoAnimalById(AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId  = _clientSteps.RegisterAnimalToClientProfileTest(_token, animalModel);
+            int animalId  = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
 
-            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalModel, animalId);
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
 
-            ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalModel, animalId);
+            ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
             _clientSteps.FindAddedAnimalInListTest(_clientId, _token, shortExpectedAnimal);
 
             _clientSteps.FindAddedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
         }
 
-        [TestCaseSource(typeof(AddingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_TestSource))]
-        public void RegisterAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_ShouldGetAllInfoAnimalByIdWithPropertyBreedIsLarge(AnimalRegistrationRequestModel animalModel)
+        [TestCaseSource(typeof(AddingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOtherAndAnimalModelIsCorrect_TestSource))]
+        public void RegisterAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_ShouldAddingAnimalToClientProfileWithPropertyBreedIsLarge(AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(_token, animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
 
-            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalModel, animalId);
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             expectedAnimal.Breed = Options.propertyBreedLarge;
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }
@@ -88,41 +88,41 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             AnimalUpdateRequestModel animalUpdateModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(_token, animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
 
-            _clientSteps.UpdateAnimalByIdTest(animalId, _token, animalUpdateModel);
+            _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
 
-            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(animalUpdateModel, animalId);
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(animalId, animalUpdateModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }
 
-        [TestCaseSource(typeof(EditingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_TestSourse))]
+        [TestCaseSource(typeof(EditingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOtherAndAnimalModelIsCorrect_TestSourse))]
         public void EditingAnimalToClientProfile_WhenPropertyBreedToAnimalModelIsOther_ShouldEditingAnimalToClientProfileWithPropertyBreedIsLarge(AnimalRegistrationRequestModel animalModel,
             AnimalUpdateRequestModel animalUpdateModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(_token, animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
 
-            _clientSteps.UpdateAnimalByIdTest(animalId, _token, animalUpdateModel);
+            _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
 
-            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(animalUpdateModel, animalId);
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(animalId, animalUpdateModel);
             expectedAnimal.Breed = Options.propertyBreedLarge;
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }
 
         [TestCaseSource(typeof(DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_TestSource))]
-        public void DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_ShouldDeleteAnimalToClientProfileAddGetAllInfoAnimalById(AnimalRegistrationRequestModel animalModel)
+        public void DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_ShouldDeleteAnimalFromClientProfileAddGetAllInfoAnimalById(AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(_token, animalModel);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
 
             _clientSteps.DeleteAnimalByIdTest(animalId, _token);
 
-            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalModel, animalId);
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             expectedAnimal.IsDeleted = true;
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
 
-            ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalModel, animalId);
+            ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
             _clientSteps.FindDeletedAnimalInListTest(_clientId, _token, shortExpectedAnimal);
 
             _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);

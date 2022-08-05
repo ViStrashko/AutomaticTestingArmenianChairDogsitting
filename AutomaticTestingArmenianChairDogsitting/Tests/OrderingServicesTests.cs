@@ -20,7 +20,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private OrderMappers _orderMappers;
         private AnimalMappers _animalMappers;
         private string _clientToken;
-        private string _sitterToken;
         private int _clientId;
         private int _sitterId;
         private int _animalId;
@@ -79,7 +78,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
 
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
-            _sitterToken = _authorization.AuthorizeTest(authSitterModel);
+            _authorization.AuthorizeTest(authSitterModel);
 
             _animalModel = new AnimalRegistrationRequestModel()
             {
@@ -90,9 +89,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Size = 5,
                 ClientId = _clientId,
             };
-            _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_clientToken, _animalModel);
-            _animals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalModel, _animalId));
-
+            _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
+            _animals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalId, _animalModel));
         }
 
         [TearDown]
@@ -117,319 +115,154 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                     _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(_clientToken, orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
 
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderModel, orderId, date, priceCatalog.Price, _animals);
+                (orderId, date, priceCatalog.Price, _animals, orderModel);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
 
-        [Test]
-        public void EditingService_WhenChangeAddressAndOrderModelIsCorrect_ShouldEditingServicesAddressToService()
+        [TestCaseSource(typeof(EditingService_WhenChangeOrdersAddressAndOrderModelIsCorrect_TestSource))]
+        public void EditingService_WhenChangeAddressAndOrderModelIsCorrect_ShouldEditingOrdersAddressToService
+            (PriceCatalogResponseModel priceCatalog, OrderUpdateRequestModel orderUpdateCaseModel)
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClientTest(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.AuthorizeTest(authModel);
-
-            AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
-            {
-                Name = "Шарик",
-                Age = 1,
-                RecommendationsForCare = "Играть осторожно",
-                Breed = "Доберман",
-                Size = 5,
-                ClientId = clientId,
-            };
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
-            AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
-            {
-                Id = animalId,
-                Name = animalModel.Name,
-                Age = animalModel.Age,
-                RecommendationsForCare = animalModel.RecommendationsForCare,
-                Breed = animalModel.Breed,
-                Size = animalModel.Size,
-                IsDeleted = false,
-            };
-
-            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
-            {
-                Name = "Валера",
-                LastName = "Пет",
-                Email = "pet@gmail.com",
-                Phone = "+79514125547",
-                Age = 20,
-                Description = "Description",
-                Experience = 10,
-                Sex = 1,
-                Password = "12345678",
-            };
-            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
-
+            var date = DateTime.Now;
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
-                ClienId = clientId,
-                SitterId = sitterId,
-                Date = DateTime.UtcNow,
-                Address = clientModel.Address,
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                Type = priceCatalog.Service,
+                Date = date,
+                Address = _clientModel.Address,
                 Animals = new List<int>()
                 {
-                    animalId,
+                    _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
 
-            OrderUpdateRequestModel orderUpdateModel = new OrderUpdateRequestModel()
-            {
-                Address = "Каменноостровский проспект, дом 10",
-                Date = orderModel.Date,
-                Animals = new List<int>()
-                {
-                    animalId
-                },
-            };
-            _clientSteps.UpdateOrderByIdTest(orderId, token, orderUpdateModel);
+            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
+                (date, orderModel);
+            orderUpdateModel.Address = orderUpdateCaseModel.Address;
+            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
 
-            OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
-            {
-                Id = orderId,
-                ClienId = clientId,
-                SitterId = sitterId,
-                Type = orderModel.Type,
-                Status = 1,
-                Date = orderUpdateModel.Date,
-                Address = orderUpdateModel.Address,
-                Animals = new List<ClientsAnimalsResponseModel>()
-                {
-                    //expectedAnimal,
-                },
-                Comments = null,
-                IsDeleted = false,
-            };
-            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, priceCatalog.Price, _animals, orderModel);
+            expectedOrder.Address = orderUpdateCaseModel.Address;
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
 
-        public void EditingService_WhenAddingAnimalToServiceAndOrderModelIsCorrect_ShouldAddingAnimalToService()
+        [TestCaseSource(typeof(EditingService_WhenChangeOrdersDateAndOrderModelIsCorrect_TestSource))]
+        public void EditingService_WhenChangeDateAndOrderModelIsCorrect_ShouldEditingOrdersDateToService
+    (PriceCatalogResponseModel priceCatalog, OrderUpdateRequestModel orderUpdateCaseModel)
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClientTest(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.AuthorizeTest(authModel);
-
-            AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
-            {
-                Name = "Шарик",
-                Age = 1,
-                RecommendationsForCare = "Играть осторожно",
-                Breed = "Доберман",
-                Size = 5,
-                ClientId = clientId,
-            };
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
-            AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
-            {
-                Id = animalId,
-                Name = animalModel.Name,
-                Age = animalModel.Age,
-                RecommendationsForCare = animalModel.RecommendationsForCare,
-                Breed = animalModel.Breed,
-                Size = animalModel.Size,
-                IsDeleted = false,
-            };
-
-            AnimalRegistrationRequestModel animalTwoModel = new AnimalRegistrationRequestModel()
-            {
-                Name = "Мистер главный",
-                Age = 2,
-                RecommendationsForCare = "Мыть лапы тщательно",
-                Breed = "Доберман",
-                Size = 7,
-                ClientId = clientId,
-            };
-            int animalTwoId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalTwoModel);
-            AnimalAllInfoResponseModel expectedTwoAnimal = new AnimalAllInfoResponseModel()
-            {
-                Id = animalTwoId,
-                Name = animalTwoModel.Name,
-                Age = animalTwoModel.Age,
-                RecommendationsForCare = animalTwoModel.RecommendationsForCare,
-                Breed = animalTwoModel.Breed,
-                Size = animalTwoModel.Size,
-                IsDeleted = false,
-            };
-
-            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
-            {
-                Name = "Валера",
-                LastName = "Пет",
-                Email = "pet@gmail.com",
-                Phone = "+79514125547",
-                Age = 20,
-                Description = "Description",
-                Experience = 10,
-                Sex = 1,
-                Password = "12345678",
-            };
-            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
-
+            var date = DateTime.Now;
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
-                ClienId = clientId,
-                SitterId = sitterId,
-                Date = DateTime.UtcNow,
-                Address = clientModel.Address,
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                Type = priceCatalog.Service,
+                Date = date,
+                Address = _clientModel.Address,
                 Animals = new List<int>()
                 {
-                    animalId,
+                    _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
 
-            OrderUpdateRequestModel orderUpdateModel = new OrderUpdateRequestModel()
-            {
-                Address = orderModel.Address,
-                Date = orderModel.Date,
-                Animals = new List<int>()
-                {
-                    animalId,
-                    animalTwoId,
-                },
-            };
+            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
+                (orderUpdateCaseModel.Date, orderModel);
+            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
 
-            OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
-            {
-                Id = orderId,
-                ClienId = clientId,
-                SitterId = sitterId,
-                Type = orderModel.Type,
-                Status = 1,
-                Date = orderUpdateModel.Date,
-                Address = orderUpdateModel.Address,
-                Animals = new List<ClientsAnimalsResponseModel>()
-                {
-                    //expectedAnimal,
-                    //expectedTwoAnimal,
-                },
-                Comments = null,
-                IsDeleted = false,
-            };
-            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, orderUpdateCaseModel.Date, priceCatalog.Price, _animals, orderModel);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
 
-        public void DeleteService_WhenOrderIdIsCorrect_ShouldDeleteService()
+        [TestCaseSource(typeof(EditingService_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_TestSource))]
+        public void EditingService_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_ShouldAddingAnimalToService
+            (PriceCatalogResponseModel priceCatalog, AnimalRegistrationRequestModel animalCaseModel)
         {
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Email = "petrov@gmail.com",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Password = "12345678",
-            };
-            int clientId = _clientSteps.RegisterClientTest(clientModel);
-
-            AuthRequestModel authModel = new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password,
-            };
-            string token = _authorization.AuthorizeTest(authModel);
-
-            AnimalRegistrationRequestModel animalModel = new AnimalRegistrationRequestModel()
-            {
-                Name = "Шарик",
-                Age = 1,
-                RecommendationsForCare = "Играть осторожно",
-                Breed = "Доберман",
-                Size = 5,
-                ClientId = clientId,
-            };
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(token, animalModel);
-            AnimalAllInfoResponseModel expectedAnimal = new AnimalAllInfoResponseModel()
-            {
-                Id = animalId,
-                Name = animalModel.Name,
-                Age = animalModel.Age,
-                RecommendationsForCare = animalModel.RecommendationsForCare,
-                Breed = animalModel.Breed,
-                Size = animalModel.Size,
-                IsDeleted = false,
-            };
-
-            SitterRegistrationRequestModel sitterModel = new SitterRegistrationRequestModel()
-            {
-                Name = "Валера",
-                LastName = "Пет",
-                Email = "pet@gmail.com",
-                Phone = "+79514125547",
-                Age = 20,
-                Description = "Description",
-                Experience = 10,
-                Sex = 1,
-                Password = "12345678",
-            };
-            int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
+            var date = DateTime.Now;
+            animalCaseModel.ClientId = _clientId;
+            int animalCaseId = _clientSteps.RegisterAnimalToClientProfileTest(animalCaseModel, _clientToken);
 
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
-                ClienId = clientId,
-                SitterId = sitterId,
-                Date = DateTime.UtcNow,
-                Address = clientModel.Address,
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                Type = priceCatalog.Service,
+                Date = date,
+                Address = _clientModel.Address,
                 Animals = new List<int>()
                 {
-                    animalId,
+                    _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(token, orderModel);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
 
-            _clientSteps.DeleteOrderByIdTest(orderId, token);
+            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
+                (date, orderModel);
+            orderUpdateModel.Animals.Add(animalCaseId);
+            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
 
-            OrderAllInfoResponseModel expectedOrder = new OrderAllInfoResponseModel()
+            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalCaseId, animalCaseModel);
+            _clientSteps.FindAddedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
+        }
+
+        [TestCaseSource(typeof(EditingService_WhenAnimalIdIsCorrectAndOrderModelIsCorrect_TestSource))]
+        public void EditingService_WhenAnimalIdIsCorrectAndOrderModelIsCorrect_ShouldDeletedAnimalFromService
+            (PriceCatalogResponseModel priceCatalog)
+        {
+            var date = DateTime.Now;
+            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
-                Id = orderId,
-                ClienId = clientId,
-                SitterId = sitterId,
-                Type = orderModel.Type,
-                Status = 1,
-                Date = orderModel.Date,
-                Address = orderModel.Address,
-                Animals = new List<ClientsAnimalsResponseModel>()
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                Type = priceCatalog.Service,
+                Date = date,
+                Address = _clientModel.Address,
+                Animals = new List<int>()
                 {
-                    //expectedAnimal,
-                },
-                Comments = null,
-                IsDeleted = true,
+                    _animalId,
+                }
             };
-            _clientSteps.GetAllInfoOrderByIdTest(orderId, token, expectedOrder);
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
+
+            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
+                (date, orderModel);
+            orderUpdateModel.Animals.Remove(_animalId);
+            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
+
+            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalId, _animalModel);
+            _clientSteps.FindDeletedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
+        }
+
+        [TestCaseSource(typeof(DeleteService_WhenOrderIdIsCorrect_TestSource))]
+        public void DeleteService_WhenOrderIdIsCorrect_ShouldDeleteService(PriceCatalogResponseModel priceCatalog)
+        {
+            var date = DateTime.Now;
+            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                Type = priceCatalog.Service,
+                Date = date,
+                Address = _clientModel.Address,
+                Animals = new List<int>()
+                {
+                    _animalId,
+                }
+            };
+            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
+
+            _clientSteps.DeleteOrderByIdTest(orderId, _clientToken);
+
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, priceCatalog.Price, _animals, orderModel);
+            expectedOrder.IsDeleted = true;
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
     }
 }

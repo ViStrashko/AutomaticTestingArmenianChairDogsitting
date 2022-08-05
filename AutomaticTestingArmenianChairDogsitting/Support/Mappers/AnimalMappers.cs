@@ -6,7 +6,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
     public class AnimalMappers
     {
-        public AnimalAllInfoResponseModel MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(AnimalRegistrationRequestModel model, int id)
+        public AnimalAllInfoResponseModel MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(int id, AnimalRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<AnimalRegistrationRequestModel, AnimalAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -15,7 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.IsDeleted = false;
             return responseModel;
         }
-        public AnimalAllInfoResponseModel MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(AnimalUpdateRequestModel model, int id)
+        public AnimalAllInfoResponseModel MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel(int id, AnimalUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<AnimalUpdateRequestModel, AnimalAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -25,7 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public ClientsAnimalsResponseModel MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(AnimalRegistrationRequestModel model, int id)
+        public ClientsAnimalsResponseModel MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(int id, AnimalRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<AnimalRegistrationRequestModel, ClientsAnimalsResponseModel>());
             Mapper mapper = new Mapper(config);
