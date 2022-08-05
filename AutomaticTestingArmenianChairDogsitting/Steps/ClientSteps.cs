@@ -50,12 +50,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualClient;
         }
 
-        public void UpdateClientByIdTest(int id, string token, ClientUpdateRequestModel model)
+        public void UpdateClientByIdTest(int id, ClientUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _clientsClient.UpdateClientById(id, token, model, expectedUpdateCode);
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdateCode);
         }
 
         public void DeleteClientByIdTest(int id, string token)
@@ -66,12 +66,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.DeleteClientById(id, token, expectedUpdateCode);
         }
 
-        public int RegisterAnimalToClientProfileTest(string token, AnimalRegistrationRequestModel model)
+        public int RegisterAnimalToClientProfileTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
-            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(token, model, expectedRegistrationCode);
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
@@ -137,12 +137,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualAnimals;
         }
 
-        public void UpdateAnimalByIdTest(int id, string token, AnimalUpdateRequestModel model)
+        public void UpdateAnimalByIdTest(int id, AnimalUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _animalsClient.UpdateAnimalById(id, token, model, expectedUpdateCode);
+            _animalsClient.UpdateAnimalById(id, model, token, expectedUpdateCode);
         }
 
         public void DeleteAnimalByIdTest(int id, string token)
@@ -153,12 +153,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.DeleteAnimalById(id, token, expectedUpdateCode);
         }
 
-        public int RegisterOrderTest(string token, OrderRegistrationRequestModel model)
+        public int RegisterOrderTest(OrderRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
-            HttpContent content = _ordersClient.RegisterOrder(token, model, expectedRegistrationCode);
+            HttpContent content = _ordersClient.RegisterOrder(model, token, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
@@ -178,12 +178,36 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualOrder;
         }
 
-        public int RegisterCommentToOrderTest(int id, string token, CommentRegistrationRequestModel model)
+        public List<ClientsAnimalsResponseModel> FindAddedAnimalInOrderTest(int id, string token, ClientsAnimalsResponseModel expectedAnimal)
+        {
+            //When
+            HttpContent content = _ordersClient.GetAllInfoOrderById(id, token, HttpStatusCode.OK);
+            OrderAllInfoResponseModel actualOrder = JsonSerializer.Deserialize<OrderAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            List<ClientsAnimalsResponseModel> actualAnimals = actualOrder.Animals;
+            //Then
+            CollectionAssert.Contains(actualAnimals, expectedAnimal);
+
+            return actualAnimals;
+        }
+        public List<ClientsAnimalsResponseModel> FindDeletedAnimalInOrderTest(int id, string token, ClientsAnimalsResponseModel expectedAnimal)
+        {
+            //When
+            HttpContent content = _ordersClient.GetAllInfoOrderById(id, token, HttpStatusCode.OK);
+            OrderAllInfoResponseModel actualOrder = JsonSerializer.Deserialize<OrderAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            List<ClientsAnimalsResponseModel> actualAnimals = actualOrder.Animals;
+            //Then
+            CollectionAssert.DoesNotContain(actualAnimals, expectedAnimal);
+
+            return actualAnimals;
+        }
+
+
+        public int RegisterCommentToOrderTest(int id, CommentRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
-            HttpContent content = _ordersClient.RegisterCommentToOrder(id, token, model, expectedRegistrationCode);
+            HttpContent content = _ordersClient.RegisterCommentToOrder(id, model, token, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
@@ -213,20 +237,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualComments;
         }
 
-        public void UpdateOrderStatusByOrderIdTest(int id, string token, int ststusUpdate, OrderUpdateRequestModel model)
+        public void UpdateOrderStatusByOrderIdTest(int id, int ststusUpdate, string token, OrderUpdateRequestModel model)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _ordersClient.UpdateOrderStatusByOrderId(id, token, ststusUpdate, expectedUpdateCode);
+            _ordersClient.UpdateOrderStatusByOrderId(id, ststusUpdate, token, expectedUpdateCode);
         }
 
-        public void UpdateOrderByIdTest(int id, string token, OrderUpdateRequestModel model)
+        public void UpdateOrderByIdTest(int id, OrderUpdateRequestModel model,  string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _ordersClient.UpdateOrderById(id, token, model, expectedUpdateCode);
+            _ordersClient.UpdateOrderById(id, model, token, expectedUpdateCode);
         }
 
         public void DeleteOrderByIdTest(int id, string token)

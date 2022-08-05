@@ -12,5 +12,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             var requestModel = mapper.Map<AuthRequestModel>(model);
             return requestModel;
         }
+
+        public AuthRequestModel MappSitterRegistrationRequestModelToAuthRequestModel(SitterRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, AuthRequestModel>());
+            Mapper mapper = new Mapper(config);
+            var requestModel = mapper.Map<AuthRequestModel>(model);
+            return requestModel;
+        }
+
     }
 }

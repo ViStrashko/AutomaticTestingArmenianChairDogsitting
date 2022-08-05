@@ -1,9 +1,8 @@
-﻿using AutomaticTestingArmenianChairDogsitting.Models.Response;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AutomaticTestingArmenianChairDogsitting.Models.Request
+namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
     public class OrderAllInfoResponseModel
     {

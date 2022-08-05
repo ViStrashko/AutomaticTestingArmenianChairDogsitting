@@ -11,7 +11,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class AnimalsClient
     {
-        public HttpContent RegisterAnimalToClientProfile(string token, AnimalRegistrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterAnimalToClientProfile(AnimalRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -65,7 +65,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateAnimalById(int id, string token, AnimalUpdateRequestModel model, HttpStatusCode expectedCode)
+        public void UpdateAnimalById(int id, AnimalUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 

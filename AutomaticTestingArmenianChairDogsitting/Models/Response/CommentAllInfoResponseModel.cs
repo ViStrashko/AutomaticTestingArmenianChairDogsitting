@@ -13,16 +13,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("text")]
         public string Text { get; set; }
 
-        [JsonPropertyName("isDeleted")]
-        public bool IsDeleted { get; set; }
-
         public override bool Equals(object? obj)
         {
             return obj is CommentAllInfoResponseModel model &&
                    Id == model.Id &&
                    Rating == model.Rating &&
-                   Text == model.Text &&
-                   IsDeleted == model.IsDeleted;
+                   Text == model.Text;
         }
     }
 }

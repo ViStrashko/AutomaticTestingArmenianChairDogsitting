@@ -47,7 +47,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateClientById(int id, string token, ClientUpdateRequestModel model, HttpStatusCode expectedCode)
+        public void UpdateClientById(int id, ClientUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
