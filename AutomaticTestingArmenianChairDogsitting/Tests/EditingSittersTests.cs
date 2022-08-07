@@ -1,34 +1,22 @@
-﻿using NUnit.Framework;
-using AutomaticTestingArmenianChairDogsitting.Models.Request;
-using AutomaticTestingArmenianChairDogsitting.Models.Response;
+﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Steps;
-using System;
-using System.Collections.Generic;
 using AutomaticTestingArmenianChairDogsitting.Support;
-using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
-using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources;
+using NUnit.Framework;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
     public class EditingSittersTests
     {
         private Authorizations _authorization;
-        private ClientSteps _clientSteps;
         private SitterSteps _sitterSteps;
         private ClearingTables _clearingTables;
-        private AuthMappers _authMapper;
-        private ClientMappers _clientMappers;
-        private ClientRegistrationRequestModel _clientModel;
 
 
         public EditingSittersTests()
         {
             _authorization = new Authorizations();
-            _clientSteps = new ClientSteps();
             _sitterSteps = new SitterSteps();
             _clearingTables = new ClearingTables();
-            _authMapper = new AuthMappers();
-            _clientMappers = new ClientMappers();
         }
 
         [OneTimeSetUp]
@@ -77,7 +65,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             //изменение пароля 
             ChangSitterPasswordRequestModel changSitterPasswordRequestModel = new ChangSitterPasswordRequestModel()
             {
-                Password = "829381923",
+                Password = "82938192",
                 OldPassword = model.Password
             };
             _sitterSteps.ChangSittersPassword(changSitterPasswordRequestModel, id, token);
@@ -88,6 +76,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             //проверить что можно авторизоваться 
             authRequest.Password = changSitterPasswordRequestModel.Password;
             _authorization.AuthorizeTest(authRequest);
+        }
+
+        public void Vsesitter()
+        {
+
         }
     }
 }
