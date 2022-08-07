@@ -1,12 +1,6 @@
-﻿using NUnit.Framework;
-using AutomaticTestingArmenianChairDogsitting.Models.Request;
+﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Clients;
-using System;
 using System.Net;
-using System.Net.Http;
-using AutomaticTestingArmenianChairDogsitting.Models.Response;
-using System.Text.Json;
-using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Steps
 {

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources
 {
-    public class ClientCreationNegativeTest_WhenClientsPropertyPasswordAndEmailIncorrectFormat_TetsSource : IEnumerable
+    public class ClientCreationNegativeTest_WhenClientsPropertyPhoneAndEmailIncorrectFormat_TetsSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -29,7 +29,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 Name = "Вася",
                 LastName = "Петров",
-                Phone = "asdfghjklzxc",
+                Phone = "asdfghjklqwe",
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
