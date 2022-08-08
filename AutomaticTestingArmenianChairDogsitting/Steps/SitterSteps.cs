@@ -29,7 +29,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
         public SitterAllInfoResponseModel GetAllInfoSitterByIdTest(int id, string token, SitterAllInfoResponseModel expectedSitter)
@@ -57,6 +57,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
             _sittersClient.DeleteSitterById(id, token, expectedDeleteCode);
+        }
+
+        public void ChangeSittersPassword(int id, ChangePasswordRequestModel model, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            _sittersClient.UpdateSittersPassword(id, model, token, expectedUpdateCode);
         }
     }
 }

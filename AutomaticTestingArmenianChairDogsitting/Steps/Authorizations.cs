@@ -42,5 +42,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //When
             _authClient.Authorize(authModel, expectedAuthCode);
         }
+
+        public void AuthorizeTest_WhenLoginOrPasswordIsNotCorrect_ThenServerReturn422HttpCode(AuthRequestModel authModel)
+        {
+            //Given
+            HttpStatusCode expectedAuthCode = HttpStatusCode.UnprocessableEntity;
+            //When
+            _authClient.Authorize(authModel, expectedAuthCode);
+        }
     }
 }
