@@ -15,6 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
             responseModel.Dogs = null;
+            responseModel.Orders = null;
             responseModel.IsDeleted = false;
             return responseModel;
         }
@@ -27,6 +28,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
             responseModel.Dogs = null;
+            responseModel.Orders = null;
             responseModel.IsDeleted = false;
             return responseModel;
         }

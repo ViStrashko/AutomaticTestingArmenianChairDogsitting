@@ -19,6 +19,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new AuthRequestModel()
             {
+                Email = "",
+                Password = "",
+            };
+            yield return new AuthRequestModel()
+            {
                 Email = "petrovgmail.com",
                 Password = "12345678",
             };
@@ -30,7 +35,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             yield return new AuthRequestModel()
             {
                 Email = "petrov@gmail.com",
-                Password = "12345",
+                Password = "1234567",
+            };
+            yield return new AuthRequestModel()
+            {
+                Email = "petrov@gmail.com",
+                Password = "1",
             };
         }
     }

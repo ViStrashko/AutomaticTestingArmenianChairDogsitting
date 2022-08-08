@@ -15,6 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrovgmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -24,6 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -33,7 +35,38 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
-            };            
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Phone = "+7951412554a",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Phone = "+795<>?!@#$%",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Phone = "+795;:&*^-.,",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
         }
     }
 }

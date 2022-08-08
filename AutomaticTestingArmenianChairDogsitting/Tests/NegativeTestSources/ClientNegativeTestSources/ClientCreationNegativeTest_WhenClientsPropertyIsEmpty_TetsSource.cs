@@ -15,6 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -24,6 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -33,6 +35,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -42,6 +45,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -51,6 +55,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -60,6 +65,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "",
+                LastName = "",
+                Phone = "",
+                Address = "",
+                Email = "",
+                Password = "",
+                Promocode = "F85KY0UN"
             };
         }
     }

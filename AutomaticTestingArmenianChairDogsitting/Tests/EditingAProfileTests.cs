@@ -53,6 +53,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
 

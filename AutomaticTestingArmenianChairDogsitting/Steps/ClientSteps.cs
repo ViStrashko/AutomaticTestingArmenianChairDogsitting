@@ -189,6 +189,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
             return actualAnimals;
         }
+
         public List<ClientsAnimalsResponseModel> FindDeletedAnimalInOrderTest(int id, string token, ClientsAnimalsResponseModel expectedAnimal)
         {
             //When
@@ -201,6 +202,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualAnimals;
         }
 
+        public List<OrderAllInfoResponseModel> FindAddedOrderInClientTest(int id, string token, OrderAllInfoResponseModel expectedOrder)
+        {
+            //When
+            HttpContent content = _clientsClient.GetAllInfoClientById(id, token, HttpStatusCode.OK);
+            ClientAllInfoResponseModel actualClient = JsonSerializer.Deserialize<ClientAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            List<OrderAllInfoResponseModel> actualOrders = actualClient.Orders;
+            //Then
+            CollectionAssert.Contains(actualOrders, expectedOrder);
+
+            return actualOrders;
+        }
+
+        public List<OrderAllInfoResponseModel> FindDeletedOrderInClientTest(int id, string token, OrderAllInfoResponseModel expectedOrder)
+        {
+            //When
+            HttpContent content = _clientsClient.GetAllInfoClientById(id, token, HttpStatusCode.OK);
+            ClientAllInfoResponseModel actualClient = JsonSerializer.Deserialize<ClientAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            List<OrderAllInfoResponseModel> actualOrders = actualClient.Orders;
+            //Then
+            CollectionAssert.DoesNotContain(actualOrders, expectedOrder);
+
+            return actualOrders;
+        }
 
         public int RegisterCommentToOrderTest(int id, CommentRegistrationRequestModel model, string token)
         {

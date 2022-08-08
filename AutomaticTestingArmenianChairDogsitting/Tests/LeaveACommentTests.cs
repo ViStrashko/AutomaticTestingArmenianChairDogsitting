@@ -80,9 +80,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 ClienId = clientId,
                 SitterId = sitterId,
-                Date = DateTime.UtcNow,
+                WorkDate = DateTime.UtcNow,
                 Address = clientModel.Address,
-                Animals = new List<int>()
+                AnimalIds = new List<int>()
                 {
                     animalId,
                 }
@@ -103,7 +103,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 SitterId = sitterId,
                 Type = orderModel.Type,
                 Status = 1,
-                Date = orderModel.Date,
+                WorkDate = orderModel.WorkDate,
                 Address = orderModel.Address,
                 Animals = new List<ClientsAnimalsResponseModel>()
                 {
