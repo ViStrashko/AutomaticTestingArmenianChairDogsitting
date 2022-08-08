@@ -26,5 +26,45 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //When
             _clientsClient.RegisterClient(model, expectedRegistrationCode);
         }
+
+        public void EditingClientsPropertyNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.UnprocessableEntity;
+            //When
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
+        }
+
+        public void EditingProfileByIncorrecUserIdNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.BadRequest;
+            //When
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
+        }
+
+        public void DeleteProfileByIncorrecUserIdNegativeTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.BadRequest;
+            //When
+            _clientsClient.DeleteClientById(id, token, expectedDeletedCode);
+        }
+
+        public void EditingAlienProfileByCorrectUserIdNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Forbidden;
+            //When
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
+        }
+
+        public void DeleteAlienProfileByCorrectUserIdNegativeTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.Forbidden;
+            //When
+            _clientsClient.DeleteClientById(id, token, expectedDeletedCode);
+        }
     }
 }

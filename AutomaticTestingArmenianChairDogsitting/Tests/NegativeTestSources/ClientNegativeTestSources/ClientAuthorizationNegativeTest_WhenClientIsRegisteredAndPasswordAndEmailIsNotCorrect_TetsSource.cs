@@ -121,7 +121,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                     Password = "1",
                 }
             };
-
             yield return new object[]
             {
                 new ClientRegistrationRequestModel()
