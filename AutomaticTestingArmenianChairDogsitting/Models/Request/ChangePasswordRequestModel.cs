@@ -2,7 +2,7 @@
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class ChangeSitterPasswordRequestModel
+    public class ChangePasswordRequestModel
     {
         [JsonPropertyName("password")]
         public string Password { get; set; }

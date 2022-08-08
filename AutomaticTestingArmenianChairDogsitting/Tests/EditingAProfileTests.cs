@@ -6,6 +6,7 @@ using System;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources;
+using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.SitterTestSources;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -123,6 +124,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
             expectedSitter.IsDeleted = true;
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
+        }
+
+        [TestCaseSource(typeof(ChangingPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_TestSource))]
+        public void ChangingPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_ShouldChangingPasswordByProfile
+            (ChangePasswordRequestModel changePasswordModel)
+        {
+            changePasswordModel.OldPassword = _sitterModel.Password;
+            _sitterSteps.ChangeSittersPassword(_sitterId, changePasswordModel, _sitterToken);
+
+            AuthRequestModel authRequest = new AuthRequestModel();
+            authRequest.Email = _sitterModel.Email;
+            authRequest.Password = _sitterModel.Password;
+            _authorization.AuthorizeTest_WhenLoginOrPasswordIsNotCorrect_ThenServerReturn422HttpCode(authRequest);
+
+            authRequest.Password = changePasswordModel.Password;
+            _authorization.AuthorizeTest(authRequest);
         }
     }
 }
