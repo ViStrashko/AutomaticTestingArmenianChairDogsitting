@@ -1,9 +1,8 @@
-﻿using AutomaticTestingArmenianChairDogsitting.Models.Response;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace AutomaticTestingArmenianChairDogsitting.Models.Request
+namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
     public class OrderAllInfoResponseModel
     {
@@ -25,8 +24,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
 
-        [JsonPropertyName("date")]
-        public DateTime Date { get; set; }
+        [JsonPropertyName("workDate")]
+        public DateTime WorkDate { get; set; }
+
+        [JsonPropertyName("dateUpdated")]
+        public DateTime DateUpdated { get; set; }
 
         [JsonPropertyName("address")]
         public string Address { get; set; }
@@ -49,7 +51,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
                    Type == model.Type &&
                    Status == model.Status &&
                    Price == model.Price &&
-                   Date == model.Date &&
+                   WorkDate == model.WorkDate &&
+                   DateUpdated == model.DateUpdated &&
                    Address == model.Address &&
                    EqualityComparer<List<ClientsAnimalsResponseModel>>.Default.Equals(Animals, model.Animals) &&
                    EqualityComparer<List<CommentResponseModel>>.Default.Equals(Comments, model.Comments) &&

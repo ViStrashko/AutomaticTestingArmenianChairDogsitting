@@ -11,7 +11,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
     public class OrdersClient
     {
-        public HttpContent RegisterOrder(string token, OrderRegistrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterOrder(OrderRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -48,7 +48,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateOrderById(int id, string token, OrderUpdateRequestModel model, HttpStatusCode expectedCode)
+        public void UpdateOrderById(int id, OrderUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -66,7 +66,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdateOrderStatusByOrderId(int id, string token, int statusUpdate, HttpStatusCode expectedCode)
+        public void UpdateOrderStatusByOrderId(int id, int statusUpdate, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(statusUpdate);
 
@@ -84,7 +84,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public HttpContent RegisterCommentToOrder(int id, string token, CommentRegistrationRequestModel comment, HttpStatusCode expectedCode)
+        public HttpContent RegisterCommentToOrder(int id, CommentRegistrationRequestModel comment, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(comment);
 

@@ -21,5 +21,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("password")]
         public string Password { get; set; }
+
+        [JsonPropertyName("promocode")]
+        public string Promocode { get; set; }
     }
 }

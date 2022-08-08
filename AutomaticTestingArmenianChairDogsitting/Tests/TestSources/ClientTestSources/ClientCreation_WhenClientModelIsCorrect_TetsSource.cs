@@ -11,10 +11,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
             {
                 Name = "Вася",
                 LastName = "Петров",
-                Email = "petrov@gmail.com",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
         }
     }

@@ -15,13 +15,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("type")]
         public int Type { get; set; }
 
-        [JsonPropertyName("date")]
-        public DateTime Date { get; set; }
+        [JsonPropertyName("workDate")]
+        public DateTime WorkDate { get; set; }
 
         [JsonPropertyName("address")]
         public string Address { get; set; }
 
-        [JsonPropertyName("animals")]
-        public List<int> Animals { get; set; }
+        [JsonPropertyName("animalIds")]
+        public List<int> AnimalIds { get; set; }
     }
 }

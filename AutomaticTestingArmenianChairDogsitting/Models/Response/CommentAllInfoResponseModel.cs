@@ -7,6 +7,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
+        [JsonPropertyName("orderId")]
+        public int OrderId { get; set; }
+
         [JsonPropertyName("rating")]
         public int Rating { get; set; }
 
@@ -14,12 +17,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         public string Text { get; set; }
 
         [JsonPropertyName("isDeleted")]
-        public bool IsDeleted { get; set; }
+        public int IsDeleted { get; set; }
 
         public override bool Equals(object? obj)
         {
             return obj is CommentAllInfoResponseModel model &&
                    Id == model.Id &&
+                   OrderId == model.OrderId &&
                    Rating == model.Rating &&
                    Text == model.Text &&
                    IsDeleted == model.IsDeleted;

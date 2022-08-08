@@ -7,7 +7,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
     public class ClientMappers
     {
-        public ClientAllInfoResponseModel MappClientRegistrationRequestModelToClientAllInfoResponseModel(ClientRegistrationRequestModel model, int id, DateTime date)
+        public ClientAllInfoResponseModel MappClientRegistrationRequestModelToClientAllInfoResponseModel(int id, DateTime date, ClientRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ClientAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -15,11 +15,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
             responseModel.Dogs = null;
+            responseModel.Orders = null;
             responseModel.IsDeleted = false;
             return responseModel;
         }
 
-        public ClientAllInfoResponseModel MappClientUpdateRequestModelToClientAllInfoResponseModel(ClientUpdateRequestModel model, int id, DateTime date)
+        public ClientAllInfoResponseModel MappClientUpdateRequestModelToClientAllInfoResponseModel(int id, DateTime date, ClientUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientUpdateRequestModel, ClientAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
@@ -27,7 +28,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
             responseModel.Dogs = null;
+            responseModel.Orders = null;
             responseModel.IsDeleted = false;
+            return responseModel;
+        }
+
+        public ClientUpdateRequestModel MappClientRegistrationRequestModelToClientUpdateRequestModel(ClientRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ClientUpdateRequestModel>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<ClientUpdateRequestModel>(model);
             return responseModel;
         }
     }
