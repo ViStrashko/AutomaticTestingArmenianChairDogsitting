@@ -14,16 +14,28 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
-                Password = "12345",
+                Password = "1234567",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
-                Phone = "+795141255",
+                Phone = "+79514125547",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "1",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Phone = "+7951412554",
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             yield return new ClientRegistrationRequestModel()
             {
@@ -33,6 +45,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
         }
     }

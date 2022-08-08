@@ -15,6 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
         }
     }

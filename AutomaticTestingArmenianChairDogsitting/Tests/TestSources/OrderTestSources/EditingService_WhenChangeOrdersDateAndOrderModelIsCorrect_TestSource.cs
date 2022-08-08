@@ -19,7 +19,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.OrderTestSou
                 },
                 new OrderUpdateRequestModel()
                 {
-                    Date = date.AddDays(1),
+                    WorkDate = date.AddDays(1),
                 }
             };
         }
