@@ -55,6 +55,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
         }
 
+        [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrectAndPromocodeIsEmpty_TetsSource))]
+        public void ClientCreation_WhenClientModelIsCorrectAndPromocodeIsEmpty_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
+        {
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
+            var date = DateTime.Now.Date;
+
+            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
+            string token = _authorization.AuthorizeTest(authModel);
+
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientId, date, clientModel);
+            _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
+        }
+
+
         [TestCaseSource(typeof(SitterCreation_WhenSitterModelIsCorrect_TetsSource))]
         public void SitterCreation_WhenSitterModelIsCorrect_ShouldCreateSitter(SitterRegistrationRequestModel sitterModel)
         {

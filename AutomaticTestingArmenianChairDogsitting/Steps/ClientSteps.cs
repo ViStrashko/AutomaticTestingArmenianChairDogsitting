@@ -61,9 +61,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void DeleteClientByIdTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _clientsClient.DeleteClientById(id, token, expectedUpdateCode);
+            _clientsClient.DeleteClientById(id, token, expectedDeleteCode);
         }
 
         public int RegisterAnimalToClientProfileTest(AnimalRegistrationRequestModel model, string token)
@@ -148,9 +148,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void DeleteAnimalByIdTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _animalsClient.DeleteAnimalById(id, token, expectedUpdateCode);
+            _animalsClient.DeleteAnimalById(id, token, expectedDeleteCode);
         }
 
         public int RegisterOrderTest(OrderRegistrationRequestModel model, string token)
@@ -280,17 +280,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void DeleteOrderByIdTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _ordersClient.DeleteOrderById(id, token, expectedUpdateCode);
+            _ordersClient.DeleteOrderById(id, token, expectedDeleteCode);
         }
 
         public void DeleteCommentByIdTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _commentsClient.DeleteCommentById(id, token, expectedUpdateCode);
+            _commentsClient.DeleteCommentById(id, token, expectedDeleteCode);
         }
     }
 }
