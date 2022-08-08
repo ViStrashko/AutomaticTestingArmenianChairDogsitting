@@ -30,6 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         {
             
         }
+
         [TearDown]
         public void TearDown()
         {
@@ -39,7 +40,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [Test]
         public void ChangingPasswordTest()
         {
-            //зарегистрировать ситтера
             SitterRegistrationRequestModel model = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -54,7 +54,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             };
             int id = _sitterSteps.RegisterSitter(model);
 
-            //авторизация
             AuthRequestModel authRequest = new AuthRequestModel()
             {
                 Email = model.Email,
@@ -62,25 +61,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             };
             string token = _authorization.AuthorizeTest(authRequest);
 
-            //изменение пароля 
-            ChangSitterPasswordRequestModel changSitterPasswordRequestModel = new ChangSitterPasswordRequestModel()
+            ChangeSitterPasswordRequestModel changeSitterPasswordRequestModel = new ChangeSitterPasswordRequestModel()
             {
                 Password = "82938192",
                 OldPassword = model.Password
             };
-            _sitterSteps.ChangSittersPassword(changSitterPasswordRequestModel, id, token);
-
-            //проверить что нельзя зайти под старым паролем
+            _sitterSteps.ChangeSittersPassword(changeSitterPasswordRequestModel, id, token);
             _authorization.AuthorizeTest_WhenLoginOrPasswordIsNotCorrect_ThenServerReturn422HttpCode(authRequest);
 
-            //проверить что можно авторизоваться 
-            authRequest.Password = changSitterPasswordRequestModel.Password;
+            authRequest.Password = changeSitterPasswordRequestModel.Password;
             _authorization.AuthorizeTest(authRequest);
-        }
-
-        public void Vsesitter()
-        {
-
         }
     }
 }

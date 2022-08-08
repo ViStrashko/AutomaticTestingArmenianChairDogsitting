@@ -80,7 +80,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdateSittersPassword(ChangSitterPasswordRequestModel model, int id, string token, HttpStatusCode expectedCode)
+        public void UpdateSittersPassword(ChangeSitterPasswordRequestModel model, int id, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -89,7 +89,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Patch,
-                RequestUri = new System.Uri($"{Urls.Sitters}/{id}/password"),
+                RequestUri = new System.Uri($"{Urls.Sitters}/{id}/password"),//?
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
