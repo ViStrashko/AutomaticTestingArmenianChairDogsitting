@@ -53,5 +53,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    EqualityComparer<List<PriceCatalogResponseModel>>.Default.Equals(PriceCatalog, model.PriceCatalog) &&
                    IsDeleted == model.IsDeleted;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name} {LastName} {Phone} {Age} {Experience} {Description} {Sex} {Email} {IsDeleted}";
+        }
     }
 }
