@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Text.Json;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
@@ -43,6 +44,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualSitter;
         }
 
+        public List<SitterAllInfoResponseModel> GetAllInfoAllSittersTest(string token, List<SitterAllInfoResponseModel> expectedSitters)
+        {
+            List<SitterAllInfoResponseModel> actualSitters = new List<SitterAllInfoResponseModel>();
+            HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
+            actualSitters = JsonSerializer.Deserialize<List<SitterAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.AreEquivalent(expectedSitters, actualSitters);
+
+            return actualSitters;
+        }
         public void UpdateSitterByIdTest(int id, SitterUpdateRequestModel model, string token)
         {
             //Given
