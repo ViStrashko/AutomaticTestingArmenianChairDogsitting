@@ -43,20 +43,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters, ClientRegistrationRequestModel client)
         {
             List<SitterAllInfoResponseModel> expectedSitters = new List<SitterAllInfoResponseModel>();
-            string clientToken;
-            string sitterToken;
-            string adminToken;
-            string anonimToken;
             foreach( var sitter in sitters)
             {
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
                 expectedSitters.Add(_sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter));
             }
             int clientId = _clientSteps.RegisterClientTest(client);
-            clientToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = client.Email, Password = client.Password });
-            sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
-            adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
-            anonimToken = null;
+            string clientToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = client.Email, Password = client.Password });
+            string sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
+            string adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
+            string anonimToken = null;
             _sitterSteps.GetAllInfoAllSittersTest(anonimToken, expectedSitters);
             _sitterSteps.GetAllInfoAllSittersTest(clientToken, expectedSitters);
             _sitterSteps.GetAllInfoAllSittersTest(sitterToken, expectedSitters);
