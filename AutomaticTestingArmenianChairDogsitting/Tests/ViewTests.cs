@@ -16,6 +16,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private SitterSteps _sitterSteps;
         private ClearingTables _clearingTables;
         private SitterMappers _sitterMappers;
+        private string _anonimToken;
+        private string _adminToken;
+        private string _clientToken;
 
         public ViewTests()
         {
@@ -30,6 +33,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         public void OneTimeSetUp()
         {
             _clearingTables.ClearAllDB();
+            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
+            _anonimToken = null;
+            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
+            {
+                Name = "Вася",
+                LastName = "Петров",
+                Email = "petrov@gmail.com",
+                Phone = "+79514125547",
+                Address = "ул. Итальянская, дом. 10",
+                Password = "12345678",
+            };
+            int clientId = _clientSteps.RegisterClientTest(clientModel);
+            _clientToken = _authorization.AuthorizeTest(new AuthRequestModel()
+            {
+                Email = clientModel.Email,
+                Password = clientModel.Password
+            });
         }
 
         [TearDown]
@@ -40,7 +60,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
         [Test]
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
-        public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters, ClientRegistrationRequestModel client)
+        public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters)
         {
             List<SitterAllInfoResponseModel> expectedSitters = new List<SitterAllInfoResponseModel>();
             foreach( var sitter in sitters)
@@ -48,15 +68,39 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
                 expectedSitters.Add(_sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter));
             }
-            int clientId = _clientSteps.RegisterClientTest(client);
-            string clientToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = client.Email, Password = client.Password });
             string sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
-            string adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
-            string anonimToken = null;
-            _sitterSteps.GetAllInfoAllSittersTest(anonimToken, expectedSitters);
-            _sitterSteps.GetAllInfoAllSittersTest(clientToken, expectedSitters);
+            _sitterSteps.GetAllInfoAllSittersTest(_anonimToken, expectedSitters);
+            _sitterSteps.GetAllInfoAllSittersTest(_clientToken, expectedSitters);
             _sitterSteps.GetAllInfoAllSittersTest(sitterToken, expectedSitters);
-            _sitterSteps.GetAllInfoAllSittersTest(adminToken, expectedSitters);
+            _sitterSteps.GetAllInfoAllSittersTest(_adminToken, expectedSitters);
         }
+
+        [Test]
+        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
+        public void GetAllInfoAboutSitter_ByAnonim_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        {
+            int sitterId = _sitterSteps.RegisterSitterTest(sitter);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _anonimToken, expectedSitter);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
+        public void GetAllInfoAboutSitter_ByClient_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        {
+            int sitterId = _sitterSteps.RegisterSitterTest(sitter);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _clientToken, expectedSitter);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
+        public void GetAllInfoAboutSitter_ByAdmin_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        {
+            int sitterId = _sitterSteps.RegisterSitterTest(sitter);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _adminToken, expectedSitter);
+        }
+
     }
 }
