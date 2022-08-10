@@ -33,5 +33,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             return responseModel;
         }
+
+        public AnimalUpdateRequestModel MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(AnimalRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<AnimalRegistrationRequestModel, AnimalUpdateRequestModel>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<AnimalUpdateRequestModel>(model);
+            return responseModel;
+        }
     }
 }

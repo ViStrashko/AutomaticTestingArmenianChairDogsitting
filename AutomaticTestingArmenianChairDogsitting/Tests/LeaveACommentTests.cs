@@ -55,10 +55,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             {
                 Id = animalId,
                 Name = animalModel.Name,
-                Age = animalModel.Age,
+                //Age = animalModel.Age,
                 RecommendationsForCare = animalModel.RecommendationsForCare,
                 Breed = animalModel.Breed,
-                Size = animalModel.Size,
+                //Size = animalModel.Size,
                 IsDeleted = false,
             };
 

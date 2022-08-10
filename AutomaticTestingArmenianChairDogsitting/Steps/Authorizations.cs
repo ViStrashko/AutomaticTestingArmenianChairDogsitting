@@ -27,7 +27,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualToken;
         }
 
-        public void AuthorizeWhenPasswordAndEmailIsNotCorrectNegativeTest(AuthRequestModel authModel)
+        public void AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(AuthRequestModel authModel)
         {
             //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.UnprocessableEntity;
@@ -39,14 +39,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.Unauthorized;
-            //When
-            _authClient.Authorize(authModel, expectedAuthCode);
-        }
-
-        public void AuthorizeTest_WhenLoginOrPasswordIsNotCorrect_ThenServerReturn422HttpCode(AuthRequestModel authModel)
-        {
-            //Given
-            HttpStatusCode expectedAuthCode = HttpStatusCode.UnprocessableEntity;
             //When
             _authClient.Authorize(authModel, expectedAuthCode);
         }

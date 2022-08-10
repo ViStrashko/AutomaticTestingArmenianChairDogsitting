@@ -8,7 +8,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public string Name { get; set; }
 
         [JsonPropertyName("age")]
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         [JsonPropertyName("recommendationsForCare")]
         public string RecommendationsForCare { get; set; }
@@ -17,6 +17,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public string Breed { get; set; }
 
         [JsonPropertyName("size")]
-        public int Size { get; set; }
+        public int? Size { get; set; }
     }
 }

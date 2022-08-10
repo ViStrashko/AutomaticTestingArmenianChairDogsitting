@@ -131,12 +131,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             (ChangePasswordRequestModel changePasswordModel)
         {
             changePasswordModel.OldPassword = _sitterModel.Password;
-            _sitterSteps.ChangeSittersPassword(_sitterId, changePasswordModel, _sitterToken);
+            _sitterSteps.ChangeSittersPasswordTest(_sitterId, changePasswordModel, _sitterToken);
 
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;
             authRequest.Password = _sitterModel.Password;
-            _authorization.AuthorizeTest_WhenLoginOrPasswordIsNotCorrect_ThenServerReturn422HttpCode(authRequest);
+            _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authRequest);
 
             authRequest.Password = changePasswordModel.Password;
             _authorization.AuthorizeTest(authRequest);

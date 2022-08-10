@@ -4,6 +4,7 @@ using AutomaticTestingArmenianChairDogsitting.Steps;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
+using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnimalNegativeTestSources;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -115,6 +116,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         //Clients
+        //Client endpoints
         [TestCaseSource(typeof(EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyIsEmpty_TestSource))]
         public void EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyIsEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
             (ClientUpdateRequestModel clientUpdateModel)
@@ -137,47 +139,100 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         [Test]
-        public void EditingClientProfileNegativeTest_WhenUpdatedClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest()
+        public void EditingClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
         {
-            var updatedClientId = _clientId + 100;
             ClientUpdateRequestModel clientUpdateModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_clientModel);
-            _clientNegativeSteps.EditingProfileByIncorrecUserIdNegativeTest(updatedClientId, clientUpdateModel, _clientToken);
+            _clientNegativeSteps.EditingClientProfileByClientIdNegativeTest(_alienClientId, clientUpdateModel, _clientToken);
         }
 
         [Test]
-        public void DeleteClientProfileNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest()
+        public void DeleteClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
         {
-            var deletedClientId = _clientId + 100;
-            _clientNegativeSteps.DeleteProfileByIncorrecUserIdNegativeTest(deletedClientId, _clientToken);
+            _clientNegativeSteps.DeleteClientProfileByClientIdNegativeTest(_alienClientId, _clientToken);
         }
 
         [Test]
-        public void EditingSomeoneElsesClientProfileByClientNegativeTest_WhenClientIdIsCorrect_ShouldGetHttpStatusCodeForbidden()
+        public void AddingNewClientProfileNegativeTest_WhenAlreadyHaveClientProfile_ShouldGetHttpStatusCodeForbidden()
         {
-            ClientUpdateRequestModel _alienUpdatedClientModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_alienClientModel);
-            _clientNegativeSteps.EditingAlienProfileByCorrectUserIdNegativeTest(_alienClientId, _alienUpdatedClientModel, _clientToken);
+            _clientNegativeSteps.AddingNewClientProfileWhenAlreadyHaveClientProfileNegativeTest(_clientToken, _alienClientModel);
         }
 
         [Test]
-        public void EditingSomeoneElsesClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest()
+        public void GetClientProfilesNegativeTest_WhenAlreadyHaveClientProfile_ShouldGetHttpStatusCodeNotFound()
         {
-            var updatedClientId = _alienClientId + 100;
-            ClientUpdateRequestModel _alienUpdatedClientModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_alienClientModel);
-            _clientNegativeSteps.EditingProfileByIncorrecUserIdNegativeTest(updatedClientId, _alienUpdatedClientModel, _clientToken);
+            _clientNegativeSteps.GetClientProfilesNegativeTest(_clientToken);
         }
 
         [Test]
-        public void DeleteSomeoneElsesClientProfileByClientNegativeTest_WhenClientIdIsCorrect_ShouldGetHttpStatusCodeForbidden()
+        public void GetClientProfileByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound()
         {
-            _clientNegativeSteps.DeleteAlienProfileByCorrectUserIdNegativeTest(_alienClientId, _clientToken);
+            _clientNegativeSteps.GetClientProfileByClientIdNegativeTest(_alienClientId, _clientToken);
         }
 
         [Test]
-        public void DeleteSomeoneElsesClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest()
+        public void RestoringClientProfileByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
         {
-            var deletedClientId = _alienClientId + 100;
-            _clientNegativeSteps.DeleteAlienProfileByCorrectUserIdNegativeTest(deletedClientId, _clientToken);
+            _clientNegativeSteps.RestoringClientProfileByClientByIdNegativeTest(_alienClientId, _clientToken);
         }
+
+        //Animal endpoints
+        [TestCaseSource(typeof(RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_TestSource))]
+        public void RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            _clientNegativeSteps.RegisterAnimalWhenAnimalsPropertyEmptyNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(RegisterAnimalToClientProfileNegativeTest_WhenClientIdIsNotCorrect_TestSource))]
+        public void RegisterAnimalToClientProfileNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId + 100;
+            _clientNegativeSteps.RegisterAnimalWhenClientIdIsNotCorrectNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_TestSource))]
+        public void EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        public void EditingAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            _clientNegativeSteps.EditingAnimalWhenAnimalIdIsNotCorrectNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(DeleteAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        public void DeleteAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            _clientNegativeSteps.DeleteAnimalWhenAnimalIdIsNotCorrectNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(GetAnimalByAnimalIdNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        public void GetAnimalByAnimalIdNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound
+            (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            _clientNegativeSteps.GetAnimalWhenAnimalIdIsNotCorrectNegativeTest(model, _clientToken);
+        }
+
+        [TestCaseSource(typeof(GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_TestSource))]
+        public void GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound
+    (AnimalRegistrationRequestModel model)
+        {
+            model.ClientId = _clientId;
+            var _newClientId = _clientId + 100;
+            _clientNegativeSteps.GetAnimalsWhenClientIdIsNotCorrectNegativeTest(_newClientId, model, _clientToken);
+        }
+
 
         //Sitters
     }
