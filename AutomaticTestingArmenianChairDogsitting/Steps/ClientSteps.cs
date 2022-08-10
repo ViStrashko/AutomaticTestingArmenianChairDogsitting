@@ -36,7 +36,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
         public ClientAllInfoResponseModel GetAllInfoClientByIdTest(int id, string token, ClientAllInfoResponseModel expectedClient)
@@ -77,7 +77,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
         public AnimalAllInfoResponseModel GetAllInfoAnimalByIdTest(int id, string token, AnimalAllInfoResponseModel expectedAnimal)
@@ -164,7 +164,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
         public OrderAllInfoResponseModel GetAllInfoOrderByIdTest(int id, string token, OrderAllInfoResponseModel expectedOrder)
@@ -237,7 +237,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            return (int)actualId;
+            return actualId;
         }
 
         public List<CommentAllInfoResponseModel> FindAddedCommentByOrderIdTest(int id, string token, CommentAllInfoResponseModel expectedComment)

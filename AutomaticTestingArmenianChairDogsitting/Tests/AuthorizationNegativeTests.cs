@@ -44,7 +44,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             (ClientRegistrationRequestModel clientModel, AuthRequestModel authModel)
         {
             _clientSteps.RegisterClientTest(clientModel);
-            _authorization.AuthorizeWhenPasswordAndEmailIsNotCorrectNegativeTest(authModel);
+            _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authModel);
         }
 
         [TestCaseSource(typeof(ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsCorrect_TetsSource))]
@@ -58,7 +58,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         public void ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsNotCorrect_ShouldGetHttpStatusCodeUnauthorized
             (AuthRequestModel authModel)
         {
-            _authorization.AuthorizeWhenPasswordAndEmailIsNotCorrectNegativeTest(authModel);
+            _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authModel);
         }
     }
 }
