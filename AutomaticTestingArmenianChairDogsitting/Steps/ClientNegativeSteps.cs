@@ -91,7 +91,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.RestoringClientProfileByClientById(id, token, expectedCode);
         }
 
-        public void RegisterAnimalWhenAnimalsPropertyEmptyNegativeTest(AnimalRegistrationRequestModel model, string token)
+        public void RegisterAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
@@ -107,7 +107,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
         }
 
-        public void EditingAnimalWhenAnimalsPropertyEmptyNegativeTest(AnimalRegistrationRequestModel model, string token)
+        public void EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdatedCode = HttpStatusCode.UnprocessableEntity;

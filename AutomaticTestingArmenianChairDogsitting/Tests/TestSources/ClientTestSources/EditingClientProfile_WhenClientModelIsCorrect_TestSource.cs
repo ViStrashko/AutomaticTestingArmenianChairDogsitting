@@ -13,7 +13,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 LastName = "Петров",
                 Phone = "+79518741247",
                 Address = "ул. Итальянская, дом. 10",
-                Email = "petrov@gmail.com",
             };
         }
     }

@@ -13,7 +13,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
-                Email = "petrov@gmail.com",
             };
             yield return new ClientUpdateRequestModel()
             {
@@ -21,7 +20,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 LastName = "",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
-                Email = "petrov@gmail.com",
             };
             yield return new ClientUpdateRequestModel()
             {
@@ -29,7 +27,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 LastName = "Петров",
                 Phone = "",
                 Address = "ул. Итальянская, дом. 10",
-                Email = "petrov@gmail.com",
             };
             yield return new ClientUpdateRequestModel()
             {
@@ -37,15 +34,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "",
-                Email = "petrov@gmail.com",
-            };
-            yield return new ClientUpdateRequestModel()
-            {
-                Name = "Вася",
-                LastName = "Петров",
-                Phone = "+79514125547",
-                Address = "ул. Итальянская, дом. 10",
-                Email = "",
             };
             yield return new ClientUpdateRequestModel()
             {
@@ -53,7 +41,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 LastName = "",
                 Phone = "",
                 Address = "",
-                Email = "",
             };
         }
     }
