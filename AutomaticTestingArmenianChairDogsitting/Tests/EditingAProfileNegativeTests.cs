@@ -124,7 +124,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientNegativeSteps.EditingClientsPropertyNegativeTest(_clientId, clientUpdateModel, _clientToken);
         }
 
-        [TestCaseSource(typeof(EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyPhoneAndEmailIncorrectFormat_TestSource))]
+        [TestCaseSource(typeof(EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyPhoneIncorrectFormat_TestSource))]
         public void EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyPhoneAndEmailIncorrectFormat_ShouldGetHttpStatusCodeUnprocessableEntity
             (ClientUpdateRequestModel clientUpdateModel)
         {
@@ -176,12 +176,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         //Animal endpoints
-        [TestCaseSource(typeof(RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_TestSource))]
-        public void RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
+        [TestCaseSource(typeof(RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_TestSource))]
+        public void RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_ShouldGetHttpStatusCodeUnprocessableEntity
             (AnimalRegistrationRequestModel model)
         {
             model.ClientId = _clientId;
-            _clientNegativeSteps.RegisterAnimalWhenAnimalsPropertyEmptyNegativeTest(model, _clientToken);
+            _clientNegativeSteps.RegisterAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(model, _clientToken);
         }
 
         [TestCaseSource(typeof(RegisterAnimalToClientProfileNegativeTest_WhenClientIdIsNotCorrect_TestSource))]
@@ -192,12 +192,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientNegativeSteps.RegisterAnimalWhenClientIdIsNotCorrectNegativeTest(model, _clientToken);
         }
 
-        [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_TestSource))]
-        public void EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
+        [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_TestSource))]
+        public void EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_ShouldGetHttpStatusCodeUnprocessableEntity
             (AnimalRegistrationRequestModel model)
         {
             model.ClientId = _clientId;
-            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyNegativeTest(model, _clientToken);
+            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(model, _clientToken);
         }
 
         [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
