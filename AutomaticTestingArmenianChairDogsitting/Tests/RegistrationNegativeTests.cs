@@ -3,6 +3,7 @@ using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Steps;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
+using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.SitterNegativeTestSources;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -10,11 +11,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
     {
         private ClientNegativeSteps _clientNegativeSteps;
         private ClearingTables _clearingTables;
+        private SitterSteps _sitterSteps;
 
         public RegistrationNegativeTests()
         {
             _clientNegativeSteps = new ClientNegativeSteps();
             _clearingTables = new ClearingTables();
+            _sitterSteps = new SitterSteps();
         }
 
         [OneTimeSetUp]
@@ -48,6 +51,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             (ClientRegistrationRequestModel clientModel)
         {
             _clientNegativeSteps.RegisterClientNegativeTest(clientModel);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(SitterRegistrationWrongModelNegativeTestSources))]
+        public void SitterCreationNegativeTest_WhenModelIsNotCorrect_ShouldReturnHttpStatusCodeUnprocessableEntity
+            (SitterRegistrationRequestModel sitter)
+        {
+            _sitterSteps.RegisterSitterNegativeTest(sitter);
         }
     }
 }
