@@ -19,7 +19,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient = new SittersClient();
         }
 
-    public int RegisterSitterTest(SitterRegistrationRequestModel model)
+        public int RegisterSitterTest(SitterRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
@@ -31,6 +31,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.IsTrue(actualId > 0);
 
             return actualId;
+        }
+
+        public void RegisterSitterNegativeTest(SitterRegistrationRequestModel sitter)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.UnprocessableEntity;
+            _sittersClient.RegisterSitter(sitter, expectedCode);
         }
 
         public SitterAllInfoResponseModel GetAllInfoSitterByIdTest(int id, string token, SitterAllInfoResponseModel expectedSitter)
