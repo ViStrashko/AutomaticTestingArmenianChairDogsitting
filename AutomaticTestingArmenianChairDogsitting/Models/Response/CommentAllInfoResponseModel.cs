@@ -16,8 +16,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("text")]
         public string Text { get; set; }
 
+        [JsonPropertyName("isClient")]
+        public bool IsClient { get; set; }
+
         [JsonPropertyName("isDeleted")]
-        public int IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -26,6 +29,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    OrderId == model.OrderId &&
                    Rating == model.Rating &&
                    Text == model.Text &&
+                   IsClient == model.IsClient &&
                    IsDeleted == model.IsDeleted;
         }
     }
