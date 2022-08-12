@@ -130,6 +130,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             CommentAllInfoResponseModel expectedComment = _commentMapper.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
 
+            _clientSteps.DeleteCommentByIdTest(commentId, _clientToken);
+
             _clientSteps.FindDeletedCommentByOrderIdTest(_orderId, _clientToken, expectedComment);
         }
     }

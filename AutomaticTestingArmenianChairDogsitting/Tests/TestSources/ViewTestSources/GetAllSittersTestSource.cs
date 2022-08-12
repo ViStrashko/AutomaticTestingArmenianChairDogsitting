@@ -1,4 +1,5 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
+using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,7 +21,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Age = 20,
                     Experience = 10,
                     Sex = 1,
-                    Description = "Description"
+                    Description = "Description",
+                    PriceCatalog = new List<PriceCatalogResponseModel>()
+                    {
+                        new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -32,7 +37,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Age = 20,
                     Experience = 10,
                     Sex = 1,
-                    Description = "Description"
+                    Description = "Description",
+                    PriceCatalog = new List<PriceCatalogResponseModel>()
+                    {
+                        new PriceCatalogResponseModel() { Service = 1, Price = 600 },
+                    }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -44,7 +53,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Age = 20,
                     Experience = 10,
                     Sex = 1,
-                    Description = "Description"
+                    Description = "Description",
+                    PriceCatalog = new List<PriceCatalogResponseModel>()
+                    {
+                        new PriceCatalogResponseModel() { Service = 1, Price = 700 },
+                    }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -56,13 +69,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Age = 20,
                     Experience = 10,
                     Sex = 1,
-                    Description = "Description"
+                    Description = "Description",
+                    PriceCatalog = new List<PriceCatalogResponseModel>()
+                    {
+                        new PriceCatalogResponseModel() { Service = 1, Price = 800 },
+                    }
                 }
             };
-
             yield return sitters;
         }
-
     }
     public class GetAllInfoSitterTestSource : IEnumerable
     {
@@ -78,7 +93,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 Age = 20,
                 Experience = 10,
                 Sex = 1,
-                Description = "Description"
+                Description = "Description",
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel() { Service = 1, Price = 900 },
+                }
             };
         }
     }

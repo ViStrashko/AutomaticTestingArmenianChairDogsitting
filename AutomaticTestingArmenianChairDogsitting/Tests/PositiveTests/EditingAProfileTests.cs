@@ -113,6 +113,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
 
+        [Test]
+        public void RestoringClientProfileByClientIdNegativeTest_WhenClientIdIsCorrect_ShouldRestoringClientProfile()
+        {
+            var date = DateTime.Now.Date;
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
+                (_clientId, date, _clientModel);
+            _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
+
+            _clientSteps.FindDeletedClientProfileInListTest(_clientToken, expectedClient);
+
+            _clientSteps.RestoringClientProfileByClientByIdTest(_clientId, _clientToken);
+
+            _clientSteps.FindAddedClientProfileInListTest(_clientToken, expectedClient);
+        }
+
         [TestCaseSource(typeof(EditingSitterProfile_WhenSitterModelIsCorrect_TestSource))]
         public void EditingSitterProfile_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
