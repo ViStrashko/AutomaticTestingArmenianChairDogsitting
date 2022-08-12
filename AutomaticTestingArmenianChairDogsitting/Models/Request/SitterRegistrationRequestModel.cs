@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using AutomaticTestingArmenianChairDogsitting.Models.Response;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
@@ -30,5 +32,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("password")]
         public string Password { get; set; }
+
+        [JsonPropertyName("priceCatalog")]
+        public List<PriceCatalogResponseModel> PriceCatalog { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {LastName} {Phone} {Age} {Experience} {Description} {Sex} {Email} {Password}";
+        }
     } 
 }

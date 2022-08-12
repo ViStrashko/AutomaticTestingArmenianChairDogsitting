@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             yield return new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
-                Age = null,
+                Age = 0,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
@@ -45,23 +45,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
-                Size = null,
+                Size = 0,
             };
             yield return new AnimalRegistrationRequestModel()
             {
                 Name = "",
-                Age = null,
+                Age = 0,
                 RecommendationsForCare = "",
                 Breed = "",
-                Size = null,
-            };
-            yield return new AnimalRegistrationRequestModel()
-            {
-                Name = "Шарик",
-                Age = 1,
-                RecommendationsForCare = "Играть осторожно",
-                Breed = "Доберман",
-                Size = -1,
+                Size = 0,
             };
             yield return new AnimalRegistrationRequestModel()
             {
@@ -77,15 +69,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
-                Size = 0,
+                Size = 10,
             };
             yield return new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
-                Age = 0,
+                Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
-                Size = 5,
+                Size = -10,
+            };
+            yield return new AnimalRegistrationRequestModel()
+            {
+                Name = "Шарик",
+                Age = 1,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 6,
             };
         }
     }
