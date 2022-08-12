@@ -1,5 +1,7 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
+using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources
 {
@@ -18,6 +20,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                }
             };
         }
     }
