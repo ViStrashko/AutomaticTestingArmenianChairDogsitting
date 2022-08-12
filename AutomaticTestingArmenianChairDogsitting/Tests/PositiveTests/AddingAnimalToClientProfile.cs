@@ -52,6 +52,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _token = _authorization.AuthorizeTest(authModel);
         }
+
         [TearDown]
         public void TearDown()
         {
