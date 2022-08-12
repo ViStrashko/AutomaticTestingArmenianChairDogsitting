@@ -24,6 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private string _sitterToken;
         private int _clientId;
         private int _sitterId;
+        private string _adminToken;
         private ClientRegistrationRequestModel _clientModel;
         private SitterRegistrationRequestModel _sitterModel;
 
@@ -82,6 +83,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
+
+            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
         }
 
         [TearDown]
@@ -123,7 +126,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
             _clientSteps.FindDeletedClientProfileInListTest(_clientToken, expectedClient);
 
-            _clientSteps.RestoringClientProfileByClientByIdTest(_clientId, _clientToken);
+            _clientSteps.RestoringClientProfileByClientByIdTest(_clientId, _adminToken);
 
             _clientSteps.FindAddedClientProfileInListTest(_clientToken, expectedClient);
         }
