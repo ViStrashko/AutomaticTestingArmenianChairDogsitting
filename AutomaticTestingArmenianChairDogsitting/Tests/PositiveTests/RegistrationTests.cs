@@ -51,7 +51,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
             string token = _authorization.AuthorizeTest(authModel);
 
-            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(clientId, date, clientModel);
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
+                (clientId, date, clientModel);
             _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
         }
 
@@ -63,7 +64,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             AuthRequestModel authModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(sitterModel);
             string token = _authorization.AuthorizeTest(authModel);
 
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitterModel);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
+                (sitterId, sitterModel);
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, token, expectedSitter);
         }
     }

@@ -20,13 +20,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public ClientAllInfoResponseModel MappClientUpdateRequestModelToClientAllInfoResponseModel(int id, DateTime date, ClientUpdateRequestModel model)
+        public ClientAllInfoResponseModel MappClientUpdateRequestModelToClientAllInfoResponseModel
+            (int id, DateTime date, string email, ClientUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientUpdateRequestModel, ClientAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<ClientAllInfoResponseModel>(model);
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
+            responseModel.Email = email;
             responseModel.Dogs = null;
             responseModel.Orders = null;
             responseModel.IsDeleted = false;

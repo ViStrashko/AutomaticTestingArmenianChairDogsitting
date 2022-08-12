@@ -7,6 +7,7 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.SitterTestSources;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -72,6 +73,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
 
@@ -91,7 +96,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.UpdateClientByIdTest(_clientId, clientUpdateModel, _clientToken);
             var date = DateTime.Now.Date;
 
-            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel(_clientId, date, clientUpdateModel);
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel
+                (_clientId, date, _clientModel.Email, clientUpdateModel);
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
 
@@ -101,7 +107,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
             var date = DateTime.Now.Date;
 
-            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel(_clientId, date, _clientModel);
+            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
+                (_clientId, date, _clientModel);
             expectedClient.IsDeleted = true;
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
@@ -111,8 +118,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         {
             _sitterSteps.UpdateSitterByIdTest(_sitterId, sitterUpdateModel, _sitterToken);
 
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel(_sitterId, sitterUpdateModel);
-            expectedSitter.Email = _sitterModel.Email;
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel
+                (_sitterId, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
 
@@ -121,7 +128,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         {
             _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
 
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
+                (_sitterId, _sitterModel);
             expectedSitter.IsDeleted = true;
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }

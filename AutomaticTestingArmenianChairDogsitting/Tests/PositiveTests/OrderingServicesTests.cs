@@ -212,7 +212,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             orderUpdateModel.AnimalIds.Add(animalCaseId);
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
 
-            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalCaseId, animalCaseModel);
+            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
+                (animalCaseId, animalCaseModel);
             _clientSteps.FindAddedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
         }
 
@@ -240,7 +241,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             orderUpdateModel.AnimalIds.Remove(_animalId);
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
 
-            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalId, _animalModel);
+            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
+                (_animalId, _animalModel);
             _clientSteps.FindDeletedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
         }
 
