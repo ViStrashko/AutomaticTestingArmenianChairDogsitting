@@ -167,5 +167,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             authRequest.Password = changePasswordModel.Password;
             _authorization.AuthorizeTest(authRequest);
         }
+
+        public void ChangingSittersPriceCatalog_WhenModelIsCorrect_ShouldChangePrices()
     }
 }
