@@ -33,12 +33,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualId;
         }
 
-        public void RegisterSitterNegativeTest(SitterRegistrationRequestModel sitter)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.UnprocessableEntity;
-            _sittersClient.RegisterSitter(sitter, expectedCode);
-        }
-
         public SitterAllInfoResponseModel GetAllInfoSitterByIdTest(int id, string token, SitterAllInfoResponseModel expectedSitter)
         {
             //When

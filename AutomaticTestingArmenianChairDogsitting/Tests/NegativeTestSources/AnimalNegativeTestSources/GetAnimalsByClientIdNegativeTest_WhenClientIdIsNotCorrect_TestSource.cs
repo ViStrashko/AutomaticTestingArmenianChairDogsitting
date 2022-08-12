@@ -21,7 +21,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
                 Age = 2,
                 RecommendationsForCare = "Играть по кайфу",
                 Breed = "Доберман",
-                Size = 7,
+                Size = 5,
             };
         }
     }

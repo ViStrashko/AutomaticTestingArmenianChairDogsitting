@@ -11,13 +11,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
     {
         private ClientNegativeSteps _clientNegativeSteps;
         private ClearingTables _clearingTables;
-        private SitterSteps _sitterSteps;
+        private SitterNegativeSteps _sitterNegativeSteps;
 
         public RegistrationNegativeTests()
         {
             _clientNegativeSteps = new ClientNegativeSteps();
             _clearingTables = new ClearingTables();
-            _sitterSteps = new SitterSteps();
+            _sitterNegativeSteps = new SitterNegativeSteps();
         }
 
         [OneTimeSetUp]
@@ -53,12 +53,25 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientNegativeSteps.RegisterClientNegativeTest(clientModel);
         }
 
-        [Test]
-        [TestCaseSource(typeof(SitterRegistrationWrongModelNegativeTestSources))]
-        public void SitterCreationNegativeTest_WhenModelIsNotCorrect_ShouldReturnHttpStatusCodeUnprocessableEntity
+        [TestCaseSource(typeof(SitterCreationNegativeTest_WhenSittersPropertyIsEmptyOrIsNotCorrect_TestSource))]
+        public void SitterCreationNegativeTest_WhenSittersPropertyIsEmptyOrIsNotCorrect_ShouldReturnHttpStatusCodeUnprocessableEntity
             (SitterRegistrationRequestModel sitter)
         {
-            _sitterSteps.RegisterSitterNegativeTest(sitter);
+            _sitterNegativeSteps.RegisterSitterNegativeTest(sitter);
+        }
+
+        [TestCaseSource(typeof(SitterCreationNegativeTest_WhenSittersPropertyPhoneAndEmailIncorrectFormat_TestSource))]
+        public void SitterCreationNegativeTest_WhenSittersPropertyPhoneAndEmailIncorrectFormat_ShouldReturnHttpStatusCodeUnprocessableEntity
+            (SitterRegistrationRequestModel sitter)
+        {
+            _sitterNegativeSteps.RegisterSitterNegativeTest(sitter);
+        }
+
+        [TestCaseSource(typeof(SitterCreationNegativeTest_WhenSittersPropertyPasswordAndPhoneIsNotCorrectLength_TestSource))]
+        public void SitterCreationNegativeTest_WhenSittersPropertyPasswordAndPhoneIsNotCorrectLength_ShouldReturnHttpStatusCodeUnprocessableEntity
+            (SitterRegistrationRequestModel sitter)
+        {
+            _sitterNegativeSteps.RegisterSitterNegativeTest(sitter);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSo
                 Age = 5,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Другая",
-                Size = 35,
+                Size = 5,
             };
         }
     }

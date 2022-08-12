@@ -5,6 +5,8 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnimalNegativeTestSources;
+using AutomaticTestingArmenianChairDogsitting.Models.Response;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests
 {
@@ -105,6 +107,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
+                PriceCatalog = new List<PriceCatalogResponseModel>()
+                {
+                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                }
             };
             _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
         }
@@ -226,7 +232,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
         [TestCaseSource(typeof(GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_TestSource))]
         public void GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound
-    (AnimalRegistrationRequestModel model)
+            (AnimalRegistrationRequestModel model)
         {
             model.ClientId = _clientId;
             var _newClientId = _clientId + 100;
