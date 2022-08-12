@@ -13,10 +13,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("lastName")]
         public string LastName { get; set; }
 
-
         [JsonPropertyName("experience")]
         public int Experience { get; set; }
-
 
         public override bool Equals(object? obj)
         {
