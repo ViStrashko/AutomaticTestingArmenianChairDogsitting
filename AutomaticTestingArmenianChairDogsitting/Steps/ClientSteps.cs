@@ -66,6 +66,36 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.DeleteClientById(id, token, expectedDeleteCode);
         }
 
+        public List<ClientAllInfoResponseModel> FindAddedClientProfileInListTest(string token, ClientAllInfoResponseModel expectedClient)
+        {
+            //When
+            HttpContent content = _clientsClient.GetAllClients(token, HttpStatusCode.OK);
+            List<ClientAllInfoResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            //Then
+            CollectionAssert.Contains(actualClients, expectedClient);
+
+            return actualClients;
+        }
+
+        public List<ClientAllInfoResponseModel> FindDeletedClientProfileInListTest(string token, ClientAllInfoResponseModel expectedClient)
+        {
+            //When
+            HttpContent content = _clientsClient.GetAllClients(token, HttpStatusCode.OK);
+            List<ClientAllInfoResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            //Then
+            CollectionAssert.DoesNotContain(actualClients, expectedClient);
+
+            return actualClients;
+        }
+
+        public void RestoringClientProfileByClientByIdTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedRestoringCode = HttpStatusCode.NoContent;
+            //When
+            _clientsClient.RestoringClientProfileByClientById(id, token, expectedRestoringCode);
+        }
+
         public int RegisterAnimalToClientProfileTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given

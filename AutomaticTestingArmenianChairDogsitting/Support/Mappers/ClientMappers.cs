@@ -7,7 +7,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
     public class ClientMappers
     {
-        public ClientAllInfoResponseModel MappClientRegistrationRequestModelToClientAllInfoResponseModel(int id, DateTime date, ClientRegistrationRequestModel model)
+        public ClientAllInfoResponseModel MappClientRegistrationRequestModelToClientAllInfoResponseModel
+            (int id, DateTime date, ClientRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ClientAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
