@@ -62,11 +62,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters)
         {
-            List<SitterAllInfoResponseModel> expectedSitters = new List<SitterAllInfoResponseModel>();
+            List<SittersGetAllResponse> expectedSitters = new List<SittersGetAllResponse>();
             foreach( var sitter in sitters)
             {
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
-                expectedSitters.Add(_sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter));
+                expectedSitters.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponse(sitterId, sitter));
             }
             string sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
             _sitterSteps.GetAllInfoAllSittersTest(_anonimToken, expectedSitters);
