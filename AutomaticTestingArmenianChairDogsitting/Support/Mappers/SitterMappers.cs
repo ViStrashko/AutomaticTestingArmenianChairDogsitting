@@ -27,5 +27,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.IsDeleted = false;
             return responseModel;
         }
+
+        public SittersGetAllResponse MappSitterRegistrationModelToSittersGetAllResponse(int id, SitterRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SittersGetAllResponse>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<SittersGetAllResponse>(model);
+            responseModel.Id = id;
+            return responseModel;
+        }
     }
 }
