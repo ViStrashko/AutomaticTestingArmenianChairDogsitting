@@ -15,7 +15,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support
 
                 command.CommandText = "delete from dbo.[Animal]";
                 command.Connection = connection;
-                var i = command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[AnimalOrder]";
                 command.ExecuteNonQuery();
@@ -39,6 +39,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Support
                 command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[DistrictSitter]";
+                command.ExecuteNonQuery();
+
+                command.CommandText = "delete from dbo.[Promocode]";
                 command.ExecuteNonQuery();
 
                 connection.Close();

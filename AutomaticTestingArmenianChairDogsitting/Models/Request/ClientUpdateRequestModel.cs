@@ -15,8 +15,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("address")]
         public string Address { get; set; }
-
-        [JsonPropertyName("email")]
-        public string Email { get; set; }
     }
 }

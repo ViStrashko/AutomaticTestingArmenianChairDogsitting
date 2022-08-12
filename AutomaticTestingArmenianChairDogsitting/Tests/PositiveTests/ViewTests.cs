@@ -16,6 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private SitterSteps _sitterSteps;
         private ClearingTables _clearingTables;
         private SitterMappers _sitterMappers;
+        private AuthMappers _authMapper;
         private string _anonimToken;
         private string _adminToken;
         private string _clientToken;
@@ -27,14 +28,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps = new SitterSteps();
             _clearingTables = new ClearingTables();
             _sitterMappers = new SitterMappers();
+            _authMapper = new AuthMappers();
         }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             _clearingTables.ClearAllDB();
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
             _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
             _anonimToken = null;
+
             ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -44,12 +52,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
             };
-            int clientId = _clientSteps.RegisterClientTest(clientModel);
-            _clientToken = _authorization.AuthorizeTest(new AuthRequestModel()
-            {
-                Email = clientModel.Email,
-                Password = clientModel.Password
-            });
+            _clientSteps.RegisterClientTest(clientModel);
+
+            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
+            _clientToken = _authorization.AuthorizeTest(authModel);
         }
 
         [TearDown]
@@ -58,15 +64,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clearingTables.ClearAllDB();
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters)
         {
-            List<SitterAllInfoResponseModel> expectedSitters = new List<SitterAllInfoResponseModel>();
+            List<SittersGetAllResponse> expectedSitters = new List<SittersGetAllResponse>();
             foreach( var sitter in sitters)
             {
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
-                expectedSitters.Add(_sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter));
+                expectedSitters.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponse(sitterId, sitter));
             }
             string sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
             _sitterSteps.GetAllInfoAllSittersTest(_anonimToken, expectedSitters);
@@ -75,7 +80,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps.GetAllInfoAllSittersTest(_adminToken, expectedSitters);
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
         public void GetAllInfoAboutSitter_ByAnonim_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
         {
@@ -84,7 +88,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _anonimToken, expectedSitter);
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
         public void GetAllInfoAboutSitter_ByClient_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
         {
@@ -93,7 +96,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _clientToken, expectedSitter);
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
         public void GetAllInfoAboutSitter_ByAdmin_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
         {
@@ -101,6 +103,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _adminToken, expectedSitter);
         }
-
     }
 }

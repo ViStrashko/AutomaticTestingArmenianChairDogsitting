@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnimalNegativeTestSources
 {
-    public class RegisterAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmpty_TestSource : IEnumerable
+    public class EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -54,6 +54,38 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
                 RecommendationsForCare = "",
                 Breed = "",
                 Size = null,
+            };
+            yield return new AnimalRegistrationRequestModel()
+            {
+                Name = "Шарик",
+                Age = 1,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = -1,
+            };
+            yield return new AnimalRegistrationRequestModel()
+            {
+                Name = "Шарик",
+                Age = -1,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 5,
+            };
+            yield return new AnimalRegistrationRequestModel()
+            {
+                Name = "Шарик",
+                Age = 1,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 0,
+            };
+            yield return new AnimalRegistrationRequestModel()
+            {
+                Name = "Шарик",
+                Age = 0,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 5,
             };
         }
     }
