@@ -19,14 +19,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
         }
 
         public SitterAllInfoResponseModel MappSitterUpdateRequestModelToSitterAllInfoResponseModel
-            (int id, string email, List<PriceCatalogResponseModel> priceCatalog, SitterUpdateRequestModel model)
+            (int id, string email, List<PriceCatalogRequestModel> priceCatalog, SitterUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterUpdateRequestModel, SitterAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SitterAllInfoResponseModel>(model);
             responseModel.Id = id;
             responseModel.Email = email;
-            responseModel.PriceCatalog = priceCatalog;
+            responseModel.PriceCatalog = MappPriceCatalogRequestModelToPriceCatalogRequestModel(priceCatalog);
             responseModel.IsDeleted = false;
             return responseModel;
         }
@@ -39,5 +39,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             return responseModel;
         }
+
+        public List<PriceCatalogResponseModel> MappPriceCatalogRequestModelToPriceCatalogRequestModel(List<PriceCatalogRequestModel> prices)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<List<PriceCatalogRequestModel>, List<PriceCatalogResponseModel>>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<List<PriceCatalogResponseModel>>(prices);
+            return responseModel;
+        }
+
+
     }
 }

@@ -20,9 +20,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
         }

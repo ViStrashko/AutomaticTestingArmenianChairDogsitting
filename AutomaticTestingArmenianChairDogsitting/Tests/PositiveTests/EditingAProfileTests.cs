@@ -74,9 +74,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
@@ -168,6 +168,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _authorization.AuthorizeTest(authRequest);
         }
 
-        public void ChangingSittersPriceCatalog_WhenModelIsCorrect_ShouldChangePrices()
+        [TestCaseSource(typeof())]
+        public void ChangingSittersPriceCatalog_WhenModelIsCorrect_ShouldChangePrices(List<PriceCatalogRequestModel> newPrices)
+        {
+
+        }
     }
 }
