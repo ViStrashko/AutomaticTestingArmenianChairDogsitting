@@ -168,7 +168,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _authorization.AuthorizeTest(authRequest);
         }
 
-        [TestCaseSource(typeof())]
+        [TestCaseSource(typeof(ChangingSittersPriceCatalogTestSources))]
         public void ChangingSittersPriceCatalog_WhenModelIsCorrect_ShouldChangePrices(List<PriceCatalogRequestModel> newPrices)
         {
             _sitterSteps.UpdatePriceCatalog(newPrices, _sitterToken);
