@@ -114,7 +114,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdatePriceCatalog(List<PriceCatalogRequestModel> newPrices, string token, HttpStatusCode expectedCode)
+        public void UpdatePriceCatalog(PriceCatalogUpdateModel newPrices, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(newPrices);
             HttpClient client = new HttpClient();

@@ -1,5 +1,4 @@
-﻿using AutomaticTestingArmenianChairDogsitting.Models.Response;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
@@ -10,13 +9,5 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
-
-        public override bool Equals(object? obj)
-        {
-            return obj is PriceCatalogResponseModel model &&
-                   Service == model.Service &&
-                   Price == model.Price;
-        }
-
     }
 }

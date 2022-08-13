@@ -10,7 +10,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
         public SitterAllInfoResponseModel MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
             (int id, SitterRegistrationRequestModel model)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SitterAllInfoResponseModel>());
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<PriceCatalogRequestModel, PriceCatalogResponseModel>();
+                cfg.CreateMap<SitterRegistrationRequestModel, SitterAllInfoResponseModel>();
+            });
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SitterAllInfoResponseModel>(model);
             responseModel.Id = id;
@@ -26,7 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             var responseModel = mapper.Map<SitterAllInfoResponseModel>(model);
             responseModel.Id = id;
             responseModel.Email = email;
-            responseModel.PriceCatalog = MappPriceCatalogRequestModelToPriceCatalogRequestModel(priceCatalog);
+            responseModel.PriceCatalog = MappPriceCatalogRequestModelToPriceCatalogResponseModel(priceCatalog);
             responseModel.IsDeleted = false;
             return responseModel;
         }
@@ -40,14 +44,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public List<PriceCatalogResponseModel> MappPriceCatalogRequestModelToPriceCatalogRequestModel(List<PriceCatalogRequestModel> prices)
+        public List<PriceCatalogResponseModel> MappPriceCatalogRequestModelToPriceCatalogResponseModel(List<PriceCatalogRequestModel> prices)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<List<PriceCatalogRequestModel>, List<PriceCatalogResponseModel>>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<PriceCatalogRequestModel, PriceCatalogResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<List<PriceCatalogResponseModel>>(prices);
             return responseModel;
         }
-
-
     }
 }
