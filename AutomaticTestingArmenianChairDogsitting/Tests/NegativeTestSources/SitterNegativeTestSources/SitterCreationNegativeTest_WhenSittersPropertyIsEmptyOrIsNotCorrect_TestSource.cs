@@ -20,9 +20,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -36,9 +36,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -52,9 +52,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -68,9 +68,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -84,9 +84,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -100,9 +100,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -116,9 +116,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 0,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -132,9 +132,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 0,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -148,9 +148,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -164,9 +164,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 0, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -180,9 +180,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 0 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -196,9 +196,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 0,
                 Sex = 0,
                 Description = "",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 0, Price = 0 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -212,9 +212,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -228,9 +228,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = -1,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -244,9 +244,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 3,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -260,9 +260,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 10,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -276,9 +276,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = -10,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -292,9 +292,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 5, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -308,9 +308,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 10, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -324,9 +324,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = -10, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -340,9 +340,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = -1 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
         }

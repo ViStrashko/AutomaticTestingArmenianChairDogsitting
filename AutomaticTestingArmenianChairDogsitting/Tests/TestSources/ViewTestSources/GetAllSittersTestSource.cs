@@ -22,10 +22,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Experience = 10,
                     Sex = 1,
                     Description = "Description",
-                    PriceCatalog = new List<PriceCatalogResponseModel>()
-                    {
-                        new PriceCatalogResponseModel() { Service = 1, Price = 500 },
-                    }
+                    PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -38,10 +38,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Experience = 10,
                     Sex = 1,
                     Description = "Description",
-                    PriceCatalog = new List<PriceCatalogResponseModel>()
-                    {
-                        new PriceCatalogResponseModel() { Service = 1, Price = 600 },
-                    }
+                    PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -54,10 +54,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Experience = 10,
                     Sex = 1,
                     Description = "Description",
-                    PriceCatalog = new List<PriceCatalogResponseModel>()
-                    {
-                        new PriceCatalogResponseModel() { Service = 1, Price = 700 },
-                    }
+                    PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
                 },
                 new SitterRegistrationRequestModel()
                 {
@@ -70,9 +70,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Experience = 10,
                     Sex = 1,
                     Description = "Description",
-                    PriceCatalog = new List<PriceCatalogResponseModel>()
+                    PriceCatalog = new List<PriceCatalogRequestModel>()
                     {
-                        new PriceCatalogResponseModel() { Service = 1, Price = 800 },
+                        new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                     }
                 }
             };
@@ -94,9 +94,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
-                PriceCatalog = new List<PriceCatalogResponseModel>()
+                PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogResponseModel() { Service = 1, Price = 900 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
         }
