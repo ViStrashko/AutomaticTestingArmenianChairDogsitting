@@ -168,13 +168,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _authorization.AuthorizeTest(authRequest);
         }
 
-        [TestCaseSource(typeof(ChangingSittersPriceCatalogTestSources))]
-        public void ChangingSittersPriceCatalog_WhenModelIsCorrect_ShouldChangePrices(List<PriceCatalogRequestModel> newPrices)
+        [TestCaseSource(typeof(ChangingSittersPriceCatalogTest_WhenModelIsCorrect_TestSource))]
+        public void ChangingSittersPriceCatalogTest_WhenModelIsCorrect_ShouldChangePrices(PriceCatalogUpdateModel newPrices)
         {
-            _sitterSteps.UpdatePriceCatalog(newPrices, _sitterToken);
+            _sitterSteps.UpdatePriceCatalogTest(newPrices, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = 
                 _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
-            expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogRequestModel(newPrices);
+            expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);
+
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
     }
