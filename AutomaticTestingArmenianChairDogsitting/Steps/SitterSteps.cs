@@ -75,5 +75,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
             _sittersClient.UpdateSittersPassword(id, model, token, expectedUpdateCode);
         }
+
+        public void UpdatePriceCatalog(List<PriceCatalogRequestModel> newPrices, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.NoContent;
+
+            _sittersClient.UpdatePriceCatalog(newPrices, token, expectedCode);
+        }
     }
 }
