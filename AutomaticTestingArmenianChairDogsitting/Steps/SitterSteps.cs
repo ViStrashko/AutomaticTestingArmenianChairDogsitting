@@ -82,5 +82,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
             _sittersClient.UpdatePriceCatalog(newPrices, token, expectedCode);
         }
+
+        public List<SittersGetAllResponse> CheckThatAllSittersDoesNotContainsDeletedSitterTest(string token, SittersGetAllResponse expectedSitter)
+        {
+            HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
+            List<SittersGetAllResponse> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponse>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.DoesNotContain(actualSitters, expectedSitter);
+            return actualSitters;
+        }
     }
 }
