@@ -96,7 +96,24 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdateSittersPassword(int id, ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
+        public HttpContent RestoreSitterProfileBySitterId(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Patch,
+                RequestUri = new System.Uri($"{Urls.Sitters}/{id}/restore")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
+        }
+
+        public void UpdateSittersPasswordBySitterId(int id, ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -114,7 +131,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdatePriceCatalog(PriceCatalogUpdateModel newPrices, string token, HttpStatusCode expectedCode)
+        public void UpdatePriceCatalogBySitterId(PriceCatalogUpdateModel newPrices, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(newPrices);
             HttpClient client = new HttpClient();

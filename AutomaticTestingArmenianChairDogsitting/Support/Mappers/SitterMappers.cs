@@ -35,11 +35,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public SittersGetAllResponse MappSitterRegistrationModelToSittersGetAllResponse(int id, SitterRegistrationRequestModel model)
+        public SittersGetAllResponseModel MappSitterRegistrationModelToSittersGetAllResponseModel(int id, SitterRegistrationRequestModel model)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SittersGetAllResponse>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SittersGetAllResponseModel>());
             Mapper mapper = new Mapper(config);
-            var responseModel = mapper.Map<SittersGetAllResponse>(model);
+            var responseModel = mapper.Map<SittersGetAllResponseModel>(model);
             responseModel.Id = id;
             return responseModel;
         }

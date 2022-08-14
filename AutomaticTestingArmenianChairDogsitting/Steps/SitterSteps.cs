@@ -44,15 +44,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualSitter;
         }
 
-        public List<SittersGetAllResponse> GetAllInfoAllSittersTest(string token, List<SittersGetAllResponse> expectedSitters)
+        public List<SittersGetAllResponseModel> GetAllInfoAllSittersTest(string token, List<SittersGetAllResponseModel> expectedSitters)
         {
-            List<SittersGetAllResponse> actualSitters = new List<SittersGetAllResponse>();
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
-            actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponse>>(content.ReadAsStringAsync().Result)!;
+            List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             CollectionAssert.AreEquivalent(expectedSitters, actualSitters);
 
             return actualSitters;
         }
+
         public void UpdateSitterByIdTest(int id, SitterUpdateRequestModel model, string token)
         {
             //Given
@@ -69,25 +69,27 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.DeleteSitterById(id, token, expectedDeleteCode);
         }
 
-        public void ChangeSittersPasswordTest(int id, ChangePasswordRequestModel model, string token)
+        public void ChangeSittersPasswordBySitterIdTest(int id, ChangePasswordRequestModel model, string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
 
-            _sittersClient.UpdateSittersPassword(id, model, token, expectedUpdateCode);
+            _sittersClient.UpdateSittersPasswordBySitterId(id, model, token, expectedUpdateCode);
         }
 
-        public void UpdatePriceCatalogTest(PriceCatalogUpdateModel newPrices, string token)
+        public void UpdatePriceCatalogBySitterIdTest(PriceCatalogUpdateModel newPrices, string token)
         {
             HttpStatusCode expectedCode = HttpStatusCode.NoContent;
 
-            _sittersClient.UpdatePriceCatalog(newPrices, token, expectedCode);
+            _sittersClient.UpdatePriceCatalogBySitterId(newPrices, token, expectedCode);
         }
 
-        public List<SittersGetAllResponse> CheckThatAllSittersDoesNotContainsDeletedSitterTest(string token, SittersGetAllResponse expectedSitter)
+        public List<SittersGetAllResponseModel> CheckThatAllSittersDoesNotContainsDeletedSitterTest(string token, SittersGetAllResponseModel expectedSitter)
         {
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
-            List<SittersGetAllResponse> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponse>>(content.ReadAsStringAsync().Result)!;
+            List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
+            
             CollectionAssert.DoesNotContain(actualSitters, expectedSitter);
+
             return actualSitters;
         }
     }

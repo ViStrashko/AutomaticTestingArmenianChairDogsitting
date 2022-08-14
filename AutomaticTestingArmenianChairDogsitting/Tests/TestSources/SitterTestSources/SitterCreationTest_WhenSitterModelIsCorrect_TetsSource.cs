@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources
 {
-    public class SitterCreation_WhenSitterModelIsCorrect_TetsSource : IEnumerable
+    public class SitterCreationTest_WhenSitterModelIsCorrect_TetsSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

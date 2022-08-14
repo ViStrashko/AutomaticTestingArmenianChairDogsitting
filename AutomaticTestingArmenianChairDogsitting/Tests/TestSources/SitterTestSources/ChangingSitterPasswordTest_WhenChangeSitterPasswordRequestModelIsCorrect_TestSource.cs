@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.SitterTestSources
 {
-    public class ChangingPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_TestSource : IEnumerable
+    public class ChangingSitterPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
