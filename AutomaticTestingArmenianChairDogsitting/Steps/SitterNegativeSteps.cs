@@ -18,5 +18,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedCode = HttpStatusCode.UnprocessableEntity;
             _sittersClient.RegisterSitter(sitter, expectedCode);
         }
+
+        public void RestoreSitterBySitterOrClientNegativeTest(int sitterId, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            _sittersClient.RestoreSitterProfileBySitterId(sitterId, token, expectedCode);
+        }
+
+        public void RestoreSitterByAnonimNegativeTest(int sitterId, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            _sittersClient.RestoreSitterProfileBySitterId(sitterId, token, expectedCode);
+        }
+
+        public void RestoreSitterWithNegativeIdTest(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
+            _sittersClient.RestoreSitterProfileBySitterId(id, token, expectedCode);
+        }
     }
 }

@@ -15,12 +15,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private ClientSteps _clientSteps;
         private ClientNegativeSteps _clientNegativeSteps;
         private SitterSteps _sitterSteps;
+        private SitterNegativeSteps _sitterNegativeSteps;
         private ClearingTables _clearingTables;
         private AuthMappers _authMapper;
         private ClientMappers _clientMappers;
         private SitterMappers _sitterMappers;
+        private string _adminToken;
         private string _clientToken;
         private string _sitterToken;
+        private string _alienSitterToken;
         private int _clientId;
         private int _alienClientId;        
         private int _sitterId;
@@ -36,6 +39,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientSteps = new ClientSteps();
             _clientNegativeSteps = new ClientNegativeSteps();
             _sitterSteps = new SitterSteps();
+            _sitterNegativeSteps = new SitterNegativeSteps();
             _clearingTables = new ClearingTables();
             _authMapper = new AuthMappers();
             _clientMappers = new ClientMappers();
@@ -46,6 +50,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         public void OneTimeSetUp()
         {
             _clearingTables.ClearAllDB();
+            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel() { Email = Options.adminEmail, Password = Options.adminPassword });
         }
 
         [SetUp]
@@ -89,6 +94,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Experience = 10,
                 Sex = 1,
                 Description = "Description",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
+
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
 
@@ -112,6 +122,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 }
             };
             _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
+
+            AuthRequestModel authAlienSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_alienSitterModel);
+            _alienSitterToken = _authorization.AuthorizeTest(authAlienSitterModel);
         }
 
         [TearDown]
@@ -240,5 +253,27 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
 
         //Sitters
+
+        [Test]
+        public void RestoreSitterByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRestoreSitter()
+        {
+            _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
+            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _sitterToken);
+            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _alienSitterToken);
+            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _clientToken);
+            _sitterNegativeSteps.RestoreSitterByAnonimNegativeTest(_sitterId, null);
+        }
+
+
+        //Admin
+        [Test]
+        [TestCase(-2)]
+        [TestCase(0)]
+        [TestCase(int.MaxValue)]
+        public void RestoreSitterNegativeTest_WhenIdIsNotCorrect_ShouldReturnBadRequest(int id)
+        {
+            _sitterSteps.DeleteSitterByIdTest(id, _sitterToken);
+            _sitterNegativeSteps.RestoreSitterWithNegativeIdTest(id, _adminToken);
+        }
     }
 }
