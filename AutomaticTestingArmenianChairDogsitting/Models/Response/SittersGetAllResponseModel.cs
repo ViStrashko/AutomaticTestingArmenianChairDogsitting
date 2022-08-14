@@ -2,7 +2,7 @@
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
-    public class SittersGetAllResponse
+    public class SittersGetAllResponseModel
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

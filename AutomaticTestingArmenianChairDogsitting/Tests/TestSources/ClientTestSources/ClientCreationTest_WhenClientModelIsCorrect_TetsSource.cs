@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSources
 {
-    public class ClientCreation_WhenClientModelIsCorrect_TetsSource : IEnumerable
+    public class ClientCreationTest_WhenClientModelIsCorrect_TetsSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

@@ -24,7 +24,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         private string _sitterToken;
         private int _clientId;
         private int _sitterId;
-        private string _adminToken;
         private ClientRegistrationRequestModel _clientModel;
         private SitterRegistrationRequestModel _sitterModel;
 
@@ -83,8 +82,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
 
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
-
-            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
         }
 
         [TearDown]
@@ -93,8 +90,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clearingTables.ClearAllDB();
         }
 
-        [TestCaseSource(typeof(EditingClientProfile_WhenClientModelIsCorrect_TestSource))]
-        public void EditingClientProfile_WhenClientModelIsCorrect_ShouldEditingClientProfile(ClientUpdateRequestModel clientUpdateModel)
+        [TestCaseSource(typeof(EditingClientProfileTest_WhenClientModelIsCorrect_TestSource))]
+        public void EditingClientProfileTest_WhenClientModelIsCorrect_ShouldEditingClientProfile(ClientUpdateRequestModel clientUpdateModel)
         {
             _clientSteps.UpdateClientByIdTest(_clientId, clientUpdateModel, _clientToken);
             var date = DateTime.Now.Date;
@@ -105,7 +102,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         [Test]
-        public void DeleteClientProfile_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
+        public void DeleteClientProfileTest_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
         {
             _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
             var date = DateTime.Now.Date;
@@ -116,23 +113,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
 
-        [Test]
-        public void RestoringClientProfileByClientIdNegativeTest_WhenClientIdIsCorrect_ShouldRestoringClientProfile()
-        {
-            var date = DateTime.Now.Date;
-            ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
-                (_clientId, date, _clientModel);
-            _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
-
-            _clientSteps.FindDeletedClientProfileInListTest(_clientToken, expectedClient);
-
-            _clientSteps.RestoringClientProfileByClientByIdTest(_clientId, _adminToken);
-
-            _clientSteps.FindAddedClientProfileInListTest(_clientToken, expectedClient);
-        }
-
-        [TestCaseSource(typeof(EditingSitterProfile_WhenSitterModelIsCorrect_TestSource))]
-        public void EditingSitterProfile_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
+        [TestCaseSource(typeof(EditingSitterProfileTest_WhenSitterModelIsCorrect_TestSource))]
+        public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
             _sitterSteps.UpdateSitterByIdTest(_sitterId, sitterUpdateModel, _sitterToken);
 
@@ -142,7 +124,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         }
 
         [Test]
-        public void DeleteSitterProfile_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
+        public void DeleteSitterProfileTest_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
         {
             _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
 
@@ -152,12 +134,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
 
-        [TestCaseSource(typeof(ChangingPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_TestSource))]
-        public void ChangingPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_ShouldChangingPasswordByProfile
+        [TestCaseSource(typeof(ChangingSitterPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_TestSource))]
+        public void ChangingSitterPasswordTest_WhenChangeSitterPasswordRequestModelIsCorrect_ShouldChangingSitterPasswordByProfile
             (ChangePasswordRequestModel changePasswordModel)
         {
             changePasswordModel.OldPassword = _sitterModel.Password;
-            _sitterSteps.ChangeSittersPasswordTest(_sitterId, changePasswordModel, _sitterToken);
+            _sitterSteps.ChangeSittersPasswordBySitterIdTest(_sitterId, changePasswordModel, _sitterToken);
 
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;
@@ -171,7 +153,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [TestCaseSource(typeof(ChangingSittersPriceCatalogTest_WhenModelIsCorrect_TestSource))]
         public void ChangingSittersPriceCatalogTest_WhenModelIsCorrect_ShouldChangePrices(PriceCatalogUpdateModel newPrices)
         {
-            _sitterSteps.UpdatePriceCatalogTest(newPrices, _sitterToken);
+            _sitterSteps.UpdatePriceCatalogBySitterIdTest(newPrices, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = 
                 _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
             expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);

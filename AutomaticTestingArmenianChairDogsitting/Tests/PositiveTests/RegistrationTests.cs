@@ -42,8 +42,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clearingTables.ClearAllDB();
         }
 
-        [TestCaseSource(typeof(ClientCreation_WhenClientModelIsCorrect_TetsSource))]
-        public void ClientCreation_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
+        [TestCaseSource(typeof(ClientCreationTest_WhenClientModelIsCorrect_TetsSource))]
+        public void ClientCreationTest_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
         {
             int clientId = _clientSteps.RegisterClientTest(clientModel);
             var date = DateTime.Now.Date;
@@ -56,8 +56,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
         }
 
-        [TestCaseSource(typeof(SitterCreation_WhenSitterModelIsCorrect_TetsSource))]
-        public void SitterCreation_WhenSitterModelIsCorrect_ShouldCreateSitter(SitterRegistrationRequestModel sitterModel)
+        [TestCaseSource(typeof(SitterCreationTest_WhenSitterModelIsCorrect_TetsSource))]
+        public void SitterCreationTest_WhenSitterModelIsCorrect_ShouldCreateSitter(SitterRegistrationRequestModel sitterModel)
         {
             int sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
 
