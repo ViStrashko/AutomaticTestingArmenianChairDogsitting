@@ -49,7 +49,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
             List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
-            CollectionAssert.AreEqual(expectedSitters, actualSitters);
+            CollectionAssert.AreEquivalent(expectedSitters, actualSitters);
 
             return actualSitters;
         }

@@ -123,6 +123,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _adminSteps.FindAddedSitterProfileInListTest(_adminToken, expectedSitter);
         }
 
+        [Test]
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void RestoreSittersProfileTest_ByAdmin_ShouldRestoreProfile(List<SitterRegistrationRequestModel> sitters)
         {
@@ -154,6 +155,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _sitterSteps.CheckThatAllSittersDoesNotContainsDeletedSitterTest(_clientToken, expectedSitterInAllSitters);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _adminToken, expectedDeletedSitter);
             _adminSteps.RestoreSittersProfileBySitterIdTest(_sitterId, _adminToken);
+            expectedAllSitters.Add(expectedSitterInAllSitters);
             _sitterSteps.GetAllInfoAllSittersTest(_adminToken, expectedAllSitters);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _adminToken, expectedSitter);
         }
