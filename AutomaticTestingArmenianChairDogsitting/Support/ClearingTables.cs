@@ -31,6 +31,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Support
 
                 command.CommandText = "delete from dbo.[PriceCatalog]";
                 command.ExecuteNonQuery();
+                
+                command.CommandText = "delete from dbo.[Schedule]";
+                command.ExecuteNonQuery();
 
                 command.CommandText = "delete from dbo.[Sitter]";
                 command.ExecuteNonQuery();
