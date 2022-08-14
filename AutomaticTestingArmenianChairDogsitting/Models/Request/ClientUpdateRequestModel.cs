@@ -15,5 +15,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("address")]
         public string Address { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {LastName} {Phone} {Address}";
+        }
     }
 }

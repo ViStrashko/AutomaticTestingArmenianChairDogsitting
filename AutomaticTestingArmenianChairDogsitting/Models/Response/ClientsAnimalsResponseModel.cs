@@ -20,5 +20,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Name == model.Name &&
                    Breed == model.Breed;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name} {Breed}";
+        }
     }
 }

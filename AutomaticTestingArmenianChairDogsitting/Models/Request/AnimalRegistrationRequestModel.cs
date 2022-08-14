@@ -21,5 +21,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("size")]
         public int Size { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {Age} {RecommendationsForCare} {ClientId} {Breed} {Size}";
+        }
     }
 }

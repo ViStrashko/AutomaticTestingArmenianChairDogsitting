@@ -39,6 +39,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpContent content = _sittersClient.GetAllInfoSitterById(id, token, HttpStatusCode.OK);
             SitterAllInfoResponseModel actualSitter = JsonSerializer.Deserialize<SitterAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
             //Then
+            CollectionAssert.AreEqual(actualSitter.PriceCatalog, expectedSitter.PriceCatalog);
             Assert.AreEqual(expectedSitter, actualSitter);
 
             return actualSitter;
@@ -48,17 +49,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
             List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
-            CollectionAssert.AreEquivalent(expectedSitters, actualSitters);
+            CollectionAssert.AreEqual(expectedSitters, actualSitters);
 
             return actualSitters;
         }
 
-        public void UpdateSitterByIdTest(int id, SitterUpdateRequestModel model, string token)
+        public void UpdateSitterByIdTest(SitterUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _sittersClient.UpdateSitterById(id, model, token, expectedUpdateCode);
+            _sittersClient.UpdateSitterById(model, token, expectedUpdateCode);
         }
 
         public void DeleteSitterByIdTest(int id, string token)
@@ -69,11 +70,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.DeleteSitterById(id, token, expectedDeleteCode);
         }
 
-        public void ChangeSittersPasswordBySitterIdTest(int id, ChangePasswordRequestModel model, string token)
+        public void ChangeSittersPasswordBySitterIdTest(ChangePasswordRequestModel model, string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
 
-            _sittersClient.UpdateSittersPasswordBySitterId(id, model, token, expectedUpdateCode);
+            _sittersClient.UpdateSittersPasswordBySitterId(model, token, expectedUpdateCode);
         }
 
         public void UpdatePriceCatalogBySitterIdTest(PriceCatalogUpdateModel newPrices, string token)

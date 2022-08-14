@@ -9,5 +9,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Service} {Price}";
+        }
     }
 }

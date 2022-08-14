@@ -16,5 +16,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Service == model.Service &&
                    Price == model.Price;
         }
+
+        public override string ToString()
+        {
+            return $"{Service} {Price}";
+        }
     }
 }

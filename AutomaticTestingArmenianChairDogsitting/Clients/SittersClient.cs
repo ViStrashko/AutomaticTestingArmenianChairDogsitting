@@ -63,7 +63,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateSitterById(int id, SitterUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        public void UpdateSitterById(SitterUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -72,7 +72,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Sitters}/{id}"),
+                RequestUri = new System.Uri(Urls.Sitters),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -113,7 +113,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateSittersPasswordBySitterId(int id, ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
+        public void UpdateSittersPasswordBySitterId(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -122,7 +122,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Patch,
-                RequestUri = new System.Uri($"{Urls.Sitters}/{id}/password"),
+                RequestUri = new System.Uri($"{Urls.Sitters}/password"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);

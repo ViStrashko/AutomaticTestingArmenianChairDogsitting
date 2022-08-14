@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
-    public class ClientAllInfoResponseModel
+    public class ClientsGetAllResponseModel
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -27,15 +26,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("registrationDate")]
         public DateTime RegistrationDate { get; set; }
 
-        [JsonPropertyName("dogs")]
-        public List<ClientsAnimalsResponseModel> Dogs { get; set; }
-
-        [JsonPropertyName("orders")]
-        public List<OrderAllInfoResponseModel> Orders { get; set; }
-
-        [JsonPropertyName("isDeleted")]
-        public bool IsDeleted { get; set; }
-
         public override bool Equals(object? obj)
         {
             return obj is ClientAllInfoResponseModel model &&
@@ -45,13 +35,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Phone == model.Phone &&
                    Address == model.Address &&
                    Email == model.Email &&
-                   RegistrationDate == model.RegistrationDate &&
-                   IsDeleted == model.IsDeleted;
+                   RegistrationDate == model.RegistrationDate;
         }
 
         public override string ToString()
         {
-            return $"{Id} {Name} {LastName} {Phone} {Address} {Email} {RegistrationDate} {IsDeleted}";
+            return $"{Id} {Name} {LastName} {Phone} {Address} {Email} {RegistrationDate}";
         }
     }
 }

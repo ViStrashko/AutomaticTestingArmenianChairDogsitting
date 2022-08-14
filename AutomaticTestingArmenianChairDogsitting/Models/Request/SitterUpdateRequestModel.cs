@@ -24,5 +24,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("sex")]
         public int Sex { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {LastName} {Phone} {Age} {Experience} {Description} {Sex}";
+        }
     }
 }

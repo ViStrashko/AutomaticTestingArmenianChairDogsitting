@@ -45,6 +45,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpContent content = _clientsClient.GetAllInfoClientById(id, token, HttpStatusCode.OK);
             ClientAllInfoResponseModel actualClient = JsonSerializer.Deserialize<ClientAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
             //Then
+            CollectionAssert.AreEqual(actualClient.Dogs, expectedClient.Dogs);
+            CollectionAssert.AreEqual(actualClient.Orders, expectedClient.Orders);
             Assert.AreEqual(expectedClient, actualClient);
 
             return actualClient;

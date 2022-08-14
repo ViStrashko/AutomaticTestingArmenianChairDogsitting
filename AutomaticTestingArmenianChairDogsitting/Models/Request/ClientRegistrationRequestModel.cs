@@ -24,5 +24,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("promocode")]
         public string Promocode { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} {LastName} {Phone} {Email} {Password} {Address} {Promocode}";
+        }
     }
 }

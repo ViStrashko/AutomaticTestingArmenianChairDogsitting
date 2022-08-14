@@ -54,8 +54,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    WorkDate == model.WorkDate &&
                    DateUpdated == model.DateUpdated &&
                    Address == model.Address &&
-                   EqualityComparer<List<ClientsAnimalsResponseModel>>.Default.Equals(Animals, model.Animals) &&
-                   EqualityComparer<List<CommentAllInfoResponseModel>>.Default.Equals(Comments, model.Comments) &&
                    IsDeleted == model.IsDeleted;
         }
     }
