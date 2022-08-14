@@ -7,7 +7,7 @@ using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using System.Collections.Generic;
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSources;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
 {
     public class ViewTests
     {
@@ -51,6 +51,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
                 Password = "12345678",
+                Promocode = "F85KY0UN"
             };
             _clientSteps.RegisterClientTest(clientModel);
 

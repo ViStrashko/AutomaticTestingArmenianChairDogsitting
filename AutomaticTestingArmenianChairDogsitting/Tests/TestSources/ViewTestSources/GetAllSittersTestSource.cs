@@ -13,23 +13,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
             {
                 new SitterRegistrationRequestModel()
                 {
-                    Name = "Валера",
-                    LastName = "Пет1",
-                    Phone = "+79514125547",
-                    Email = "pet0@gmail.com",
-                    Password = "12345678",
-                    Age = 20,
-                    Experience = 10,
-                    Sex = 1,
-                    Description = "Description",
-                    PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
-                }
-                },
-                new SitterRegistrationRequestModel()
-                {
-                    Name = "Валера",
+                    Name = "Валера1",
                     LastName = "Пет",
                     Phone = "+79514125547",
                     Email = "pet1@gmail.com",
@@ -45,7 +29,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 },
                 new SitterRegistrationRequestModel()
                 {
-                    Name = "Валера",
+                    Name = "Валера2",
                     LastName = "Пет",
                     Phone = "+79514125547",
                     Email = "pet2@gmail.com",
@@ -61,10 +45,26 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 },
                 new SitterRegistrationRequestModel()
                 {
-                    Name = "Валера",
+                    Name = "Валера3",
                     LastName = "Пет",
                     Phone = "+79514125547",
                     Email = "pet3@gmail.com",
+                    Password = "12345678",
+                    Age = 20,
+                    Experience = 10,
+                    Sex = 1,
+                    Description = "Description",
+                    PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
+                },
+                new SitterRegistrationRequestModel()
+                {
+                    Name = "Валера4",
+                    LastName = "Пет",
+                    Phone = "+79514125547",
+                    Email = "pet4@gmail.com",
                     Password = "12345678",
                     Age = 20,
                     Experience = 10,
@@ -86,9 +86,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
-                LastName = "Пет1",
+                LastName = "Пет",
                 Phone = "+79514125547",
-                Email = "pet0@gmail.com",
+                Email = "pet@gmail.com",
                 Password = "12345678",
                 Age = 20,
                 Experience = 10,

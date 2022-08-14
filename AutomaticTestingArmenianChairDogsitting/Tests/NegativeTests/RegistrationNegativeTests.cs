@@ -5,7 +5,7 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.SitterNegativeTestSources;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 {
     public class RegistrationNegativeTests
     {

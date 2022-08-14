@@ -36,11 +36,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
-        public ClientUpdateRequestModel MappClientRegistrationRequestModelToClientUpdateRequestModel(ClientRegistrationRequestModel model)
+        public ClientUpdateRequestModel MappClientRegistrationRequestModelToClientUpdateRequestModel
+            (ClientRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ClientUpdateRequestModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<ClientUpdateRequestModel>(model);
+            return responseModel;
+        }
+        public ClientsGetAllResponseModel MappClientRegistrationRequestModelToClientsGetAllResponseModel
+            (int id, DateTime date, ClientRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ClientsGetAllResponseModel>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<ClientsGetAllResponseModel>(model);
+            responseModel.Id = id;
+            responseModel.RegistrationDate = date;
             return responseModel;
         }
     }

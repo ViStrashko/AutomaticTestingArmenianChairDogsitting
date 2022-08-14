@@ -17,6 +17,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Sex = 1,
                 Description = "Очень люблю собак",
             };
+            yield return new SitterUpdateRequestModel()
+            {
+                Name = "Валера",
+                LastName = "Пет",
+                Phone = "+79514125547",
+                Age = 20,
+                Experience = 15,
+                Sex = 1,
+                Description = "Очень люблю собак, особенно лохматых",
+            };
         }
     }
 }

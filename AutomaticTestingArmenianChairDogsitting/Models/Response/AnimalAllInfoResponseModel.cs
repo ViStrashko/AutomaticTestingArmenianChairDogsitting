@@ -36,5 +36,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Size == model.Size &&
                    IsDeleted == model.IsDeleted;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {Name} {Age} {RecommendationsForCare} {Breed} {Size} {IsDeleted}";
+        }
     }
 }

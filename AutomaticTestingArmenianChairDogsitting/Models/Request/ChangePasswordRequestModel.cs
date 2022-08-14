@@ -9,5 +9,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 
         [JsonPropertyName("oldPassword")]
         public string OldPassword { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Password} {OldPassword}";
+        }
     }
 }

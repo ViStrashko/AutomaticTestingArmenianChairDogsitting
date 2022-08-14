@@ -50,7 +50,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Description == model.Description &&
                    Sex == model.Sex &&
                    Email == model.Email &&
-                   EqualityComparer<List<PriceCatalogResponseModel>>.Default.Equals(PriceCatalog, model.PriceCatalog) &&
                    IsDeleted == model.IsDeleted;
         }
 

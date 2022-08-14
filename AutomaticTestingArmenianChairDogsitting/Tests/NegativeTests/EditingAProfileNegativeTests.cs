@@ -5,10 +5,9 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnimalNegativeTestSources;
-using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Collections.Generic;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 {
     public class EditingAProfileNegativeTests
     {

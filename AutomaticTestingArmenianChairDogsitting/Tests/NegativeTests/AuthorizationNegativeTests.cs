@@ -4,7 +4,7 @@ using AutomaticTestingArmenianChairDogsitting.Steps;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 {
     public class AuthorizationNegativeTests
     {

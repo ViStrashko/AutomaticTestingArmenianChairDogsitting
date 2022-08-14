@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 
         public override bool Equals(object? obj)
         {
-            return obj is SitterAllInfoResponseModel model &&
+            return obj is SittersGetAllResponseModel model &&
                    Id == model.Id &&
                    Name == model.Name &&
                    LastName == model.LastName &&

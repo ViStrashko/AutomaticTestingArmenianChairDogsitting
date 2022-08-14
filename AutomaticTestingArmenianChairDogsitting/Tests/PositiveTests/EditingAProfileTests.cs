@@ -9,7 +9,7 @@ using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSource
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.SitterTestSources;
 using System.Collections.Generic;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
 {
     public class EditingAProfileTests
     {
@@ -116,7 +116,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
         [TestCaseSource(typeof(EditingSitterProfileTest_WhenSitterModelIsCorrect_TestSource))]
         public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
-            _sitterSteps.UpdateSitterByIdTest(_sitterId, sitterUpdateModel, _sitterToken);
+            _sitterSteps.UpdateSitterByIdTest(sitterUpdateModel, _sitterToken);
 
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel
                 (_sitterId, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
@@ -139,7 +139,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests
             (ChangePasswordRequestModel changePasswordModel)
         {
             changePasswordModel.OldPassword = _sitterModel.Password;
-            _sitterSteps.ChangeSittersPasswordBySitterIdTest(_sitterId, changePasswordModel, _sitterToken);
+            _sitterSteps.ChangeSittersPasswordBySitterIdTest(changePasswordModel, _sitterToken);
 
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;

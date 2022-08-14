@@ -30,22 +30,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.RestoringClientProfileByClientById(id, token, expectedRestoringCode);
         }
 
-        public List<ClientAllInfoResponseModel> FindAddedClientProfileInListTest(string token, ClientAllInfoResponseModel expectedClient)
+        public List<ClientsGetAllResponseModel> FindAddedClientProfileInListTest(string token, ClientsGetAllResponseModel expectedClient)
         {
             //When
             HttpContent content = _clientsClient.GetAllClients(token, HttpStatusCode.OK);
-            List<ClientAllInfoResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            List<ClientsGetAllResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientsGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualClients, expectedClient);
 
             return actualClients;
         }
 
-        public List<ClientAllInfoResponseModel> FindDeletedClientProfileInListTest(string token, ClientAllInfoResponseModel expectedClient)
+        public List<ClientsGetAllResponseModel> FindDeletedClientProfileInListTest(string token, ClientsGetAllResponseModel expectedClient)
         {
             //When
             HttpContent content = _clientsClient.GetAllClients(token, HttpStatusCode.OK);
-            List<ClientAllInfoResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            List<ClientsGetAllResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientsGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.DoesNotContain(actualClients, expectedClient);
 
@@ -59,22 +59,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.RestoreSitterProfileBySitterId(sitterId, adminToken, expectedCode);
         }
 
-        public List<SitterAllInfoResponseModel> FindAddedSitterProfileInListTest(string token, SitterAllInfoResponseModel expectedSitter)
+        public List<SittersGetAllResponseModel> FindAddedSitterProfileInListTest(string token, SittersGetAllResponseModel expectedSitter)
         {
             //When
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
-            List<SitterAllInfoResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SitterAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            List<SittersGetAllResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualSiterrs, expectedSitter);
 
             return actualSiterrs;
         }
 
-        public List<SitterAllInfoResponseModel> FindDeletedSitterProfileInListTest(string token, SitterAllInfoResponseModel expectedSitter)
+        public List<SittersGetAllResponseModel> FindDeletedSitterProfileInListTest(string token, SittersGetAllResponseModel expectedSitter)
         {
             //When
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
-            List<SitterAllInfoResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SitterAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            List<SittersGetAllResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.DoesNotContain(actualSiterrs, expectedSitter);
 

@@ -8,7 +8,7 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.OrderTestSources;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests
+namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
 {
     public class OrderingServicesTests
     {

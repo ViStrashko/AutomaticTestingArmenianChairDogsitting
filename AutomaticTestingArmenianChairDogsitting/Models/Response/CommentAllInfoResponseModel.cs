@@ -32,5 +32,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    IsClient == model.IsClient &&
                    IsDeleted == model.IsDeleted;
         }
+
+        public override string ToString()
+        {
+            return $"{Id} {OrderId} {Rating} {Text} {IsClient} {IsDeleted}";
+        }
     }
 }
