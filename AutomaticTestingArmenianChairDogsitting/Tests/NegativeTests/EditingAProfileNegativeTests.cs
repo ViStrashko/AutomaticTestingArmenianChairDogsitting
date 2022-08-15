@@ -266,13 +266,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
 
         //Admin
-        [Test]
         [TestCase(-2)]
         [TestCase(0)]
-        [TestCase(int.MaxValue)]
         public void RestoreSitterNegativeTest_WhenIdIsNotCorrect_ShouldReturnBadRequest(int id)
         {
-            _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
             _sitterNegativeSteps.RestoreSitterWithNegativeIdTest(id, _adminToken);
         }
     }

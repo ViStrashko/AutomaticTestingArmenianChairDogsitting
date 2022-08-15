@@ -123,7 +123,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _adminSteps.FindAddedSitterProfileInListTest(_adminToken, expectedSitter);
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void RestoreSittersProfileTest_ByAdmin_ShouldRestoreProfile(List<SitterRegistrationRequestModel> sitters)
         {

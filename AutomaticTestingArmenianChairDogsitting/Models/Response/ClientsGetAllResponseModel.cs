@@ -35,7 +35,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Phone == model.Phone &&
                    Address == model.Address &&
                    Email == model.Email &&
-                   RegistrationDate == model.RegistrationDate;
+                   RegistrationDate.Date == model.RegistrationDate.Date;
         }
 
         public override string ToString()
