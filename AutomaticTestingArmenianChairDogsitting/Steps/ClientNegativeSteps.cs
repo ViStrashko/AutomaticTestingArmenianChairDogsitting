@@ -94,7 +94,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void GetClientProfilesByClientOrSitterNegativeTest(string token)
         {
             //Given
-            HttpStatusCode expectedCode = HttpStatusCode.NotFound;
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
             //When
             _clientsClient.GetAllClients(token, expectedCode);
         }
@@ -110,7 +110,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void GetClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
+            HttpStatusCode expectedCode = HttpStatusCode.NotFound;
             //When
             _clientsClient.GetAllInfoClientById(id, token, expectedCode);
         }
@@ -118,7 +118,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void GetClientProfileByClientIdBySitterOrAlienClientNegativeTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedCode = HttpStatusCode.NotFound;
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
             //When
             _clientsClient.GetAllInfoClientById(id, token, expectedCode);
         }
@@ -160,7 +160,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void RegisterAnimalWhenClientIdIsNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.BadRequest;
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+            //When
+            _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
+        }
+
+        public void RegisterAnimalBySitterOrAdminNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Forbidden;
+            //When
+            _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
+        }
+
+        public void RegisterAnimalByAnonimNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Unauthorized;
             //When
             _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
         }
@@ -180,7 +196,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.UpdateAnimalById(actualId, animalUpdateModel, token, expectedUpdatedCode);
         }
 
-        public void EditingAnimalWhenAnimalIdIsNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
+        public void EditingAnimalWhenAnimalIdIsNotCorrectNegativeTest(int id, AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdatedCode = HttpStatusCode.BadRequest;
@@ -192,10 +208,39 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.IsTrue(actualId > 0);
 
             AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(model);
-            _animalsClient.UpdateAnimalById(actualId + 100, animalUpdateModel, token, expectedUpdatedCode);
+            _animalsClient.UpdateAnimalById(id, animalUpdateModel, token, expectedUpdatedCode);
         }
 
-        public void DeleteAnimalWhenAnimalIdIsNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
+        public void EditingAnimalBySitterOrAdminNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Forbidden;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(model);
+            _animalsClient.UpdateAnimalById(actualId, animalUpdateModel, token, expectedUpdatedCode);
+        }
+        public void EditingAnimalByAnonimNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Unauthorized;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(model);
+            _animalsClient.UpdateAnimalById(actualId, animalUpdateModel, token, expectedUpdatedCode);
+        }
+
+        public void DeleteAnimalWhenAnimalIdIsNotCorrectNegativeTest(int id, AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedDeletedCode = HttpStatusCode.BadRequest;
@@ -206,10 +251,38 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            _animalsClient.DeleteAnimalById(actualId + 100, token, expectedDeletedCode);
+            _animalsClient.DeleteAnimalById(id, token, expectedDeletedCode);
         }
 
-        public void GetAnimalWhenAnimalIdIsNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
+        public void DeleteAnimalBySitterOrAdminNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.Forbidden;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            _animalsClient.DeleteAnimalById(actualId, token, expectedDeletedCode);
+        }
+
+        public void DeleteAnimalByAnonimNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.Unauthorized;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            _animalsClient.DeleteAnimalById(actualId, token, expectedDeletedCode);
+        }
+
+        public void GetAnimalWhenAnimalIdIsNotCorrectNegativeTest(int id, AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedCode = HttpStatusCode.NotFound;
@@ -220,13 +293,51 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
 
-            _animalsClient.GetAllInfoAnimalById(actualId + 100, token, expectedCode);
+            _animalsClient.GetAllInfoAnimalById(id, token, expectedCode);
+        }
+
+        public void GetAnimalBySitterOrAdminNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            _animalsClient.GetAllInfoAnimalById(actualId, token, expectedCode);
+        }
+
+        public void GetAnimalByAnonimNegativeTest(AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            //When
+            HttpContent content = _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+
+            _animalsClient.GetAllInfoAnimalById(actualId, token, expectedCode);
         }
 
         public void GetAnimalsWhenClientIdIsNotCorrectNegativeTest(int id, AnimalRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedCode = HttpStatusCode.NotFound;
+            //When
+            _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
+
+            _animalsClient.GetAnimalsByClientId(id, token, expectedCode);
+        }
+
+        public void GetAnimalsBySitterNegativeTest(int id, AnimalRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
             //When
             _animalsClient.RegisterAnimalToClientProfile(model, token, HttpStatusCode.Created);
 
