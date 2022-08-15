@@ -97,7 +97,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [Test]
         public void RestoringClientProfileByClientIdTest_WhenClientIdIsCorrect_ShouldRestoringClientProfile()
         {
-            var date = DateTime.Now.Date;
+            var date = DateTime.Now;
             ClientsGetAllResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientsGetAllResponseModel
                 (_clientId, date, _clientModel);
             _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);

@@ -46,7 +46,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void ClientCreationTest_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
         {
             int clientId = _clientSteps.RegisterClientTest(clientModel);
-            var date = DateTime.Now.Date;
+            var date = DateTime.Now;
 
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
             string token = _authorization.AuthorizeTest(authModel);

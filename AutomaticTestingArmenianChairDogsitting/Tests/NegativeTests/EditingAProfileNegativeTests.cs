@@ -23,6 +23,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private string _adminToken;
         private string _clientToken;
         private string _sitterToken;
+        private string _alienClientToken;
         private string _alienSitterToken;
         private int _clientId;
         private int _alienClientId;        
@@ -82,6 +83,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Promocode = ""
             };
             _alienClientId = _clientSteps.RegisterClientTest(_alienClientModel);
+
+            AuthRequestModel authAlienClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_alienClientModel);
+            _alienClientToken = _authorization.AuthorizeTest(authAlienClientModel);
 
             _sitterModel = new SitterRegistrationRequestModel()
             {
@@ -156,41 +160,26 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientNegativeSteps.EditingClientsPropertyNegativeTest(_clientId, clientUpdateModel, _clientToken);
         }
 
-        [Test]
-        public void EditingClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
+        [TestCase(-2)]
+        [TestCase(0)]
+        public void EditingClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusBadRequest(int id)
         {
             ClientUpdateRequestModel clientUpdateModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_clientModel);
-            _clientNegativeSteps.EditingClientProfileByClientIdNegativeTest(_alienClientId, clientUpdateModel, _clientToken);
+            _clientNegativeSteps.EditingClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(id, clientUpdateModel, _clientToken);
         }
 
-        [Test]
-        public void DeleteClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
+        [TestCase(-2)]
+        [TestCase(0)]
+        public void DeleteClientProfileByClientNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest(int id)
         {
-            _clientNegativeSteps.DeleteClientProfileByClientIdNegativeTest(_alienClientId, _clientToken);
+            _clientNegativeSteps.DeleteClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(id, _clientToken);
         }
 
-        [Test]
-        public void AddingNewClientProfileNegativeTest_WhenAlreadyHaveClientProfile_ShouldGetHttpStatusCodeForbidden()
+        [TestCase(-2)]
+        [TestCase(0)]
+        public void GetClientProfileByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest(int id)
         {
-            _clientNegativeSteps.AddingNewClientProfileWhenAlreadyHaveClientProfileNegativeTest(_clientToken, _alienClientModel);
-        }
-
-        [Test]
-        public void GetClientProfilesNegativeTest_WhenAlreadyHaveClientProfile_ShouldGetHttpStatusCodeNotFound()
-        {
-            _clientNegativeSteps.GetClientProfilesNegativeTest(_clientToken);
-        }
-
-        [Test]
-        public void GetClientProfileByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound()
-        {
-            _clientNegativeSteps.GetClientProfileByClientIdNegativeTest(_alienClientId, _clientToken);
-        }
-
-        [Test]
-        public void RestoringClientProfileByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeForbidden()
-        {
-            _clientNegativeSteps.RestoringClientProfileByClientByIdNegativeTest(_alienClientId, _clientToken);
+            _clientNegativeSteps.GetClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(id, _clientToken);
         }
 
         //Animal endpoints
@@ -254,23 +243,82 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
         //Sitters
 
+
+        //All roles
+        public void GetClientProfileByClientIdByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetClientProfiles()
+        {
+            _clientNegativeSteps.GetClientProfileByClientIdBySitterOrAlienClientNegativeTest(_clientId, _alienClientToken);
+            _clientNegativeSteps.GetClientProfileByClientIdBySitterOrAlienClientNegativeTest(_clientId, _sitterToken);
+            _clientNegativeSteps.GetClientProfileByClientIdByAnonimNegativeTest(_clientId, null);
+        }
+
         [Test]
-        public void RestoreSitterByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRestoreSitter()
+        public void GetClientProfilesByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetClientProfiles()
+        {
+            _clientNegativeSteps.GetClientProfilesByClientOrSitterNegativeTest(_clientToken);
+            _clientNegativeSteps.GetClientProfilesByClientOrSitterNegativeTest(_sitterToken);
+            _clientNegativeSteps.GetClientProfilesByAnonimNegativeTest(null);
+        }
+
+        [Test]
+        public void AddingClientProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotAddingNewClientProfile()
+        {
+            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_clientToken, _alienClientModel);
+            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_adminToken, _alienClientModel);
+        }
+
+        [Test]
+        public void EditingClientProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotEditingClientProfile()
+        {
+            ClientUpdateRequestModel clientUpdateModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_clientModel);
+            _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _alienClientToken);
+            _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _adminToken);
+            _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _sitterToken);
+            _clientNegativeSteps.EditingClientProfileByAnonimNegativeTest(_clientId, clientUpdateModel, null);
+        }
+
+        [Test]
+        public void DeleteClientProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotDeleteClientProfile()
+        {
+            _clientNegativeSteps.DeleteClientProfileBySitterOrAlienClientNegativeTest(_clientId, _alienClientToken);
+            _clientNegativeSteps.DeleteClientProfileBySitterOrAlienClientNegativeTest(_clientId, _sitterToken);
+            _clientNegativeSteps.DeleteClientProfileByAnonimNegativeTest(_clientId, null);
+        }
+
+        [Test]
+        public void RestoreClientProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRestoreClientProfile()
+        {
+            _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
+            _clientNegativeSteps.RestoreClientProfileBySitterOrClientNegativeTest(_clientId, _clientToken);
+            _clientNegativeSteps.RestoreClientProfileBySitterOrClientNegativeTest(_clientId, _alienClientToken);
+            _clientNegativeSteps.RestoreClientProfileBySitterOrClientNegativeTest(_clientId, _sitterToken);
+            _clientNegativeSteps.RestoreClientProfileByAnonimNegativeTest(_clientId, null);
+        }
+
+        [Test]
+        public void RestoreSitterProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRestoreSitterProfile()
         {
             _sitterSteps.DeleteSitterByIdTest(_sitterId, _sitterToken);
-            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _sitterToken);
-            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _alienSitterToken);
-            _sitterNegativeSteps.RestoreSitterBySitterOrClientNegativeTest(_sitterId, _clientToken);
-            _sitterNegativeSteps.RestoreSitterByAnonimNegativeTest(_sitterId, null);
+            _sitterNegativeSteps.RestoreSitterProfileBySitterOrClientNegativeTest(_sitterId, _sitterToken);
+            _sitterNegativeSteps.RestoreSitterProfileBySitterOrClientNegativeTest(_sitterId, _alienSitterToken);
+            _sitterNegativeSteps.RestoreSitterProfileBySitterOrClientNegativeTest(_sitterId, _clientToken);
+            _sitterNegativeSteps.RestoreSitterProfileByAnonimNegativeTest(_sitterId, null);
         }
 
 
         //Admin
         [TestCase(-2)]
         [TestCase(0)]
-        public void RestoreSitterNegativeTest_WhenIdIsNotCorrect_ShouldReturnBadRequest(int id)
+        public void RestoreClientProfileNegativeTest_WhenClientIdIsNotCorrect_ShouldReturnBadRequest(int id)
         {
-            _sitterNegativeSteps.RestoreSitterWithNegativeIdTest(id, _adminToken);
+            _clientNegativeSteps.RestoreClientProfileWithNotCorrectIdTest(id, _adminToken);
+        }
+
+        [TestCase(-2)]
+        [TestCase(0)]
+        public void RestoreSitterProfileNegativeTest_WhenSitterIdIsNotCorrect_ShouldReturnBadRequest(int id)
+        {
+            _sitterNegativeSteps.RestoreSitterProfileWithNotCorrectIdTest(id, _adminToken);
         }
     }
 }

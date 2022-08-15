@@ -43,15 +43,31 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
         }
 
-        public void EditingClientProfileByClientIdNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        public void EditingClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(int id, ClientUpdateRequestModel model, string token)
         {
-            //Given
-            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Forbidden;
-            //When
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.BadRequest;
             _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
         }
 
-        public void DeleteClientProfileByClientIdNegativeTest(int id, string token)
+        public void EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        {
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Forbidden;
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
+        }
+
+        public void EditingClientProfileByAnonimNegativeTest(int id, ClientUpdateRequestModel model, string token)
+        {
+            HttpStatusCode expectedUpdatedCode = HttpStatusCode.Unauthorized;
+            _clientsClient.UpdateClientById(id, model, token, expectedUpdatedCode);
+        }
+
+        public void DeleteClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(int id, string token)
+        {
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.BadRequest;
+            _clientsClient.DeleteClientById(id, token, expectedDeletedCode);
+        }
+
+        public void DeleteClientProfileBySitterOrAlienClientNegativeTest(int id, string token)
         {
             //Given
             HttpStatusCode expectedDeletedCode = HttpStatusCode.Forbidden;
@@ -59,7 +75,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.DeleteClientById(id, token, expectedDeletedCode);
         }
 
-        public void AddingNewClientProfileWhenAlreadyHaveClientProfileNegativeTest(string token, ClientRegistrationRequestModel model)
+        public void DeleteClientProfileByAnonimNegativeTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedDeletedCode = HttpStatusCode.Unauthorized;
+            //When
+            _clientsClient.DeleteClientById(id, token, expectedDeletedCode);
+        }
+
+        public void AddingClientProfileByClientOrAdminNegativeTest(string token, ClientRegistrationRequestModel model)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Forbidden;
@@ -67,7 +91,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.RegisterClientWithToken(token, model, expectedRegistrationCode);
         }
 
-        public void GetClientProfilesNegativeTest(string token)
+        public void GetClientProfilesByClientOrSitterNegativeTest(string token)
         {
             //Given
             HttpStatusCode expectedCode = HttpStatusCode.NotFound;
@@ -75,7 +99,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.GetAllClients(token, expectedCode);
         }
 
-        public void GetClientProfileByClientIdNegativeTest(int id, string token)
+        public void GetClientProfilesByAnonimNegativeTest(string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            //When
+            _clientsClient.GetAllClients(token, expectedCode);
+        }
+
+        public void GetClientProfileByClientIdWhenClientIdIsNotCorrectNegativeTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
+            //When
+            _clientsClient.GetAllInfoClientById(id, token, expectedCode);
+        }
+
+        public void GetClientProfileByClientIdBySitterOrAlienClientNegativeTest(int id, string token)
         {
             //Given
             HttpStatusCode expectedCode = HttpStatusCode.NotFound;
@@ -83,11 +123,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.GetAllInfoClientById(id, token, expectedCode);
         }
 
-        public void RestoringClientProfileByClientByIdNegativeTest(int id, string token)
+        public void GetClientProfileByClientIdByAnonimNegativeTest(int id, string token)
         {
             //Given
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
             //When
+            _clientsClient.GetAllInfoClientById(id, token, expectedCode);
+        }
+
+        public void RestoreClientProfileBySitterOrClientNegativeTest(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            _clientsClient.RestoringClientProfileByClientById(id, token, expectedCode);
+        }
+
+        public void RestoreClientProfileByAnonimNegativeTest(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            _clientsClient.RestoringClientProfileByClientById(id, token, expectedCode);
+        }
+
+        public void RestoreClientProfileWithNotCorrectIdTest(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
             _clientsClient.RestoringClientProfileByClientById(id, token, expectedCode);
         }
 
