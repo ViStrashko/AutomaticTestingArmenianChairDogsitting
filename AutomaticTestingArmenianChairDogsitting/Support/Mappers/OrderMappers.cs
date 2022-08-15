@@ -20,7 +20,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Price = price;
             responseModel.Status = status;
             responseModel.Animals = animals;
-            responseModel.Comments = null;
+            responseModel.Comments = new List<CommentAllInfoResponseModel>();
             responseModel.IsDeleted = false;
             return responseModel;
         }
