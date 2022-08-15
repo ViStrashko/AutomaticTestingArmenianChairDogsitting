@@ -44,6 +44,34 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 
         public override bool Equals(object? obj)
         {
+            if (obj == null || !(obj is OrderAllInfoResponseModel))
+            {
+                return false;
+            }
+            List<ClientsAnimalsResponseModel> animals = ((OrderAllInfoResponseModel)obj).Animals;
+            if (animals.Count != this.Animals.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < animals.Count; i++)
+            {
+                if (!animals[i].Equals(this.Animals[i]))
+                {
+                    return false;
+                }
+            }
+            List<CommentAllInfoResponseModel> comments = ((OrderAllInfoResponseModel)obj).Comments;
+            if (comments.Count != this.Comments.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < comments.Count; i++)
+            {
+                if (!comments[i].Equals(this.Comments[i]))
+                {
+                    return false;
+                }
+            }
             return obj is OrderAllInfoResponseModel model &&
                    Id == model.Id &&
                    ClienId == model.ClienId &&
