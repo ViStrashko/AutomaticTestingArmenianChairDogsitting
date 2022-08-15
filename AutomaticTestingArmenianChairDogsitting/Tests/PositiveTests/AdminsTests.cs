@@ -97,7 +97,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [Test]
         public void RestoringClientProfileByClientIdTest_WhenClientIdIsCorrect_ShouldRestoringClientProfile()
         {
-            var date = DateTime.Now.Date;
+            var date = DateTime.Now;
             ClientsGetAllResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientsGetAllResponseModel
                 (_clientId, date, _clientModel);
             _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
@@ -123,7 +123,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _adminSteps.FindAddedSitterProfileInListTest(_adminToken, expectedSitter);
         }
 
-        [Test]
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void RestoreSittersProfileTest_ByAdmin_ShouldRestoreProfile(List<SitterRegistrationRequestModel> sitters)
         {

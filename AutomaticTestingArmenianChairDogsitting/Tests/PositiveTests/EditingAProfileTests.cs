@@ -94,7 +94,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void EditingClientProfileTest_WhenClientModelIsCorrect_ShouldEditingClientProfile(ClientUpdateRequestModel clientUpdateModel)
         {
             _clientSteps.UpdateClientByIdTest(_clientId, clientUpdateModel, _clientToken);
-            var date = DateTime.Now.Date;
+            var date = DateTime.Now;
 
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel
                 (_clientId, date, _clientModel.Email, clientUpdateModel);
@@ -105,7 +105,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void DeleteClientProfileTest_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
         {
             _clientSteps.DeleteClientByIdTest(_clientId, _clientToken);
-            var date = DateTime.Now.Date;
+            var date = DateTime.Now;
 
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
                 (_clientId, date, _clientModel);

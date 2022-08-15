@@ -40,6 +40,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 
         public override bool Equals(object? obj)
         {
+            if(obj == null|| !(obj is SitterAllInfoResponseModel))
+            {
+                return false;
+            }
+            List<PriceCatalogResponseModel> prices = ((SitterAllInfoResponseModel)obj).PriceCatalog;
+            if(prices.Count != this.PriceCatalog.Count)
+            {
+                return false;
+            }
+            for (int i =0; i<prices.Count; i++)
+            {
+                if(!prices[i].Equals(this.PriceCatalog[i]))
+                {
+                    return false;
+                }
+            }
             return obj is SitterAllInfoResponseModel model &&
                    Id == model.Id &&
                    Name == model.Name &&

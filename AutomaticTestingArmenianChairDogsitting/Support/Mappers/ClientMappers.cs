@@ -2,6 +2,7 @@
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System;
+using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
 {
@@ -15,8 +16,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             var responseModel = mapper.Map<ClientAllInfoResponseModel>(model);
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
-            responseModel.Dogs = null;
-            responseModel.Orders = null;
+            responseModel.Dogs = new List<ClientsAnimalsResponseModel>();
+            responseModel.Orders = new List<OrderAllInfoResponseModel>();
             responseModel.IsDeleted = false;
             return responseModel;
         }
@@ -30,8 +31,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.Id = id;
             responseModel.RegistrationDate = date;
             responseModel.Email = email;
-            responseModel.Dogs = null;
-            responseModel.Orders = null;
+            responseModel.Dogs = new List<ClientsAnimalsResponseModel>();
+            responseModel.Orders = new List<OrderAllInfoResponseModel>();
             responseModel.IsDeleted = false;
             return responseModel;
         }
