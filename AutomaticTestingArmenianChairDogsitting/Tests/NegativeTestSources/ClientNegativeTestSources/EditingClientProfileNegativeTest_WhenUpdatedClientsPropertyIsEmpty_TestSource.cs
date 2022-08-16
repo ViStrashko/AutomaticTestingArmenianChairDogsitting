@@ -16,21 +16,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася1",
                 LastName = "",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася2",
                 LastName = "Петров",
                 Phone = "",
                 Address = "ул. Итальянская, дом. 10",
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася3",
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "",

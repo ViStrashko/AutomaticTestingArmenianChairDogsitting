@@ -70,18 +70,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.DeleteSitterById(id, token, expectedDeleteCode);
         }
 
-        public void ChangeSittersPasswordBySitterIdTest(ChangePasswordRequestModel model, string token)
+        public void ChangeSittersPasswordTest(ChangePasswordRequestModel model, string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
 
-            _sittersClient.UpdateSittersPasswordBySitterId(model, token, expectedUpdateCode);
+            _sittersClient.UpdateSittersPassword(model, token, expectedUpdateCode);
         }
 
-        public void UpdatePriceCatalogBySitterIdTest(PriceCatalogUpdateModel newPrices, string token)
+        public void UpdatePriceCatalogTest(PriceCatalogUpdateModel newPrices, string token)
         {
             HttpStatusCode expectedCode = HttpStatusCode.NoContent;
 
-            _sittersClient.UpdatePriceCatalogBySitterId(newPrices, token, expectedCode);
+            _sittersClient.UpdatePriceCatalog(newPrices, token, expectedCode);
         }
 
         public List<SittersGetAllResponseModel> CheckThatAllSittersDoesNotContainsDeletedSitterTest(string token, SittersGetAllResponseModel expectedSitter)

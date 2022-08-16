@@ -9,28 +9,28 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
         {
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася1",
                 LastName = "Петров",
                 Phone = "asdfghjklqwe",
                 Address = "ул. Итальянская, дом. 10",
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася2",
                 LastName = "Петров",
                 Phone = "+7951412554a",
                 Address = "ул. Итальянская, дом. 10",
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася3",
                 LastName = "Петров",
                 Phone = "+795<>?!@#$%",
                 Address = "ул. Итальянская, дом. 10",
             };
             yield return new ClientUpdateRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася4",
                 LastName = "Петров",
                 Phone = "+795;:&*^-.,",
                 Address = "ул. Итальянская, дом. 10",

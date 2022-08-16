@@ -113,7 +113,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateSittersPasswordBySitterId(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
+        public void UpdateSittersPassword(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -131,7 +131,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void UpdatePriceCatalogBySitterId(PriceCatalogUpdateModel newPrices, string token, HttpStatusCode expectedCode)
+        public void UpdatePriceCatalog(PriceCatalogUpdateModel newPrices, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(newPrices);
             HttpClient client = new HttpClient();
