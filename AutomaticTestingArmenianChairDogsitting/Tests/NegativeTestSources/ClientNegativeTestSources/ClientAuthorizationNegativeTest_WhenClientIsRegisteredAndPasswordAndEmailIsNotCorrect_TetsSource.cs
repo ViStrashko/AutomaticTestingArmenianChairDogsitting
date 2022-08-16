@@ -11,7 +11,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася1",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -30,7 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася2",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -49,7 +49,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася3",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -68,7 +68,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася4",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -87,7 +87,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася5",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -106,7 +106,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася6",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -125,7 +125,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася",
+                    Name = "Вася7",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",

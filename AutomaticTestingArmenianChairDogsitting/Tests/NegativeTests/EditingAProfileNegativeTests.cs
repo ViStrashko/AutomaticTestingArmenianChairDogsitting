@@ -258,6 +258,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         }
 
         //Sitters
+        //Sitter endpoints
+        [TestCaseSource(typeof(EditingSittersPrifileNegativeTest_WhenSitterModelIsNotCorrect_TestSource))]
+        public void EditingSittersPrifileNegativeTest_WhenSitterModelIsNotCorrect_ShouldGetHttpStatusUnprocessableEntity
+            (SitterUpdateRequestModel sitterUpdateModel)
+        {
+            _sitterNegativeSteps.EditingSitterProfileWhenSitterModelIsNotCorrectNegativeTest(_sitterToken, sitterUpdateModel);
+        }
 
 
         //All roles
@@ -289,7 +296,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         {
             ClientUpdateRequestModel clientUpdateModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_clientModel);
             _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _alienClientToken);
-            _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _adminToken);
             _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _sitterToken);
             _clientNegativeSteps.EditingClientProfileByAnonimNegativeTest(_clientId, clientUpdateModel, null);
         }
@@ -368,14 +374,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _sitterNegativeSteps.RestoreSitterProfileByAnonimNegativeTest(_sitterId, null);
         }
 
-        [Test]
-        [TestCaseSource(typeof(EditSittersPrifileIncorrectDataNegativeTestCaseSource))]
-        public void EditSittersPrifileNegativeTest_WhenSitterAuthorizedAndDataIsNotCorrect_ShouldReturnUnprocessableEntity
-            (SitterUpdateRequestModel newSittersData)
-        {
-            _sitterNegativeSteps.EditProfileWhenAuthorizedAndDataIsNotCorrectTest(_sitterToken, newSittersData);
-        }
-
 
         //Admin
         [TestCase(-2)]
@@ -389,7 +387,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         [TestCase(0)]
         public void RestoreSitterProfileNegativeTest_WhenSitterIdIsNotCorrect_ShouldReturnBadRequest(int id)
         {
-            _sitterNegativeSteps.RestoreSitterProfileWithNotCorrectIdTest(id, _adminToken);
+            _sitterNegativeSteps.RestoreSitterProfileWithNotCorrectIdNegativeTest(id, _adminToken);
         }
     }
 }

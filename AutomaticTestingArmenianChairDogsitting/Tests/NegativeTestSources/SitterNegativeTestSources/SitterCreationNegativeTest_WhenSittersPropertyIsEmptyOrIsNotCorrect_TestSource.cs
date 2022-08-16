@@ -1,5 +1,4 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
-using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,7 +26,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша1",
                 LastName = "",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -43,7 +42,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша2",
                 LastName = "Пет",
                 Phone = "",
                 Email = "pet0@gmail.com",
@@ -59,7 +58,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша3",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "",
@@ -75,7 +74,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша4",
                 LastName = "Пет1",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -91,7 +90,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша5",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -107,7 +106,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша6",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -123,7 +122,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша7",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -139,7 +138,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша8",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -155,7 +154,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша9",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -166,12 +165,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 0, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша10",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -182,7 +181,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 0 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -198,12 +197,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 0, Price = 0 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша11",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -219,7 +218,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша12",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -235,7 +234,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша13",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -251,7 +250,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша14",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -267,7 +266,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша15",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -283,7 +282,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша16",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -294,12 +293,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 5, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша17",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -310,12 +309,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 10, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша18",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -326,12 +325,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = -10, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша19",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -342,7 +341,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = -1 },
                 }
             };
         }

@@ -19,7 +19,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася1",
                 LastName = "",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
@@ -29,7 +29,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася2",
                 LastName = "Петров",
                 Phone = "",
                 Address = "ул. Итальянская, дом. 10",
@@ -39,7 +39,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася3",
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "",
@@ -49,7 +49,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася4",
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",
@@ -59,7 +59,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             };
             yield return new ClientRegistrationRequestModel()
             {
-                Name = "Вася",
+                Name = "Вася5",
                 LastName = "Петров",
                 Phone = "+79514125547",
                 Address = "ул. Итальянская, дом. 10",

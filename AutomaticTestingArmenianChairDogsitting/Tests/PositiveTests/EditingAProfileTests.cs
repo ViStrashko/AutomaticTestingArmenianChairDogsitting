@@ -139,7 +139,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (ChangePasswordRequestModel changePasswordModel)
         {
             changePasswordModel.OldPassword = _sitterModel.Password;
-            _sitterSteps.ChangeSittersPasswordBySitterIdTest(changePasswordModel, _sitterToken);
+            _sitterSteps.ChangeSittersPasswordTest(changePasswordModel, _sitterToken);
 
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;
@@ -153,7 +153,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(ChangingSittersPriceCatalogTest_WhenModelIsCorrect_TestSource))]
         public void ChangingSittersPriceCatalogTest_WhenModelIsCorrect_ShouldChangePrices(PriceCatalogUpdateModel newPrices)
         {
-            _sitterSteps.UpdatePriceCatalogBySitterIdTest(newPrices, _sitterToken);
+            _sitterSteps.UpdatePriceCatalogTest(newPrices, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = 
                 _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
             expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);

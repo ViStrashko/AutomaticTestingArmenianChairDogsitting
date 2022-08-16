@@ -10,7 +10,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
         {
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша1",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0gmail.com",
@@ -26,7 +26,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша2",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail",
@@ -42,7 +42,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша3",
                 LastName = "Пет",
                 Phone = "asdfghjklqwe",
                 Email = "pet0@gmail.com",
@@ -58,7 +58,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша4",
                 LastName = "Пет",
                 Phone = "+7951412554a",
                 Email = "pet0@gmail.com",
@@ -74,7 +74,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша5",
                 LastName = "Пет",
                 Phone = "+795<>?!@#$%",
                 Email = "pet0@gmail.com",
@@ -90,7 +90,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша",
+                Name = "Миша6",
                 LastName = "Пет",
                 Phone = "+795;:&*^-.,",
                 Email = "pet0@gmail.com",
