@@ -20,6 +20,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private AuthMappers _authMapper;
         private ClientMappers _clientMappers;
         private SitterMappers _sitterMappers;
+        private AnimalMappers _animalMappers;
         private string _adminToken;
         private string _clientToken;
         private string _sitterToken;
@@ -29,10 +30,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private int _alienClientId;        
         private int _sitterId;
         private int _alienSitterId;
+        private int _animalId;
         private ClientRegistrationRequestModel _clientModel;
         private ClientRegistrationRequestModel _alienClientModel;
         private SitterRegistrationRequestModel _sitterModel;
         private SitterRegistrationRequestModel _alienSitterModel;
+        private AnimalRegistrationRequestModel _animalModel;
 
         public EditingAProfileNegativeTests()
         {
@@ -45,6 +48,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _authMapper = new AuthMappers();
             _clientMappers = new ClientMappers();
             _sitterMappers = new SitterMappers();
+            _animalMappers = new AnimalMappers();
         }
 
         [OneTimeSetUp]
@@ -129,6 +133,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
             AuthRequestModel authAlienSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_alienSitterModel);
             _alienSitterToken = _authorization.AuthorizeTest(authAlienSitterModel);
+
+            _animalModel = new AnimalRegistrationRequestModel()
+            {
+                Name = "Бука",
+                Age = 2,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 5,
+                ClientId = _clientId,
+            };
+            _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
         }
 
         [TearDown]
@@ -203,46 +218,49 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             (AnimalRegistrationRequestModel model)
         {
             model.ClientId = _clientId;
-            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(model, _clientToken);
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(model, _clientToken);
+            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(model);
+            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(animalId, animalUpdateModel, _clientToken);
         }
 
-        [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        [TestCase(-2)]
+        [TestCase(0)]
         public void EditingAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest
-            (int id, AnimalRegistrationRequestModel model)
+            (int id)
         {
-            model.ClientId = _clientId;
-            _clientNegativeSteps.EditingAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, model, _clientToken);
+            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(_animalModel);
+            _clientNegativeSteps.EditingAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, animalUpdateModel, _clientToken);
         }
 
-        [TestCaseSource(typeof(DeleteAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        [TestCase(-2)]
+        [TestCase(0)]
         public void DeleteAnimalToClientProfileNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeBadRequest
-            (int id, AnimalRegistrationRequestModel model)
+            (int id)
         {
-            model.ClientId = _clientId;
-            _clientNegativeSteps.DeleteAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, model, _clientToken);
+            _clientNegativeSteps.DeleteAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, _clientToken);
         }
 
-        [TestCaseSource(typeof(GetAnimalByAnimalIdNegativeTest_WhenAnimalIdIsNotCorrect_TestSource))]
+        [TestCase(-2)]
+        [TestCase(0)]
         public void GetAnimalByAnimalIdNegativeTest_WhenAnimalIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound
-            (int id, AnimalRegistrationRequestModel model)
+            (int id)
         {
-            model.ClientId = _clientId;
-            _clientNegativeSteps.GetAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, model, _clientToken);
+            _clientNegativeSteps.GetAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, _clientToken);
         }
 
-        [TestCaseSource(typeof(GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_TestSource))]
+        [TestCase(-2)]
+        [TestCase(0)]
         public void GetAnimalsByClientIdNegativeTest_WhenClientIdIsNotCorrect_ShouldGetHttpStatusCodeNotFound
-            (int id, AnimalRegistrationRequestModel model)
+            (int id)
         {
-            model.ClientId = _clientId;
-            _clientNegativeSteps.GetAnimalsWhenClientIdIsNotCorrectNegativeTest(id, model, _clientToken);
+            _clientNegativeSteps.GetAnimalsWhenClientIdIsNotCorrectNegativeTest(id, _clientToken);
         }
-
 
         //Sitters
 
 
         //All roles
+        [Test]
         public void GetClientProfileByClientIdByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetClientProfileByClientId()
         {
             _clientNegativeSteps.GetClientProfileByClientIdBySitterOrAlienClientNegativeTest(_clientId, _alienClientToken);
@@ -261,8 +279,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         [Test]
         public void AddingClientProfileByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotAddingNewClientProfile()
         {
-            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_clientToken, _alienClientModel);
-            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_adminToken, _alienClientModel);
+            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_alienClientModel, _clientToken);
+            _clientNegativeSteps.AddingClientProfileByClientOrAdminNegativeTest(_alienClientModel, _adminToken);
         }
 
         [Test]
@@ -293,47 +311,50 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientNegativeSteps.RestoreClientProfileByAnonimNegativeTest(_clientId, null);
         }
 
-        [TestCaseSource(typeof(RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_TestSource))]
-        public void RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRegisterAnimal
-            (AnimalRegistrationRequestModel model)
+        [Test]
+        public void RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotRegisterAnimal()
         {
-            _clientNegativeSteps.RegisterAnimalBySitterOrAdminNegativeTest(model, _adminToken);
-            _clientNegativeSteps.RegisterAnimalBySitterOrAdminNegativeTest(model, _sitterToken);
-            _clientNegativeSteps.RegisterAnimalByAnonimNegativeTest(model, null);
+            _clientNegativeSteps.RegisterAnimalByAnonimNegativeTest(_animalModel, null);
+            _animalModel.ClientId = Options.adminId;
+            _clientNegativeSteps.RegisterAnimalBySitterOrAdminNegativeTest(_animalModel, _adminToken);
+            _animalModel.ClientId = _sitterId;
+            _clientNegativeSteps.RegisterAnimalBySitterOrAdminNegativeTest(_animalModel, _sitterToken);
         }
 
-        [TestCaseSource(typeof(RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_TestSource))]
-        public void EditingAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotEditingAnimal
-            (AnimalRegistrationRequestModel model)
+        [Test]
+        public void EditingAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotEditingAnimal()
         {
-            _clientNegativeSteps.EditingAnimalBySitterOrAdminNegativeTest(model, _adminToken);
-            _clientNegativeSteps.EditingAnimalBySitterOrAdminNegativeTest(model, _sitterToken);
-            _clientNegativeSteps.EditingAnimalByAnonimNegativeTest(model, null);
+            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel
+                (_animalModel);
+            _clientNegativeSteps.EditingAnimalBySitterOrAdminNegativeTest(_animalId, animalUpdateModel, _alienClientToken);
+            _clientNegativeSteps.EditingAnimalBySitterOrAdminNegativeTest(_animalId, animalUpdateModel, _adminToken);
+            _clientNegativeSteps.EditingAnimalBySitterOrAdminNegativeTest(_animalId, animalUpdateModel, _sitterToken);
+            _clientNegativeSteps.EditingAnimalByAnonimNegativeTest(_animalId, animalUpdateModel, null);
         }
 
-        [TestCaseSource(typeof(RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_TestSource))]
-        public void DeleteAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotDeleteAnimal
-            (AnimalRegistrationRequestModel model)
+        [Test]
+        public void DeleteAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotDeleteAnimal()
         {
-            _clientNegativeSteps.DeleteAnimalBySitterOrAdminNegativeTest(model, _adminToken);
-            _clientNegativeSteps.DeleteAnimalBySitterOrAdminNegativeTest(model, _sitterToken);
-            _clientNegativeSteps.DeleteAnimalByAnonimNegativeTest(model, null);
+            _clientNegativeSteps.DeleteAnimalBySitterOrAdminNegativeTest(_animalId, _alienClientToken);
+            _clientNegativeSteps.DeleteAnimalBySitterOrAdminNegativeTest(_animalId, _adminToken);
+            _clientNegativeSteps.DeleteAnimalBySitterOrAdminNegativeTest(_animalId, _sitterToken);
+            _clientNegativeSteps.DeleteAnimalByAnonimNegativeTest(_animalId, null);
         }
 
-        [TestCaseSource(typeof(RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_TestSource))]
-        public void GetAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetAnimal
-            (AnimalRegistrationRequestModel model)
+        [Test]
+        public void GetAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetAnimal()
         {
-            _clientNegativeSteps.GetAnimalBySitterOrAdminNegativeTest(model, _adminToken);
-            _clientNegativeSteps.GetAnimalBySitterOrAdminNegativeTest(model, _sitterToken);
-            _clientNegativeSteps.GetAnimalByAnonimNegativeTest(model, null);
+            _clientNegativeSteps.GetAnimalBySitterOrAdminNegativeTest(_animalId, _alienClientToken);
+            _clientNegativeSteps.GetAnimalBySitterOrAdminNegativeTest(_animalId, _adminToken);
+            _clientNegativeSteps.GetAnimalBySitterOrAdminNegativeTest(_animalId, _sitterToken);
+            _clientNegativeSteps.GetAnimalByAnonimNegativeTest(_animalId, null);
         }
 
-        [TestCaseSource(typeof(RegisterAnimalByIncorrectRoleNegativeTest_ByAllIncorrectRoles_TestSource))]
-        public void GetAnimalsByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetAnimals
-            (AnimalRegistrationRequestModel model)
+        [Test]
+        public void GetAnimalsByIncorrectRoleNegativeTest_ByAllIncorrectRoles_ShouldNotGetAnimals()
         {
-            _clientNegativeSteps.GetAnimalsBySitterNegativeTest(_sitterId, model, _sitterToken);
+            _clientNegativeSteps.GetAnimalsBySitterOrAdminNegativeTest(Options.adminId, _adminToken);
+            _clientNegativeSteps.GetAnimalsBySitterOrAdminNegativeTest(_sitterId, _sitterToken);
         }
 
         [Test]

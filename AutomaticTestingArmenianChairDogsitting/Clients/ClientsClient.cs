@@ -30,7 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent RegisterClientWithToken(string token, ClientRegistrationRequestModel model, HttpStatusCode expectedCode)
+        public HttpContent RegisterClientWithToken( ClientRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 

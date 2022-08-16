@@ -6,5 +6,6 @@
         public const string propertyBreedLarge = "Крупная";
         public const string adminEmail = "IAdmin@mail.ru";
         public const string adminPassword = "123456789";
+        public const int adminId = 2;
     }
 }
