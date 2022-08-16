@@ -5,6 +5,7 @@ using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Support.Mappers;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnimalNegativeTestSources;
+using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.SitterNegativeTestSources;
 using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
@@ -365,6 +366,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _sitterNegativeSteps.RestoreSitterProfileBySitterOrClientNegativeTest(_sitterId, _alienSitterToken);
             _sitterNegativeSteps.RestoreSitterProfileBySitterOrClientNegativeTest(_sitterId, _clientToken);
             _sitterNegativeSteps.RestoreSitterProfileByAnonimNegativeTest(_sitterId, null);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(EditSittersPrifileIncorrectDataNegativeTestCaseSource))]
+        public void EditSittersPrifileNegativeTest_WhenSitterAuthorizedAndDataIsNotCorrect_ShouldReturnUnprocessableEntity
+            (SitterUpdateRequestModel newSittersData)
+        {
+            _sitterNegativeSteps.EditProfileWhenAuthorizedAndDataIsNotCorrectTest(_sitterToken, newSittersData);
         }
 
 
