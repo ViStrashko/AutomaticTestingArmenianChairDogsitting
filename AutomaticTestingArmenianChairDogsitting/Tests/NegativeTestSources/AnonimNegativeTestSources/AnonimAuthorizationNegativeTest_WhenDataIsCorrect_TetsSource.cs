@@ -1,9 +1,9 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using System.Collections;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources
+namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnonimNegativeTestSources
 {
-    internal class ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsCorrect_TetsSource : IEnumerable
+    internal class AnonimAuthorizationNegativeTest_WhenDataIsCorrect_TetsSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {

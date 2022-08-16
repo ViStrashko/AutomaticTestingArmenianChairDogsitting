@@ -4,6 +4,7 @@ using AutomaticTestingArmenianChairDogsitting.Steps;
 using AutomaticTestingArmenianChairDogsitting.Support;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.ClientNegativeTestSources;
 using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.SitterNegativeTestSources;
+using AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.AnonimNegativeTestSources;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 {
@@ -51,15 +52,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authModel);
         }
 
-        [TestCaseSource(typeof(ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsCorrect_TetsSource))]
-        public void ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsCorrect_ShouldGetHttpStatusCodeUnauthorized
+        //Anonim
+        [TestCaseSource(typeof(AnonimAuthorizationNegativeTest_WhenDataIsCorrect_TetsSource))]
+        public void AnonimAuthorizationNegativeTest_WhenDataIsCorrect_ShouldGetHttpStatusCodeUnauthorized
             (AuthRequestModel authModel)
         {
             _authorization.AuthorizeWhenAuthenticationFailedNegativeTest(authModel);
         }
 
-        [TestCaseSource(typeof(ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsNotCorrect_TetsSource))]
-        public void ClientAuthorizationNegativeTest_WhenClientIsNotRegisteredAndDataIsNotCorrect_ShouldGetHttpStatusCodeUnprocessableEntity
+        [TestCaseSource(typeof(AnonimAuthorizationNegativeTest_WhenDataIsNotCorrect_TetsSource))]
+        public void AnonimAuthorizationNegativeTest_WhenDataIsNotCorrect_ShouldGetHttpStatusCodeUnprocessableEntity
             (AuthRequestModel authModel)
         {
             _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authModel);
