@@ -44,6 +44,25 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             return responseModel;
         }
 
+        public SitterUpdateRequestModel MappSitterRegistrationModelToSitterUpdateRequestModel(SitterRegistrationRequestModel model)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SitterUpdateRequestModel>());
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<SitterUpdateRequestModel>(model);
+            return responseModel;
+        }
+
+        public ChangePasswordRequestModel MappSitterRegistrationModelToChangePasswordRequestModel
+            (SitterRegistrationRequestModel model, string newPassword)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, ChangePasswordRequestModel>()
+            .ForMember(pts => pts.OldPassword, opt => opt.MapFrom(o => o.Password)));
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<ChangePasswordRequestModel>(model);
+            responseModel.Password = newPassword;
+            return responseModel;
+        }
+
         public List<PriceCatalogResponseModel> MappPriceCatalogRequestModelToPriceCatalogResponseModel(List<PriceCatalogRequestModel> prices)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<PriceCatalogRequestModel, PriceCatalogResponseModel>());

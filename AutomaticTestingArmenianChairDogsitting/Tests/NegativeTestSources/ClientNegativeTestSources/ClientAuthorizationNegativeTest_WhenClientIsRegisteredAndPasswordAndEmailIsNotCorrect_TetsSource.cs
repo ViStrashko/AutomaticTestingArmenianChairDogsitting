@@ -79,7 +79,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 },
                 new AuthRequestModel()
                 {
-                    Email = "petrov@gmail",
+                    Email = "petrov@gmail.",
                     Password = "12345678",
                 }
             };
@@ -98,6 +98,63 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
                 },
                 new AuthRequestModel()
                 {
+                    Email = "petrov@.com",
+                    Password = "12345678",
+                }
+            };
+            yield return new object[]
+            {
+                new ClientRegistrationRequestModel()
+                {
+                    Name = "Вася6",
+                    LastName = "Петров",
+                    Phone = "+79514125547",
+                    Address = "ул. Итальянская, дом. 10",
+                    Email = "petrov@gmail.com",
+                    Password = "12345678",
+                    Promocode = "F85KY0UN"
+
+                },
+                new AuthRequestModel()
+                {
+                    Email = "@gmail.com",
+                    Password = "12345678",
+                }
+            };
+            yield return new object[]
+            {
+                new ClientRegistrationRequestModel()
+                {
+                    Name = "Вася7",
+                    LastName = "Петров",
+                    Phone = "+79514125547",
+                    Address = "ул. Итальянская, дом. 10",
+                    Email = "petrov@gmail.com",
+                    Password = "12345678",
+                    Promocode = "F85KY0UN"
+
+                },
+                new AuthRequestModel()
+                {
+                    Email = "petrov@@gmail.com",
+                    Password = "12345678",
+                }
+            };
+            yield return new object[]
+            {
+                new ClientRegistrationRequestModel()
+                {
+                    Name = "Вася8",
+                    LastName = "Петров",
+                    Phone = "+79514125547",
+                    Address = "ул. Итальянская, дом. 10",
+                    Email = "petrov@gmail.com",
+                    Password = "12345678",
+                    Promocode = "F85KY0UN"
+
+                },
+                new AuthRequestModel()
+                {
                     Email = "petrov@gmail.com",
                     Password = "1234567",
                 }
@@ -106,7 +163,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася6",
+                    Name = "Вася9",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
@@ -125,7 +182,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 new ClientRegistrationRequestModel()
                 {
-                    Name = "Вася7",
+                    Name = "Вася10",
                     LastName = "Петров",
                     Phone = "+79514125547",
                     Address = "ул. Итальянская, дом. 10",
