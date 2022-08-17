@@ -157,7 +157,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void RegisterAnimalWhenClientIdIsNotCorrectNegativeTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given
-            HttpStatusCode expectedRegistrationCode = HttpStatusCode.UnprocessableEntity;
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.BadRequest;
             //When
             _animalsClient.RegisterAnimalToClientProfile(model, token, expectedRegistrationCode);
         }
@@ -258,6 +258,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
             
+            _animalsClient.GetAnimalsByClientId(id, token, expectedCode);
+        }
+
+        public void GetAnimalsByAnonimNegativeTest(int id, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+
             _animalsClient.GetAnimalsByClientId(id, token, expectedCode);
         }
     }

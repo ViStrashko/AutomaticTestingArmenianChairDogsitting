@@ -29,7 +29,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anon
             };
             yield return new AuthRequestModel()
             {
-                Email = "petrov@gmail",
+                Email = "petrov@gmail.",
+                Password = "12345678",
+            };
+            yield return new AuthRequestModel()
+            {
+                Email = "petrov@.com",
+                Password = "12345678",
+            };
+            yield return new AuthRequestModel()
+            {
+                Email = "@gmail.com",
+                Password = "12345678",
+            };
+            yield return new AuthRequestModel()
+            {
+                Email = "petrov@@gmail.com",
                 Password = "12345678",
             };
             yield return new AuthRequestModel()

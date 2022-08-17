@@ -32,6 +32,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clearingTables.ClearAllDB();
         }
 
+        //Client
         [TestCaseSource(typeof(ClientCreationNegativeTest_WhenClientsPropertyIsEmpty_TetsSource))]
         public void ClientCreationNegativeTest_WhenClientsPropertyIsEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
             (ClientRegistrationRequestModel clientModel)
@@ -53,6 +54,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientNegativeSteps.RegisterClientNegativeTest(clientModel);
         }
 
+        //Sitter
         [TestCaseSource(typeof(SitterCreationNegativeTest_WhenSittersPropertyIsEmptyOrIsNotCorrect_TestSource))]
         public void SitterCreationNegativeTest_WhenSittersPropertyIsEmptyOrIsNotCorrect_ShouldReturnHttpStatusCodeUnprocessableEntity
             (SitterRegistrationRequestModel sitter)
