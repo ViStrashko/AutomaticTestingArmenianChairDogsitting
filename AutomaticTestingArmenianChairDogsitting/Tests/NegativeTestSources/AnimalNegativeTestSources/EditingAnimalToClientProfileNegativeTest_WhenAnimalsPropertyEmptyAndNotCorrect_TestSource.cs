@@ -7,47 +7,47 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
                 Name = "",
-                Age = 1,
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик1",
+                Name = "Бука1",
                 Age = 0,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик2",
-                Age = 1,
+                Name = "Бука2",
+                Age = 2,
                 RecommendationsForCare = "",
                 Breed = "Доберман",
                 Size = 5,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик3",
-                Age = 1,
+                Name = "Бука3",
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "",
                 Size = 5,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик4",
-                Age = 1,
+                Name = "Бука4",
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 0,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
                 Name = "",
                 Age = 0,
@@ -55,34 +55,34 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
                 Breed = "",
                 Size = 0,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик5",
+                Name = "Бука5",
                 Age = -1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 5,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик6",
-                Age = 1,
+                Name = "Бука6",
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = -10,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик7",
-                Age = 1,
+                Name = "Бука7",
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 10,
             };
-            yield return new AnimalRegistrationRequestModel()
+            yield return new AnimalUpdateRequestModel()
             {
-                Name = "Шарик8",
-                Age = 1,
+                Name = "Бука8",
+                Age = 2,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
                 Size = 6,

@@ -101,7 +101,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Email = "pet@gmail.com",
                 Password = "87654321",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -123,7 +123,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Email = "vas@gmail.com",
                 Password = "11122458",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -217,12 +217,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
         [TestCaseSource(typeof(EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_TestSource))]
         public void EditingAnimalToClientProfileNegativeTest_WhenAnimalsPropertyEmptyAndNotCorrect_ShouldGetHttpStatusCodeUnprocessableEntity
-            (AnimalRegistrationRequestModel model)
+            (AnimalUpdateRequestModel model)
         {
-            model.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(model, _clientToken);
-            AnimalUpdateRequestModel animalUpdateModel = _animalMappers.MappAnimalRegistrationRequestModelToAnimalUpdateRequestModel(model);
-            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(animalId, animalUpdateModel, _clientToken);
+            _clientNegativeSteps.EditingAnimalWhenAnimalsPropertyEmptyAndNotCorrectNegativeTest(_animalId, model, _clientToken);
         }
 
         [TestCase(-2)]
@@ -327,6 +324,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         {
             ClientUpdateRequestModel clientUpdateModel = _clientMappers.MappClientRegistrationRequestModelToClientUpdateRequestModel(_clientModel);
             _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _alienClientToken);
+            _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _adminToken);
             _clientNegativeSteps.EditingClientProfileBySitterOrAlienClientOrAdminNegativeTest(_clientId, clientUpdateModel, _sitterToken);
             _clientNegativeSteps.EditingClientProfileByAnonimNegativeTest(_clientId, clientUpdateModel, null);
         }
