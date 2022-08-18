@@ -18,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     Email = "pet0@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 1,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -42,7 +42,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     Email = "pet0@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 1,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()

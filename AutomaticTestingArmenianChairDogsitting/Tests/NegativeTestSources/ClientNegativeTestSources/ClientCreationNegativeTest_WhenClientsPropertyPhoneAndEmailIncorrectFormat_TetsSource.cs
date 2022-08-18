@@ -81,7 +81,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 Name = "Вася8",
                 LastName = "Петров",
-                Phone = "+795<>?!@#$%",
+                Phone = "asdfghjklqw",
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",
@@ -91,7 +91,47 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Clie
             {
                 Name = "Вася9",
                 LastName = "Петров",
+                Phone = "8951412554a",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася10",
+                LastName = "Петров",
+                Phone = "+795<>?!@#$%",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася11",
+                LastName = "Петров",
                 Phone = "+795;:&*^-.,",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася12",
+                LastName = "Петров",
+                Phone = "895<>?!@#$%",
+                Address = "ул. Итальянская, дом. 10",
+                Email = "petrov@gmail.com",
+                Password = "12345678",
+                Promocode = "F85KY0UN"
+            };
+            yield return new ClientRegistrationRequestModel()
+            {
+                Name = "Вася13",
+                LastName = "Петров",
+                Phone = "895;:&*^-.,",
                 Address = "ул. Итальянская, дом. 10",
                 Email = "petrov@gmail.com",
                 Password = "12345678",

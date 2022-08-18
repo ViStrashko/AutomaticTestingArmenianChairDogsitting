@@ -21,7 +21,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.OrderTestSou
                 Age = 2,
                 RecommendationsForCare = "Мыть лапы тщательно",
                 Breed = "Доберман",
-                Size = 7,
+                Size = 2,
                 },
             };
         }

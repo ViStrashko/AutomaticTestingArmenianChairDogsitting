@@ -16,7 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Email = "pet@gmail.com",
                 Password = "87654321",
                 Age = 20,
-                Experience = 10,
+                Experience = 2,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()

@@ -8,6 +8,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
     {
         public IEnumerator GetEnumerator()
         {
+            //Empty
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "",
@@ -16,7 +17,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -32,7 +33,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -48,7 +49,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -64,7 +65,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -80,7 +81,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -96,7 +97,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 0,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -112,8 +113,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 0,
-                Sex = 1,
+                Experience = 1,
+                Sex = 0,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
@@ -128,9 +129,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
-                Sex = 0,
-                Description = "Description",
+                Experience = 1,
+                Sex = 1,
+                Description = "",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
                     new PriceCatalogRequestModel() { Service = 1, Price = 500 },
@@ -144,12 +145,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
-                Description = "",
+                Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 0, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -160,23 +161,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
-                Sex = 1,
-                Description = "Description",
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel() { Service = 0, Price = 500 },
-                }
-            };
-            yield return new SitterRegistrationRequestModel()
-            {
-                Name = "Миша10",
-                LastName = "Пет",
-                Phone = "+79514125547",
-                Email = "pet0@gmail.com",
-                Password = "12345678",
-                Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -192,12 +177,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "",
                 Password = "",
                 Age = 0,
-                Experience = 0,
+                Experience = -1,
                 Sex = 0,
                 Description = "",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
                     new PriceCatalogRequestModel() { Service = 0, Price = 0 },
+                }
+            };
+            //Incorrect age
+            yield return new SitterRegistrationRequestModel()
+            {
+                Name = "Миша10",
+                LastName = "Пет",
+                Phone = "+79514125547",
+                Email = "pet0@gmail.com",
+                Password = "12345678",
+                Age = -1,
+                Experience = 1,
+                Sex = 1,
+                Description = "Description",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
             yield return new SitterRegistrationRequestModel()
@@ -207,8 +209,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
                 Password = "12345678",
-                Age = -1,
-                Experience = 10,
+                Age = 13,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -216,6 +218,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
+            //Incorrect experience
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Миша12",
@@ -232,6 +235,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
+            //Incorrect sex
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Миша13",
@@ -240,7 +244,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 3,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -256,7 +260,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 10,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -272,7 +276,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = -10,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -280,6 +284,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
+            //Incorrect service
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Миша16",
@@ -288,7 +293,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -304,7 +309,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -320,7 +325,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -328,6 +333,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                     new PriceCatalogRequestModel() { Service = -10, Price = 500 },
                 }
             };
+            //Incorrect price
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Миша19",
@@ -336,12 +342,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Email = "pet0@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
                     new PriceCatalogRequestModel() { Service = 1, Price = -1 },
+                }
+            };
+            //Incorrect difference between age and experience > 14
+            yield return new SitterRegistrationRequestModel()
+            {
+                Name = "Миша20",
+                LastName = "Пет",
+                Phone = "+79514125547",
+                Email = "pet0@gmail.com",
+                Password = "12345678",
+                Age = 20,
+                Experience = 7,
+                Sex = 1,
+                Description = "Description",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
             };
         }

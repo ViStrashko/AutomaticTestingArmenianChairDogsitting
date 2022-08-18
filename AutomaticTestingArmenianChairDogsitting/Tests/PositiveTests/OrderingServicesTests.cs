@@ -72,9 +72,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Email = "pet@gmail.com",
                 Password = "87654321",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
 

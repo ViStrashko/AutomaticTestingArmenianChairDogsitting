@@ -17,7 +17,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик1",
                 Age = 0,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
@@ -25,7 +25,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик2",
                 Age = 1,
                 RecommendationsForCare = "",
                 Breed = "Доберман",
@@ -33,7 +33,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик3",
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "",
@@ -41,7 +41,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик4",
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
@@ -57,7 +57,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик5",
                 Age = -1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
@@ -65,7 +65,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик6",
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
@@ -73,7 +73,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик7",
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",
@@ -81,7 +81,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Anim
             };
             yield return new AnimalRegistrationRequestModel()
             {
-                Name = "Шарик",
+                Name = "Шарик8",
                 Age = 1,
                 RecommendationsForCare = "Играть осторожно",
                 Breed = "Доберман",

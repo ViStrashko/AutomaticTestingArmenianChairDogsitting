@@ -1,5 +1,4 @@
 ﻿using AutomaticTestingArmenianChairDogsitting.Models.Request;
-using AutomaticTestingArmenianChairDogsitting.Models.Response;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,7 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Email = "pet1@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 2,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -35,7 +34,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Email = "pet2@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 3,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -51,7 +50,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Email = "pet3@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 1,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -67,7 +66,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Email = "pet4@gmail.com",
                     Password = "12345678",
                     Age = 20,
-                    Experience = 10,
+                    Experience = 4,
                     Sex = 1,
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
@@ -91,7 +90,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 Email = "pet@gmail.com",
                 Password = "12345678",
                 Age = 20,
-                Experience = 10,
+                Experience = 1,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()

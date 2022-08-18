@@ -13,7 +13,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Age = 20,
-                Experience = 15,
+                Experience = 4,
                 Sex = 1,
                 Description = "Очень люблю собак",
             };
@@ -23,7 +23,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Age = 20,
-                Experience = 15,
+                Experience = 2,
                 Sex = 1,
                 Description = "Очень люблю собак, особенно лохматых",
             };
