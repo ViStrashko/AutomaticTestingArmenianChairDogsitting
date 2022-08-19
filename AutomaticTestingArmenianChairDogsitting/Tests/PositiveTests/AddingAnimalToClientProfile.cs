@@ -119,7 +119,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }
 
-        [TestCaseSource(typeof(DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_TestSource))]
+        [TestCaseSource(typeof(AddingAnimalToClientProfile_WhenAnimalModelIsCorrect_TestSource))]
         public void DeleteAnimalToClientProfile_WhenAnimalIdIsCorrect_ShouldDeleteAnimalFromClientProfileAddGetAllInfoAnimalById
             (AnimalRegistrationRequestModel animalModel)
         {
@@ -136,6 +136,24 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clientSteps.FindDeletedAnimalInListTest(_clientId, _token, shortExpectedAnimal);
 
             _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
+        }
+
+        [TestCaseSource(typeof(AddingAnimalToClientProfile_WhenAnimalModelIsCorrect_TestSource))]
+        public void RestoreAnimalToClientProfile_WhenAnimalIdIsCorrect_ShouldRestoreAnimalFromClientProfileAddGetAllInfoAnimalById
+            (AnimalRegistrationRequestModel animalModel)
+        {
+            animalModel.ClientId = _clientId;
+            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+
+            _clientSteps.DeleteAnimalByIdTest(animalId, _token);
+
+            ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
+            _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
+
+            _clientSteps.RestoreAnimalByIdTest(animalId, _token);
+
+            AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
+            _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }
     }
 }

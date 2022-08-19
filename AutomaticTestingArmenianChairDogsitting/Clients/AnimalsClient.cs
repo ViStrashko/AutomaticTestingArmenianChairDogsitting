@@ -97,5 +97,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 
             Assert.AreEqual(expectedCode, actualCode);
         }
+
+        public void RestoreAnimalById(int id, string token, HttpStatusCode expectedCode)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new System.Uri($"{Urls.Animals}{id}"),
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+        }
     }
 }

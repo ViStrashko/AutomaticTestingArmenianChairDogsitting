@@ -155,6 +155,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.DeleteAnimalById(id, token, expectedDeleteCode);
         }
 
+        public void RestoreAnimalByIdTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.NoContent;
+            //When
+            _animalsClient.RestoreAnimalById(id, token, expectedCode);
+        }
+
         public int RegisterOrderTest(OrderRegistrationRequestModel model, string token)
         {
             //Given
