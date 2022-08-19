@@ -6,7 +6,6 @@ using System.Text.Json;
 using NUnit.Framework;
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Support;
-using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Clients
 {
@@ -17,6 +16,26 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             string json = JsonSerializer.Serialize(model);
 
             HttpClient client = new HttpClient();
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new System.Uri(Urls.Sitters),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+
+            return response.Content;
+        }
+
+        public HttpContent RegisterSitterWithToken(SitterRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,

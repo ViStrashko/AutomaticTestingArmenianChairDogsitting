@@ -68,6 +68,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _clientsClient.DeleteClientById(id, token, expectedDeleteCode);
         }
 
+        public void ChangeClientsPasswordTest(ChangePasswordRequestModel model, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            _clientsClient.UpdateClientsPassword(model, token, expectedUpdateCode);
+        }
+
         public int RegisterAnimalToClientProfileTest(AnimalRegistrationRequestModel model, string token)
         {
             //Given

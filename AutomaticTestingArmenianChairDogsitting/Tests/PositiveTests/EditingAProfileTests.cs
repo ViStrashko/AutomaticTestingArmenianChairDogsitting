@@ -113,6 +113,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
 
+        [TestCaseSource(typeof(ChangingClientPasswordTest_WhenChangeClientPasswordRequestModelIsCorrect_TestSource))]
+        public void ChangingClientPasswordTest_WhenChangeClientPasswordRequestModelIsCorrect_ShouldChangingClientPasswordByProfile
+           (ChangePasswordRequestModel changePasswordModel)
+        {
+            changePasswordModel.OldPassword = _clientModel.Password;
+            _clientSteps.ChangeClientsPasswordTest(changePasswordModel, _sitterToken);
+
+            AuthRequestModel authRequest = new AuthRequestModel();
+            authRequest.Email = _clientModel.Email;
+            authRequest.Password = _clientModel.Password;
+            _authorization.AuthorizeWhenAuthenticationFailedNegativeTest(authRequest);
+
+            authRequest.Password = changePasswordModel.Password;
+            _authorization.AuthorizeTest(authRequest);
+        }
+
         [TestCaseSource(typeof(EditingSitterProfileTest_WhenSitterModelIsCorrect_TestSource))]
         public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
@@ -144,7 +160,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;
             authRequest.Password = _sitterModel.Password;
-            _authorization.AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(authRequest);
+            _authorization.AuthorizeWhenAuthenticationFailedNegativeTest(authRequest);
 
             authRequest.Password = changePasswordModel.Password;
             _authorization.AuthorizeTest(authRequest);

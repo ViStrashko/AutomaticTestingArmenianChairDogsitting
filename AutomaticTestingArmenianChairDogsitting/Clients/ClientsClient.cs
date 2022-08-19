@@ -133,5 +133,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
 
             return response.Content;
         }
+
+        public void UpdateClientsPassword(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Patch,
+                RequestUri = new System.Uri($"{Urls.Clients}/password"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+
+            Assert.AreEqual(expectedCode, actualCode);
+        }
     }
 }
