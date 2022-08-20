@@ -100,14 +100,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void DeleteSitterById(int id, string token, HttpStatusCode expectedCode)
+        public void DeleteSitter(string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new System.Uri($"{Urls.Sitters}/{id}"),
+                RequestUri = new System.Uri(Urls.Sitters),
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;

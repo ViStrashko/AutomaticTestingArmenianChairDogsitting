@@ -30,7 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent RegisterClientWithToken( ClientRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
+        public HttpContent RegisterClientWithToken(ClientRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -84,7 +84,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateClientById(int id, ClientUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        public void UpdateClient(ClientUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -93,7 +93,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}"),
+                RequestUri = new System.Uri(Urls.Clients),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -102,14 +102,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             Assert.AreEqual(expectedCode, actualCode);
         }
 
-        public void DeleteClientById(int id, string token, HttpStatusCode expectedCode)
+        public void DeleteClient(string token, HttpStatusCode expectedCode)
         {
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = new System.Uri($"{Urls.Clients}?id={id}"),
+                RequestUri = new System.Uri(Urls.Clients),
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
@@ -124,7 +124,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Patch,
-                RequestUri = new System.Uri($"{Urls.Clients}/{id}")
+                RequestUri = new System.Uri($"{Urls.Clients}/{id}/restore")
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;

@@ -54,7 +54,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualSitters;
         }
 
-        public void UpdateSitterByIdTest(SitterUpdateRequestModel model, string token)
+        public void UpdateSitterTest(SitterUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
@@ -62,12 +62,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.UpdateSitter(model, token, expectedUpdateCode);
         }
 
-        public void DeleteSitterByIdTest(int id, string token)
+        public void DeleteSitterTest(string token)
         {
             //Given
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _sittersClient.DeleteSitterById(id, token, expectedDeleteCode);
+            _sittersClient.DeleteSitter(token, expectedDeleteCode);
         }
 
         public void ChangeSittersPasswordTest(ChangePasswordRequestModel model, string token)
