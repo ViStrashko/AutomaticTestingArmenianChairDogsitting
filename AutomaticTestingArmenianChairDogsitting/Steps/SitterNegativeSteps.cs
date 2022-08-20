@@ -19,15 +19,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.RegisterSitter(sitter, expectedCode);
         }
 
-        public void RestoreSitterProfileBySitterOrClientNegativeTest(int id, string token)
+        public void RestoreSitterProfileBySitterOrClientOrAnonimNegativeTest(int id, string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
-            _sittersClient.RestoreSitterProfileBySitterId(id, token, expectedCode);
-        }
-
-        public void RestoreSitterProfileByAnonimNegativeTest(int id, string token)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            HttpStatusCode expectedCode;
+            if(token != null)
+            {
+                expectedCode = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                expectedCode = HttpStatusCode.Unauthorized;
+            }
             _sittersClient.RestoreSitterProfileBySitterId(id, token, expectedCode);
         }
 
@@ -43,34 +45,32 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.UpdateSitter(model, token, expectedCode);
         }
 
-        public void EditingSitterProfileByClientOrAdminOrAlienSitterNegativeTest(SitterUpdateRequestModel model, string token)
+        public void EditingSitterProfileByClientOrAdminOrAnonimNegativeTest(SitterUpdateRequestModel model, string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            HttpStatusCode expectedCode;
+            if(token != null)
+            {
+                expectedCode = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                expectedCode = HttpStatusCode.Unauthorized;
+            }
             _sittersClient.UpdateSitter(model, token, expectedCode);
         }
 
-        public void EditingSitterProfileByAnonimNegativeTest(SitterUpdateRequestModel model, string token)
+        public void DeleteSitterProfileByClientOrAnonimNegativeTest(string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
-            _sittersClient.UpdateSitter(model, token, expectedCode);
-        }
-
-        public void DeleteSitterProfileWhenSitterIdIsNotCorrectNegativeTest(int id, string token)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
-            _sittersClient.DeleteSitterById(id, token, expectedCode);
-        }
-
-        public void DeleteSitterProfileByClientOrAlienSitterNegativeTest(int id, string token)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
-            _sittersClient.DeleteSitterById(id, token, expectedCode);
-        }
-
-        public void DeleteSitterProfileByAnonimNegativeTest(int id, string token)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
-            _sittersClient.DeleteSitterById(id, token, expectedCode);
+            HttpStatusCode expectedCode;
+            if (token != null)
+            {
+                expectedCode = HttpStatusCode.Forbidden;
+            }
+            else 
+            {
+                expectedCode = HttpStatusCode.Unauthorized;
+            }
+            _sittersClient.DeleteSitter(token, expectedCode);
         }
 
         public void ChangeSitterPasswordWhenPasswordModelIsNotCorrectNegativeTest(ChangePasswordRequestModel model, string token)
@@ -79,15 +79,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.UpdateSittersPassword(model, token, expectedCode);
         }
 
-        public void ChangeSitterPasswordByClientOrAdminOrAlienSitterNegativeTest(ChangePasswordRequestModel model, string token)
+        public void ChangeSitterPasswordByClientOrAdminOrAnonimNegativeTest(ChangePasswordRequestModel model, string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
-            _sittersClient.UpdateSittersPassword(model, token, expectedCode);
-        }
-
-        public void ChangeSitterPasswordByAnonimNegativeTest(ChangePasswordRequestModel model, string token)
-        {
-            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
+            HttpStatusCode expectedCode;
+            if(token != null)
+            {
+                expectedCode = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                expectedCode = HttpStatusCode.Unauthorized;
+            }
             _sittersClient.UpdateSittersPassword(model, token, expectedCode);
         }
 
@@ -97,16 +99,24 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _sittersClient.UpdatePriceCatalog(model, token, expectedCode);
         }
 
-        public void ChangeSitterPriceCatalogByClientOrAdminOrAlienSitterNegativeTest(PriceCatalogUpdateModel model, string token)
+        public void ChangeSitterPriceCatalogByClientOrAdminOrAnonimNegativeTest(PriceCatalogUpdateModel model, string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Forbidden;
+            HttpStatusCode expectedCode;
+            if(token != null)
+            {
+                expectedCode = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                expectedCode = HttpStatusCode.Unauthorized;
+            }
             _sittersClient.UpdatePriceCatalog(model, token, expectedCode);
         }
 
-        public void ChangeSitterPriceCatalogByAnonimNegativeTest(PriceCatalogUpdateModel model, string token)
+        public void AddingSitterProfileBySitterOrAdminNegativeTest(SitterRegistrationRequestModel model, string token)
         {
-            HttpStatusCode expectedCode = HttpStatusCode.Unauthorized;
-            _sittersClient.UpdatePriceCatalog(model, token, expectedCode);
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Forbidden;
+            _sittersClient.RegisterSitterWithToken(model, token, expectedRegistrationCode);
         }
 
         public void GetSitterProfileWhenSitterIdIsNotCorrectNegativeTest(int id, string token)

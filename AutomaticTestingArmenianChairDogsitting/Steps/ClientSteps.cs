@@ -52,20 +52,27 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualClient;
         }
 
-        public void UpdateClientByIdTest(int id, ClientUpdateRequestModel model, string token)
+        public void UpdateClientTest(ClientUpdateRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _clientsClient.UpdateClientById(id, model, token, expectedUpdateCode);
+            _clientsClient.UpdateClient(model, token, expectedUpdateCode);
         }
 
-        public void DeleteClientByIdTest(int id, string token)
+        public void DeleteClientTest(string token)
         {
             //Given
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
-            _clientsClient.DeleteClientById(id, token, expectedDeleteCode);
+            _clientsClient.DeleteClient(token, expectedDeleteCode);
+        }
+
+        public void ChangeClientsPasswordTest(ChangePasswordRequestModel model, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+
+            _clientsClient.UpdateClientsPassword(model, token, expectedUpdateCode);
         }
 
         public int RegisterAnimalToClientProfileTest(AnimalRegistrationRequestModel model, string token)
@@ -153,6 +160,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             //When
             _animalsClient.DeleteAnimalById(id, token, expectedDeleteCode);
+        }
+
+        public void RestoreAnimalByIdTest(int id, string token)
+        {
+            //Given
+            HttpStatusCode expectedCode = HttpStatusCode.NoContent;
+            //When
+            _animalsClient.RestoreAnimalById(id, token, expectedCode);
         }
 
         public int RegisterOrderTest(OrderRegistrationRequestModel model, string token)

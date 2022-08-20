@@ -55,5 +55,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             responseModel.RegistrationDate = date;
             return responseModel;
         }
+
+        public ChangePasswordRequestModel MappClientRegistrationModelToChangePasswordRequestModel
+            (ClientRegistrationRequestModel model, string newPassword)
+        {
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<ClientRegistrationRequestModel, ChangePasswordRequestModel>()
+            .ForMember(pts => pts.OldPassword, opt => opt.MapFrom(o => o.Password)));
+            Mapper mapper = new Mapper(config);
+            var responseModel = mapper.Map<ChangePasswordRequestModel>(model);
+            responseModel.Password = newPassword;
+            return responseModel;
+        }
     }
 }
