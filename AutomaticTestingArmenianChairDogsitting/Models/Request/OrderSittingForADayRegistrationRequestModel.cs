@@ -27,14 +27,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("visitQuantity")]
         public int VisitQuantity { get; set; }
 
-        public int Type
-        {
-            get
-            {
-                return 3;
-            }
-            private set { }
-        }
+        public int Type { get; set; }
 
         public int Status
         {

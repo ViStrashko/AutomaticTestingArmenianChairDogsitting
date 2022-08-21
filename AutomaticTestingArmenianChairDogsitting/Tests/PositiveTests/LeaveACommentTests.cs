@@ -47,6 +47,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [SetUp]
         public void SetUp()
         {
+            var date = DateTime.Now;
             _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -73,7 +74,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
@@ -94,14 +95,17 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                WorkDate = DateTime.Now,
+                WorkDate = date,
                 Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[0].Service,
+                IsTrial = false,
                 AnimalIds = new List<int>()
                 {
                     _animalId,
                 }
             };
-            _orderId = _clientSteps.RegisterOrderTest(_orderModel, _clientToken);
+            _orderId = _clientSteps.RegisterOrderWalkTest(_orderModel, _clientToken);
         }
 
         [TearDown]

@@ -4,25 +4,17 @@ using System.Collections;
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.OrderTestSources
 {
-    public class EditingService_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_TestSource : IEnumerable
+    public class EditingServiceWalk_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new object[]
+            yield return new AnimalRegistrationRequestModel()
             {
-                new PriceCatalogResponseModel()
-                {
-                    Service = 1,
-                    Price = 500,
-                },
-                new AnimalRegistrationRequestModel()
-                {
                 Name = "Мистер главный",
                 Age = 2,
                 RecommendationsForCare = "Мыть лапы тщательно",
                 Breed = "Доберман",
                 Size = 2,
-                },
             };
         }
     }
