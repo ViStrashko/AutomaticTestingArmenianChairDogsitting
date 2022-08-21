@@ -37,7 +37,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void AuthorizeWhenAuthenticationFailedNegativeTest(AuthRequestModel authModel)
         {
             //Given
-            HttpStatusCode expectedAuthCode = HttpStatusCode.BadRequest;
+            HttpStatusCode expectedAuthCode = HttpStatusCode.Unauthorized;
             //When
             _authClient.Authorize(authModel, expectedAuthCode);
         }

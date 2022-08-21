@@ -162,12 +162,51 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.RestoreAnimalById(id, token, expectedCode);
         }
 
-        public int RegisterOrderTest(OrderWalkRegistrationRequestModel model, string token)
+        public int RegisterOrderWalkTest(OrderWalkRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
             HttpContent content = _ordersClient.RegisterOrderWalk(model, token, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+            return actualId;
+        }
+
+        public int RegisterOrderOverexposeTest(OrderOverexposeRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            //When
+            HttpContent content = _ordersClient.RegisterOrderOverexpose(model, token, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+            return actualId;
+        }
+
+        public int RegisterOrderDailySittingTest(OrderDailySittingRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            //When
+            HttpContent content = _ordersClient.RegisterOrderDailySitting(model, token, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            //Then
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+            return actualId;
+        }
+
+        public int RegisterOrderSittingForADayTest(OrderSittingForADayRegistrationRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            //When
+            HttpContent content = _ordersClient.RegisterOrderDailySittingForADay(model, token, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);
@@ -262,7 +301,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualComments;
         }
 
-        public void UpdateOrderStatusByOrderIdTest(int id, int ststusUpdate, string token, OrderUpdateRequestModel model)
+        public void UpdateOrderStatusByOrderIdTest(int id, int ststusUpdate, string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
@@ -270,12 +309,36 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _ordersClient.UpdateOrderStatusByOrderId(id, ststusUpdate, token, expectedUpdateCode);
         }
 
-        public void UpdateOrderByIdTest(int id, OrderUpdateRequestModel model,  string token)
+        public void UpdateOrderWalkByIdTest(int id, OrderWalkUpdateRequestModel model,  string token)
         {
             //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             //When
-            _ordersClient.UpdateOrderById(id, model, token, expectedUpdateCode);
+            _ordersClient.UpdateOrderWalkById(id, model, token, expectedUpdateCode);
+        }
+
+        public void UpdateOrderOverexposeByIdTest(int id, OrderOverexposeUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            _ordersClient.UpdateOrderOverexposeById(id, model, token, expectedUpdateCode);
+        }
+
+        public void UpdateOrderDailySittingByIdTest(int id, OrderDailySittingUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            _ordersClient.UpdateOrderDailySittingById(id, model, token, expectedUpdateCode);
+        }
+
+        public void UpdateOrderSittingForADayByIdTest(int id, OrderSittingForADayUpdateRequestModel model, string token)
+        {
+            //Given
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            //When
+            _ordersClient.UpdateOrderSittingForADayById(id, model, token, expectedUpdateCode);
         }
 
         public void DeleteOrderByIdTest(int id, string token)

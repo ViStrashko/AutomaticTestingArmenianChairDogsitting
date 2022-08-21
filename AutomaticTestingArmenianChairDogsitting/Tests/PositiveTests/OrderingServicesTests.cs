@@ -66,16 +66,19 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             {
                 Name = "Валера",
                 LastName = "Пет",
-                Phone = "+79514125547",
+                Phone = "89514125547",
                 Email = "pet@gmail.com",
                 Password = "87654321",
                 Age = 20,
-                Experience = 1,
+                Experience = 4,
                 Sex = 1,
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
+                    new PriceCatalogRequestModel() { Service = 2, Price = 4000 },
+                    new PriceCatalogRequestModel() { Service = 3, Price = 800 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 }
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
@@ -100,60 +103,34 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clearingTables.ClearAllDB();
         }
 
-        [TestCaseSource(typeof(OrderingService_WhenOrderModelIsCorrect_TestSource))]
-        public void OrderingService_WhenOrderModelIsCorrect_ShouldOrderingService(PriceCatalogResponseModel priceCatalog)
+        [Test]
+        public void OrderingServiceWalk_WhenOrderModelIsCorrect_ShouldOrderingServiceWalk()
         {
             var date = DateTime.Now;
-            var dateUpdated = DateTime.Now;
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
                 WorkDate = date,
                 Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = false,
                 AnimalIds = new List<int>()
                 {
                     _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
+            int orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _clientToken);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, orderModel, orderModel.Status);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
             _clientSteps.FindAddedOrderInClientTest(_clientId, _clientToken, expectedOrder);
         }
 
-        [TestCaseSource(typeof(EditingService_WhenChangeOrdersAddressAndOrderModelIsCorrect_TestSource))]
-        public void EditingService_WhenChangeAddressAndOrderModelIsCorrect_ShouldEditingOrdersAddressToService
-            (PriceCatalogResponseModel priceCatalog, OrderUpdateRequestModel orderUpdateCaseModel)
-        {
-            var date = DateTime.Now;
-            var dateUpdated = DateTime.Now;
-            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
-            {
-                ClienId = _clientId,
-                SitterId = _sitterId,
-                WorkDate = date,
-                Address = _clientModel.Address,
-                AnimalIds = new List<int>()
-                {
-                    _animalId,
-                }
-            };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
-                (date, orderModel);
-            orderUpdateModel.Address = orderUpdateCaseModel.Address;
-            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
-            expectedOrder.Address = orderUpdateCaseModel.Address;
-            _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
-        }
-
-        [TestCaseSource(typeof(EditingService_WhenChangeOrdersDateAndOrderModelIsCorrect_TestSource))]
-        public void EditingService_WhenChangeDateAndOrderModelIsCorrect_ShouldEditingOrdersDateToService
-            (PriceCatalogResponseModel priceCatalog, OrderUpdateRequestModel orderUpdateCaseModel)
+        [TestCaseSource(typeof(EditingServiceWalk_WhenChangeOrdersDataAndOrderModelIsCorrect_TestSource))]
+        public void EditingServiceWalk_WhenChangeOrdersDataAndOrderModelIsCorrect_ShouldEditingOrdersDataToServiceWalk
+            (OrderWalkUpdateRequestModel orderUpdateCaseModel)
         {
             var date = DateTime.Now;
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
@@ -162,52 +139,69 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 SitterId = _sitterId,
                 WorkDate = date,
                 Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = false,
                 AnimalIds = new List<int>()
                 {
                     _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
-                (orderUpdateCaseModel.WorkDate, orderModel);
-            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderId, date, orderUpdateCaseModel.WorkDate, priceCatalog.Price, _animals, orderModel);
+            int orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _clientToken);
+            
+            orderUpdateCaseModel.AnimalIds = new List<int>()
+            {
+                 _animalId,
+            };
+            _clientSteps.UpdateOrderWalkByIdTest(orderId, orderUpdateCaseModel, _clientToken);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkUpdateRequestModelToOrderAllInfoResponseModel
+                (orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, orderUpdateCaseModel, orderModel.Status,
+                _sitterModel.PriceCatalog[3].Service);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
         }
 
-        [TestCaseSource(typeof(EditingService_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_TestSource))]
-        public void EditingService_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_ShouldAddingAnimalToService
-            (PriceCatalogResponseModel priceCatalog, AnimalRegistrationRequestModel animalCaseModel)
+        [TestCaseSource(typeof(EditingServiceWalk_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_TestSource))]
+        public void EditingServiceWalk_WhenAnimalModelIsCorrectAndOrderModelIsCorrect_ShouldAddingAnimalToServiceWalkAndDeleteAnimalFromServiceWalk
+            (AnimalRegistrationRequestModel animalCaseModel)
         {
-            var date = DateTime.Now;
+            var date = DateTime.Now;            
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                WorkDate = date,
+                Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _animalId,                    
+                }
+            };
+            int orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _clientToken);
             animalCaseModel.ClientId = _clientId;
             int animalCaseId = _clientSteps.RegisterAnimalToClientProfileTest(animalCaseModel, _clientToken);
-
-            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
-            {
-                ClienId = _clientId,
-                SitterId = _sitterId,
-                WorkDate = date,
-                Address = _clientModel.Address,
-                AnimalIds = new List<int>()
-                {
-                    _animalId,
-                }
-            };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
+            OrderWalkUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderWalkUpdateRequestModel
                 (date, orderModel);
             orderUpdateModel.AnimalIds.Add(animalCaseId);
-            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
+            _clientSteps.UpdateOrderWalkByIdTest(orderId, orderUpdateModel, _clientToken);
             ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
                 (animalCaseId, animalCaseModel);
             _clientSteps.FindAddedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
+            _animals.Add(expectedAnimal);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkUpdateRequestModelToOrderAllInfoResponseModel
+                (orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, orderUpdateModel, orderModel.Status,
+                _sitterModel.PriceCatalog[3].Service);
+            OrderAllInfoResponseModel actualOrder = _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
+            ClientsAnimalsResponseModel expectedDeleteAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
+               (_animalId, _animalModel);
+            actualOrder.Animals.Remove(expectedDeleteAnimal);
+            _clientSteps.FindDeletedAnimalInOrderTest(orderId, _clientToken, expectedDeleteAnimal);
         }
 
-        [TestCaseSource(typeof(EditingService_WhenAnimalIdIsCorrectAndOrderModelIsCorrect_TestSource))]
-        public void EditingService_WhenAnimalIdIsCorrectAndOrderModelIsCorrect_ShouldDeletedAnimalFromService
-            (PriceCatalogResponseModel priceCatalog)
+        [Test]
+        public void DeleteServiceWalk_WhenOrderIdIsCorrectAndStatusCreated_ShouldDeleteServiceWalk()
         {
             var date = DateTime.Now;
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
@@ -216,51 +210,27 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 SitterId = _sitterId,
                 WorkDate = date,
                 Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = false,
                 AnimalIds = new List<int>()
                 {
                     _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-            OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
-                (date, orderModel);
-            orderUpdateModel.AnimalIds.Remove(_animalId);
-            _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-            ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
-                (_animalId, _animalModel);
-            _clientSteps.FindDeletedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
-        }
-
-        [TestCaseSource(typeof(DeleteService_WhenOrderIdIsCorrect_TestSource))]
-        public void DeleteService_WhenOrderIdIsCorrectAndStatusCreated_ShouldDeleteService(PriceCatalogResponseModel priceCatalog)
-        {
-            var date = DateTime.Now;
-            var dateUpdated = DateTime.Now;
-            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
-            {
-                ClienId = _clientId,
-                SitterId = _sitterId,
-                WorkDate = date,
-                Address = _clientModel.Address,
-                AnimalIds = new List<int>()
-                {
-                    _animalId,
-                }
-            };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
+            int orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _clientToken);
             _clientSteps.DeleteOrderByIdTest(orderId, _clientToken);
-            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, orderModel, orderModel.Status);
             expectedOrder.IsDeleted = true;
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
             _clientSteps.FindDeletedOrderInClientTest(_clientId, _clientToken, expectedOrder);
         }
 
-        [TestCaseSource(typeof(DeleteService_WhenOrderIdIsCorrect_TestSource))]
-        public void DeleteService_WhenOrderIdIsCorrectAndStatusInProcess_ShouldDeleteService(PriceCatalogResponseModel priceCatalog)
+        [Test]
+        public void DeleteServiceWalk_WhenOrderIdIsCorrectAndStatusInProcess_ShouldDeleteServiceWalk()
         {
             var date = DateTime.Now;
-            var dateUpdated = DateTime.Now;
             var status = 2;
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
@@ -268,15 +238,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 SitterId = _sitterId,
                 WorkDate = date,
                 Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = false,
                 AnimalIds = new List<int>()
                 {
                     _animalId,
                 }
             };
-            int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
+            int orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _clientToken);
             _clientSteps.DeleteOrderByIdTest(orderId, _clientToken);
-            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
-                (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel, status);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, orderModel, status);
             expectedOrder.IsDeleted = true;
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
             _clientSteps.FindDeletedOrderInClientTest(_clientId, _clientToken, expectedOrder);

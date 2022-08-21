@@ -4,17 +4,8 @@ using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class OrderWalkRegistrationRequestModel
+    public class OrderWalkUpdateRequestModel
     {
-        [JsonPropertyName("clienId")]
-        public int ClienId { get; set; }
-
-        [JsonPropertyName("sitterId")]
-        public int SitterId { get; set; }
-
-        [JsonPropertyName("animalIds")]
-        public List<int> AnimalIds { get; set; }
-
         [JsonPropertyName("workDate")]
         public DateTime WorkDate { get; set; }
 
@@ -24,18 +15,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         [JsonPropertyName("district")]
         public int District { get; set; }
 
+        [JsonPropertyName("animalIds")]
+        public List<int> AnimalIds { get; set; }
+
         [JsonPropertyName("isTrial")]
         public bool IsTrial { get; set; }
-
-        public int Type { get; set; }
-
-        public int Status
-        { 
-            get
-            {
-                return 1;
-            } 
-            private set { }
-        }
     }
 }

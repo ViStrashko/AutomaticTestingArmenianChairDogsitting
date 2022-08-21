@@ -30,7 +30,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent RegisterOrderOverexpose(OrderWalkRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
+        public HttpContent RegisterOrderOverexpose(OrderOverexposeRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -50,7 +50,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent RegisterOrderDailySitting(OrderWalkRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
+        public HttpContent RegisterOrderDailySitting(OrderDailySittingRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -70,7 +70,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public HttpContent RegisterOrderDailySittingForADay(OrderWalkRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
+        public HttpContent RegisterOrderDailySittingForADay(OrderSittingForADayRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
 
@@ -118,7 +118,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             return response.Content;
         }
 
-        public void UpdateOrderById(int id, OrderUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        public void UpdateOrderWalkById(int id, OrderWalkUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
             HttpClient client = new HttpClient();
@@ -126,7 +126,55 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Orders}/{id}"),
+                RequestUri = new System.Uri($"{Urls.Orders}/{id}/walk"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
+        }
+
+        public void UpdateOrderOverexposeById(int id, OrderOverexposeUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.Orders}/{id}/overexpose"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
+        }
+
+        public void UpdateOrderDailySittingById(int id, OrderDailySittingUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.Orders}/{id}/daily-sitting"),
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = client.Send(message);
+            HttpStatusCode actualCode = response.StatusCode;
+            Assert.AreEqual(expectedCode, actualCode);
+        }
+
+        public void UpdateOrderSittingForADayById(int id, OrderSittingForADayUpdateRequestModel model, string token, HttpStatusCode expectedCode)
+        {
+            string json = JsonSerializer.Serialize(model);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            HttpRequestMessage message = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new System.Uri($"{Urls.Orders}/{id}/sitting-for-a-day"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);

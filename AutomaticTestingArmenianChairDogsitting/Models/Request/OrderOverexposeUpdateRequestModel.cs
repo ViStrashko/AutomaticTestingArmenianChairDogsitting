@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Request
 {
-    public class OrderUpdateRequestModel
+    public class OrderOverexposeUpdateRequestModel
     {
         [JsonPropertyName("workDate")]
         public DateTime WorkDate { get; set; }
@@ -19,15 +19,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Request
         public List<int> AnimalIds { get; set; }
 
         [JsonPropertyName("dayQuantity")]
-        public int? DayQuantity { get; set; }
+        public int DayQuantity { get; set; }
 
         [JsonPropertyName("walkPerDayQuantity")]
-        public int? WalkPerDayQuantity { get; set; }
-
-        [JsonPropertyName("visitQuantity")]
-        public int? VisitQuantity { get; set; }
-
-        [JsonPropertyName("isTrial")]
-        public bool IsTrial { get; set; }               
+        public int WalkPerDayQuantity { get; set; }
     }
 }
