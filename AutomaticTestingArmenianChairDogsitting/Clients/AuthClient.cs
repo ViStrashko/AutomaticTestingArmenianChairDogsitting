@@ -13,7 +13,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
         public HttpContent Authorize(AuthRequestModel authModel, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(authModel);
-
             HttpClient client = new HttpClient();
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -23,9 +22,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
     }

@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
         public HttpContent RegisterOrder(OrderRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -25,9 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -42,9 +39,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -59,16 +54,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public void UpdateOrderById(int id, OrderUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -79,14 +71,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
         public void UpdateOrderStatusByOrderId(int id, int statusUpdate, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(statusUpdate);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -97,14 +87,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
         public HttpContent RegisterCommentToOrder(int id, CommentRegistrationRequestModel comment, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(comment);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -115,9 +103,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -132,9 +118,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -149,7 +133,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
     }

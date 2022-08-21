@@ -58,10 +58,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
-
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -79,10 +77,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
-
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _authorization.AuthorizeTest(authSitterModel);
-
             _animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
@@ -93,7 +89,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 ClientId = _clientId,
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
-
             _orderModel = new OrderRegistrationRequestModel()
             {
                 ClienId = _clientId,
@@ -122,7 +117,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             int commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
             CommentAllInfoResponseModel expectedComment = _commentMapper.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
-
             _clientSteps.FindAddedCommentByOrderIdTest(_orderId, _clientToken, expectedComment);
         }
 
@@ -133,9 +127,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             int commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
             CommentAllInfoResponseModel expectedComment = _commentMapper.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
-
             _clientSteps.DeleteCommentByIdTest(commentId, _clientToken);
-
             _clientSteps.FindDeletedCommentByOrderIdTest(_orderId, _clientToken, expectedComment);
         }
     }

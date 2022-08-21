@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
         public HttpContent RegisterSitter(SitterRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -24,16 +23,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public HttpContent RegisterSitterWithToken(SitterRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -44,9 +40,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -76,16 +70,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public void UpdateSitter(SitterUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -96,7 +87,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
@@ -111,7 +101,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
@@ -126,16 +115,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public void UpdateSittersPassword(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -146,7 +132,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 

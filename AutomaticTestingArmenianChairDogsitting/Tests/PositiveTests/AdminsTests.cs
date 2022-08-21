@@ -62,10 +62,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
-
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -83,7 +81,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
-
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
         }
@@ -101,11 +98,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             ClientsGetAllResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientsGetAllResponseModel
                 (_clientId, date, _clientModel);
             _clientSteps.DeleteClientTest(_clientToken);
-
             _adminSteps.FindDeletedClientProfileInListTest(_adminToken, expectedClient);
-
             _adminSteps.RestoringClientProfileByClientIdTest(_clientId, _adminToken);
-
             _adminSteps.FindAddedClientProfileInListTest(_adminToken, expectedClient);
         }
 
@@ -115,11 +109,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             SittersGetAllResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel
                 (_sitterId, _sitterModel);
             _sitterSteps.DeleteSitterTest(_sitterToken);
-
             _adminSteps.FindDeletedSitterProfileInListTest(_adminToken, expectedSitter);
-
             _adminSteps.RestoreSittersProfileBySitterIdTest(_sitterId, _adminToken);
-
             _adminSteps.FindAddedSitterProfileInListTest(_adminToken, expectedSitter);
         }
 

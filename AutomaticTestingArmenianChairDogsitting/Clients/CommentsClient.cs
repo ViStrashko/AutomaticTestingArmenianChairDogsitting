@@ -22,7 +22,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
     }

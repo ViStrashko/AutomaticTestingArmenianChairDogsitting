@@ -14,7 +14,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
         public HttpContent RegisterClient(ClientRegistrationRequestModel model, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             HttpRequestMessage message = new HttpRequestMessage()
             {
@@ -24,16 +23,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public HttpContent RegisterClientWithToken(ClientRegistrationRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -44,9 +40,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -61,9 +55,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
@@ -78,16 +70,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public void UpdateClient(ClientUpdateRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -98,7 +87,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
@@ -113,7 +101,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
 
@@ -128,16 +115,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
-
             return response.Content;
         }
 
         public void UpdateClientsPassword(ChangePasswordRequestModel model, string token, HttpStatusCode expectedCode)
         {
             string json = JsonSerializer.Serialize(model);
-
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpRequestMessage message = new HttpRequestMessage()
@@ -148,7 +132,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             };
             HttpResponseMessage response = client.Send(message);
             HttpStatusCode actualCode = response.StatusCode;
-
             Assert.AreEqual(expectedCode, actualCode);
         }
     }

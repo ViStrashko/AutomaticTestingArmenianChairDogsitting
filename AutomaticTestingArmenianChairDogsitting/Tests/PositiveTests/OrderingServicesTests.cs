@@ -60,10 +60,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
-
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -81,10 +79,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
-
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _authorization.AuthorizeTest(authSitterModel);
-
             _animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
@@ -122,11 +118,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
                 (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
-
             _clientSteps.FindAddedOrderInClientTest(_clientId, _clientToken, expectedOrder);
         }
 
@@ -149,12 +143,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
                 (date, orderModel);
             orderUpdateModel.Address = orderUpdateCaseModel.Address;
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
                 (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
             expectedOrder.Address = orderUpdateCaseModel.Address;
@@ -179,11 +171,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
                 (orderUpdateCaseModel.WorkDate, orderModel);
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
                 (orderId, date, orderUpdateCaseModel.WorkDate, priceCatalog.Price, _animals, orderModel);
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
@@ -196,7 +186,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             var date = DateTime.Now;
             animalCaseModel.ClientId = _clientId;
             int animalCaseId = _clientSteps.RegisterAnimalToClientProfileTest(animalCaseModel, _clientToken);
-
             OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
             {
                 ClienId = _clientId,
@@ -210,12 +199,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
                 (date, orderModel);
             orderUpdateModel.AnimalIds.Add(animalCaseId);
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-
             ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
                 (animalCaseId, animalCaseModel);
             _clientSteps.FindAddedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
@@ -239,12 +226,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             OrderUpdateRequestModel orderUpdateModel = _orderMappers.MappOrderRegistrationRequestModelToOrderUpdateRequestModel
                 (date, orderModel);
             orderUpdateModel.AnimalIds.Remove(_animalId);
             _clientSteps.UpdateOrderByIdTest(orderId, orderUpdateModel, _clientToken);
-
             ClientsAnimalsResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
                 (_animalId, _animalModel);
             _clientSteps.FindDeletedAnimalInOrderTest(orderId, _clientToken, expectedAnimal);
@@ -268,14 +253,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             _clientSteps.DeleteOrderByIdTest(orderId, _clientToken);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
                 (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel);
             expectedOrder.IsDeleted = true;
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
-
             _clientSteps.FindDeletedOrderInClientTest(_clientId, _clientToken, expectedOrder);
         }
 
@@ -298,14 +280,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             int orderId = _clientSteps.RegisterOrderTest(orderModel, _clientToken);
-
             _clientSteps.DeleteOrderByIdTest(orderId, _clientToken);
-
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderRegistrationRequestModelToOrderAllInfoResponseModel
                 (orderId, date, dateUpdated, priceCatalog.Price, _animals, orderModel, status);
             expectedOrder.IsDeleted = true;
             _clientSteps.GetAllInfoOrderByIdTest(orderId, _clientToken, expectedOrder);
-
             _clientSteps.FindDeletedOrderInClientTest(_clientId, _clientToken, expectedOrder);
         }
     }

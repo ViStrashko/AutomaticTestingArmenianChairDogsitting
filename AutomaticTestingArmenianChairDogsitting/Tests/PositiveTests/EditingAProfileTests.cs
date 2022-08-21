@@ -58,10 +58,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
-
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -79,7 +77,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
-
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
         }
@@ -95,7 +92,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             _clientSteps.UpdateClientTest(clientUpdateModel, _clientToken);
             var date = DateTime.Now;
-
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel
                 (_clientId, date, _clientModel.Email, clientUpdateModel);
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
@@ -106,7 +102,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             _clientSteps.DeleteClientTest(_clientToken);
             var date = DateTime.Now;
-
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
                 (_clientId, date, _clientModel);
             expectedClient.IsDeleted = true;
@@ -119,12 +114,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             changePasswordModel.OldPassword = _clientModel.Password;
             _clientSteps.ChangeClientsPasswordTest(changePasswordModel, _sitterToken);
-
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _clientModel.Email;
             authRequest.Password = _clientModel.Password;
             _authorization.AuthorizeWhenAuthenticationFailedNegativeTest(authRequest);
-
             authRequest.Password = changePasswordModel.Password;
             _authorization.AuthorizeTest(authRequest);
         }
@@ -133,7 +126,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
             _sitterSteps.UpdateSitterTest(sitterUpdateModel, _sitterToken);
-
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel
                 (_sitterId, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
@@ -143,7 +135,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void DeleteSitterProfileTest_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
         {
             _sitterSteps.DeleteSitterTest(_sitterToken);
-
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
                 (_sitterId, _sitterModel);
             expectedSitter.IsDeleted = true;
@@ -156,12 +147,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             changePasswordModel.OldPassword = _sitterModel.Password;
             _sitterSteps.ChangeSittersPasswordTest(changePasswordModel, _sitterToken);
-
             AuthRequestModel authRequest = new AuthRequestModel();
             authRequest.Email = _sitterModel.Email;
             authRequest.Password = _sitterModel.Password;
             _authorization.AuthorizeWhenAuthenticationFailedNegativeTest(authRequest);
-
             authRequest.Password = changePasswordModel.Password;
             _authorization.AuthorizeTest(authRequest);
         }
@@ -173,7 +162,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             SitterAllInfoResponseModel expectedSitter = 
                 _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
             expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);
-
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
     }

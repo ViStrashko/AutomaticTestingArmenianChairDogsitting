@@ -48,7 +48,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _token = _authorization.AuthorizeTest(authModel);
         }
@@ -65,15 +64,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId  = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
-
             ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel
                 (animalId, animalModel);
             _clientSteps.FindAddedAnimalInListTest(_clientId, _token, shortExpectedAnimal);
-
             _clientSteps.FindAddedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
         }
 
@@ -83,7 +79,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalModel);
             expectedAnimal.Breed = Options.propertyBreedLarge;
@@ -96,9 +91,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalUpdateModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
@@ -110,9 +103,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalUpdateModel);
             expectedAnimal.Breed = Options.propertyBreedLarge;
@@ -125,16 +116,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             _clientSteps.DeleteAnimalByIdTest(animalId, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             expectedAnimal.IsDeleted = true;
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
-
             ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
             _clientSteps.FindDeletedAnimalInListTest(_clientId, _token, shortExpectedAnimal);
-
             _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
         }
 
@@ -144,14 +131,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             animalModel.ClientId = _clientId;
             int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
-
             _clientSteps.DeleteAnimalByIdTest(animalId, _token);
-
             ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
             _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);
-
             _clientSteps.RestoreAnimalByIdTest(animalId, _token);
-
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
         }

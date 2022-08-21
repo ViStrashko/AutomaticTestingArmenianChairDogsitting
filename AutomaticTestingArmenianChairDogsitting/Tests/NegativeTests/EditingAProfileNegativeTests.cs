@@ -61,8 +61,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         [SetUp]
         public void SetUp()
         {
-            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel() { Email = Options.adminEmail, Password = Options.adminPassword });
-
+            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel() 
+            { Email = Options.adminEmail, Password = Options.adminPassword });
             _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -74,10 +74,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Promocode = ""
             };
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
-
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
-
             _alienClientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -89,10 +87,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Promocode = ""
             };
             _alienClientId = _clientSteps.RegisterClientTest(_alienClientModel);
-
             AuthRequestModel authAlienClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_alienClientModel);
             _alienClientToken = _authorization.AuthorizeTest(authAlienClientModel);
-
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -111,10 +107,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
 
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
-
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
-
             _alienSitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Дима",
@@ -132,10 +126,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 }
             };
             _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
-
             AuthRequestModel authAlienSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_alienSitterModel);
             _alienSitterToken = _authorization.AuthorizeTest(authAlienSitterModel);
-
             _animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Бука",

@@ -42,7 +42,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
             _anonimToken = null;
-
             ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -54,7 +53,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Promocode = "F85KY0UN"
             };
             _clientSteps.RegisterClientTest(clientModel);
-
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
             _clientToken = _authorization.AuthorizeTest(authModel);
         }

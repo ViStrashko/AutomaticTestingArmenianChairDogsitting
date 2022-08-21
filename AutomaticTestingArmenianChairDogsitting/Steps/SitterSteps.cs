@@ -29,7 +29,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return actualId;
         }
 
@@ -41,7 +40,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             CollectionAssert.AreEqual(actualSitter.PriceCatalog, expectedSitter.PriceCatalog);
             Assert.AreEqual(expectedSitter, actualSitter);
-
             return actualSitter;
         }
 
@@ -50,7 +48,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
             List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             CollectionAssert.AreEquivalent(expectedSitters, actualSitters);
-
             return actualSitters;
         }
 
@@ -73,24 +70,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         public void ChangeSittersPasswordTest(ChangePasswordRequestModel model, string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
-
             _sittersClient.UpdateSittersPassword(model, token, expectedUpdateCode);
         }
 
         public void UpdatePriceCatalogTest(PriceCatalogUpdateModel newPrices, string token)
         {
             HttpStatusCode expectedCode = HttpStatusCode.NoContent;
-
             _sittersClient.UpdatePriceCatalog(newPrices, token, expectedCode);
         }
 
         public List<SittersGetAllResponseModel> CheckThatAllSittersDoesNotContainsDeletedSitterTest(string token, SittersGetAllResponseModel expectedSitter)
         {
             HttpContent content = _sittersClient.GetAllSitters(token, HttpStatusCode.OK);
-            List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
-            
+            List<SittersGetAllResponseModel> actualSitters = 
+                JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;            
             CollectionAssert.DoesNotContain(actualSitters, expectedSitter);
-
             return actualSitters;
         }
     }

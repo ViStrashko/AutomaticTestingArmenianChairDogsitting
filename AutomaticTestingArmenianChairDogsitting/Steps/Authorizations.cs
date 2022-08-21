@@ -23,7 +23,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             string actualToken = content.ReadAsStringAsync().Result;
             //Then
             Assert.NotNull(actualToken);
-
             return actualToken;
         }
 

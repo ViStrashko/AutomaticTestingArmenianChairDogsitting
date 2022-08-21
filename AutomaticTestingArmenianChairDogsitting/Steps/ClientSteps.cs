@@ -35,7 +35,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return actualId;
         }
 
@@ -48,7 +47,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             CollectionAssert.AreEqual(actualClient.Dogs, expectedClient.Dogs);
             CollectionAssert.AreEqual(actualClient.Orders, expectedClient.Orders);
             Assert.AreEqual(expectedClient, actualClient);
-
             return actualClient;
         }
 
@@ -85,7 +83,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return actualId;
         }
 
@@ -96,7 +93,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             AnimalAllInfoResponseModel actualAnimal = JsonSerializer.Deserialize<AnimalAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
             //Then
             Assert.AreEqual(expectedAnimal, actualAnimal);
-
             return actualAnimal;
         }
 
@@ -107,7 +103,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = JsonSerializer.Deserialize<List<ClientsAnimalsResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -119,7 +114,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = actualClient.Dogs;
             //Then
             CollectionAssert.Contains(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -130,7 +124,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = JsonSerializer.Deserialize<List<ClientsAnimalsResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.DoesNotContain(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -142,7 +135,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = actualClient.Dogs;
             //Then
             CollectionAssert.DoesNotContain(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -180,7 +172,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return actualId;
         }
 
@@ -191,7 +182,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             OrderAllInfoResponseModel actualOrder = JsonSerializer.Deserialize<OrderAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
             //Then
             Assert.AreEqual(expectedOrder, actualOrder);
-
             return actualOrder;
         }
 
@@ -203,7 +193,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = actualOrder.Animals;
             //Then
             CollectionAssert.Contains(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -215,7 +204,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsAnimalsResponseModel> actualAnimals = actualOrder.Animals;
             //Then
             CollectionAssert.DoesNotContain(actualAnimals, expectedAnimal);
-
             return actualAnimals;
         }
 
@@ -227,7 +215,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<OrderAllInfoResponseModel> actualOrders = actualClient.Orders;
             //Then
             CollectionAssert.Contains(actualOrders, expectedOrder);
-
             return actualOrders;
         }
 
@@ -239,7 +226,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<OrderAllInfoResponseModel> actualOrders = actualClient.Orders;
             //Then
             CollectionAssert.DoesNotContain(actualOrders, expectedOrder);
-
             return actualOrders;
         }
 
@@ -253,7 +239,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
-
             return actualId;
         }
 
@@ -264,7 +249,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualComments, expectedComment);
-
             return actualComments;
         }
 

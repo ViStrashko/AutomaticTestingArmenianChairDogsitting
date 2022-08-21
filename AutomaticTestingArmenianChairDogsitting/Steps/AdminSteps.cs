@@ -10,14 +10,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 {
     public class AdminSteps
     {
-        private AdminsClient _adminsClient;
         private ClientsClient _clientsClient;
         private SittersClient _sittersClient;
 
 
         public AdminSteps()
         {
-            _adminsClient = new AdminsClient();
             _clientsClient = new ClientsClient();
             _sittersClient = new SittersClient();
         }
@@ -37,7 +35,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsGetAllResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientsGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualClients, expectedClient);
-
             return actualClients;
         }
 
@@ -48,14 +45,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<ClientsGetAllResponseModel> actualClients = JsonSerializer.Deserialize<List<ClientsGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.DoesNotContain(actualClients, expectedClient);
-
             return actualClients;
         }
 
         public void RestoreSittersProfileBySitterIdTest(int sitterId, string adminToken)
         {
             HttpStatusCode expectedCode = HttpStatusCode.NoContent;
-
             _sittersClient.RestoreSitterProfileBySitterId(sitterId, adminToken, expectedCode);
         }
 
@@ -66,7 +61,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<SittersGetAllResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.Contains(actualSiterrs, expectedSitter);
-
             return actualSiterrs;
         }
 
@@ -77,7 +71,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<SittersGetAllResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             //Then
             CollectionAssert.DoesNotContain(actualSiterrs, expectedSitter);
-
             return actualSiterrs;
         }
     }
