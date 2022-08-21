@@ -26,7 +26,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private ClientRegistrationRequestModel _clientModel;
         private SitterRegistrationRequestModel _sitterModel;
         private AnimalRegistrationRequestModel _animalModel;
-        private OrderRegistrationRequestModel _orderModel;
+        private OrderWalkRegistrationRequestModel _orderModel;
 
         public LeaveACommentTests()
         {
@@ -94,12 +94,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
 
-            _orderModel = new OrderRegistrationRequestModel()
+            _orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
                 WorkDate = DateTime.Now,
-                Type = 1,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
                 {

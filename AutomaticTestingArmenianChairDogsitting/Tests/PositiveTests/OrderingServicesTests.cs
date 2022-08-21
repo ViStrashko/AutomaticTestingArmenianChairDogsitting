@@ -109,11 +109,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             var date = DateTime.Now;
             var dateUpdated = DateTime.Now;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -136,11 +135,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             var date = DateTime.Now;
             var dateUpdated = DateTime.Now;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -166,11 +164,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (PriceCatalogResponseModel priceCatalog, OrderUpdateRequestModel orderUpdateCaseModel)
         {
             var date = DateTime.Now;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -197,11 +194,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             animalCaseModel.ClientId = _clientId;
             int animalCaseId = _clientSteps.RegisterAnimalToClientProfileTest(animalCaseModel, _clientToken);
 
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -226,11 +222,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (PriceCatalogResponseModel priceCatalog)
         {
             var date = DateTime.Now;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -255,11 +250,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             var date = DateTime.Now;
             var dateUpdated = DateTime.Now;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()
@@ -285,11 +279,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             var date = DateTime.Now;
             var dateUpdated = DateTime.Now;
             var status = 2;
-            OrderRegistrationRequestModel orderModel = new OrderRegistrationRequestModel()
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                Type = priceCatalog.Service,
                 WorkDate = date,
                 Address = _clientModel.Address,
                 AnimalIds = new List<int>()

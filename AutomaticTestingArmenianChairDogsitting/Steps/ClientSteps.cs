@@ -170,12 +170,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.RestoreAnimalById(id, token, expectedCode);
         }
 
-        public int RegisterOrderTest(OrderRegistrationRequestModel model, string token)
+        public int RegisterOrderTest(OrderWalkRegistrationRequestModel model, string token)
         {
             //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
             //When
-            HttpContent content = _ordersClient.RegisterOrder(model, token, expectedRegistrationCode);
+            HttpContent content = _ordersClient.RegisterOrderWalk(model, token, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
             //Then
             Assert.NotNull(actualId);

@@ -33,6 +33,21 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("address")]
         public string Address { get; set; }
 
+        [JsonPropertyName("district")]
+        public int District { get; set; }
+
+        [JsonPropertyName("dayQuantity")]
+        public int? DayQuantity { get; set; }
+
+        [JsonPropertyName("walkPerDayQuantity")]
+        public int? WalkPerDayQuantity { get; set; }
+
+        [JsonPropertyName("visitQuantity")]
+        public int? VisitQuantity { get; set; }
+
+        [JsonPropertyName("isTrial")]
+        public bool IsTrial { get; set; }
+
         [JsonPropertyName("animals")]
         public List<ClientsAnimalsResponseModel> Animals { get; set; }
 
@@ -82,6 +97,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    WorkDate == model.WorkDate &&
                    DateUpdated == model.DateUpdated &&
                    Address == model.Address &&
+                   District == model.District &&
+                   DayQuantity == model.DayQuantity &&
+                   WalkPerDayQuantity == model.WalkPerDayQuantity &&
+                   VisitQuantity == model.VisitQuantity &&
+                   IsTrial == model.IsTrial &&
                    IsDeleted == model.IsDeleted;
         }
     }
