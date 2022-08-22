@@ -20,6 +20,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private string _anonimToken;
         private string _adminToken;
         private string _clientToken;
+        private string _sitterToken;
+        ClientRegistrationRequestModel _clientModel;
+        SitterRegistrationRequestModel _sitterModel;
 
         public ViewTests()
         {
@@ -42,7 +45,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         {
             _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
             _anonimToken = null;
-            ClientRegistrationRequestModel clientModel = new ClientRegistrationRequestModel()
+            _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
                 LastName = "Петров",
@@ -52,9 +55,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Password = "12345678",
                 Promocode = ""
             };
-            _clientSteps.RegisterClientTest(clientModel);
-            AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
-            _clientToken = _authorization.AuthorizeTest(authModel);
+            _clientSteps.RegisterClientTest(_clientModel);
+            AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
+            _clientToken = _authorization.AuthorizeTest(authClientModel);
+            _sitterModel = new SitterRegistrationRequestModel()
+            {
+                Name = "Дима",
+                LastName = "Пет",
+                Phone = "89514125547",
+                Email = "pet@gmail.com",
+                Password = "85554321",
+                Age = 20,
+                Experience = 2,
+                Sex = 1,
+                Description = "Description",
+                PriceCatalog = new List<PriceCatalogRequestModel>()
+                {
+                    new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
+                }
+            };
+            _sitterSteps.RegisterSitterTest(_sitterModel);
+            AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
+            _sitterToken = _authorization.AuthorizeTest(authSitterModel);
+
         }
 
         [TearDown]
@@ -101,6 +124,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             var sitterId = _sitterSteps.RegisterSitterTest(sitter);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _adminToken, expectedSitter);
+        }
+
+        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
+        public void GetAllInfoAboutSitter_BySitter_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        {
+            var sitterId = _sitterSteps.RegisterSitterTest(sitter);
+            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, sitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _sitterToken, expectedSitter);
         }
     }
 }

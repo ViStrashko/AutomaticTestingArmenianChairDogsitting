@@ -23,6 +23,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _commentsClient = new CommentsClient();
         }
 
+        public void DeleteClientByAdminTest(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+            _clientsClient.DeleteClientByAdmin(id, token, expectedDeleteCode);
+        }
+
+        public void DeleteSitterByAdminTest(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+            _sittersClient.DeleteSitterByAdmin(id, token, expectedDeleteCode);
+        }
+
         public void RestoringClientProfileByClientIdTest(int id, string token)
         {
             HttpStatusCode expectedRestoringCode = HttpStatusCode.NoContent;
@@ -45,10 +57,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             return actualClients;
         }
 
-        public void RestoreSittersProfileBySitterIdTest(int sitterId, string adminToken)
+        public void RestoreSittersProfileBySitterIdTest(int id, string adminToken)
         {
             HttpStatusCode expectedCode = HttpStatusCode.NoContent;
-            _sittersClient.RestoreSitterProfileBySitterId(sitterId, adminToken, expectedCode);
+            _sittersClient.RestoreSitterProfileBySitterId(id, adminToken, expectedCode);
         }
 
         public List<SittersGetAllResponseModel> FindAddedSitterProfileInListTest(string token, SittersGetAllResponseModel expectedSitter)
