@@ -73,7 +73,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
