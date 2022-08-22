@@ -50,7 +50,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void SetUp()
         {
             _adminToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = Options.adminEmail, Password = Options.adminPassword });
-
             _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -148,6 +147,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             expectedAllSitters.Add(expectedSitterInAllSitters);
             _sitterSteps.GetAllInfoAllSittersTest(_adminToken, expectedAllSitters);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _adminToken, expectedSitter);
+        }
+
+        [Test]
+        public void DeleteClientProfileAndSitterProfileByAdminTest_WhenClientIdAndSitterIdIsCorrect_ShouldDeleteClientProfileAndSitterProfile()
+        {
+            var date = DateTime.Now;
+            ClientsGetAllResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientsGetAllResponseModel
+                (_clientId, date, _clientModel);
+            SittersGetAllResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel
+                (_sitterId, _sitterModel);
+            _adminSteps.DeleteClientByAdminTest(_clientId, _adminToken);
+            _adminSteps.FindDeletedClientProfileInListTest(_adminToken, expectedClient);
+            _adminSteps.DeleteSitterByAdminTest(_sitterId, _adminToken);
+            _adminSteps.FindDeletedSitterProfileInListTest(_adminToken, expectedSitter);
         }
     }
 }
