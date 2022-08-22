@@ -169,13 +169,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         }
 
         [TestCaseSource(typeof(LeaveCommentOnServiceBySitter_WhenCommentModelIsCorrect_TestSource))]
-        public void DeleteCommentOnServiceBySitter_WhenCommentIdIsCorrect_ShouldDeleteCommentOnServiceBySitter
+        public void DeleteCommentOnServiceWalkBySitter_WhenCommentIdIsCorrect_ShouldDeleteCommentOnServiceWalkBySitter
             (CommentRegistrationRequestModel commentModel)
         {
             var commentId = _sitterSteps.RegisterCommentToOrderTest(_orderId, commentModel, _sitterToken);
             CommentAllInfoResponseModel expectedComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
-            _clientSteps.DeleteCommentByIdTest(commentId, _sitterToken);
+            _sitterSteps.DeleteCommentByIdTest(commentId, _sitterToken);
             expectedComment.IsClient = false;
             expectedComment.IsDeleted = true;
             _adminSteps.FindDeletedCommentByOrderIdTest(_orderId, _adminToken, expectedComment);
@@ -191,9 +191,29 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 (clientCommentId, _orderId, clientCommentModel);
             CommentAllInfoResponseModel expectedSitterComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (sitterCommentId, _orderId, sitterCommentModel);
+            expectedSitterComment.IsClient = false;
             _allComments.Add(expectedClientComment);
             _allComments.Add(expectedSitterComment);
             _adminSteps.ViewCommentByOrderIdTest(_orderId, _adminToken, _allComments);
+        }
+
+        [TestCaseSource(typeof(ViewCommentOnServiceWalkByAdmin_WhenCommentModelIsCorrect_TestSource))]
+        public void DeleteCommentsOnServiceWalkByAdmin_WhenCommentSIdIsCorrect_ShouldDeleteCommentOnServiceWalkByAdmin
+            (CommentRegistrationRequestModel clientCommentModel, CommentRegistrationRequestModel sitterCommentModel)
+        {
+            var clientCommentId = _clientSteps.RegisterCommentToOrderTest(_orderId, clientCommentModel, _clientToken);
+            var sitterCommentId = _sitterSteps.RegisterCommentToOrderTest(_orderId, sitterCommentModel, _sitterToken);
+            CommentAllInfoResponseModel expectedClientComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+                (clientCommentId, _orderId, clientCommentModel);
+            CommentAllInfoResponseModel expectedSitterComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+                (sitterCommentId, _orderId, sitterCommentModel);
+            _adminSteps.DeleteCommentByIdTest(clientCommentId, _adminToken);
+            expectedClientComment.IsDeleted = true;
+            _adminSteps.FindDeletedCommentByOrderIdTest(_orderId, _adminToken, expectedClientComment);
+            _adminSteps.DeleteCommentByIdTest(sitterCommentId, _adminToken);
+            expectedSitterComment.IsClient = false;
+            expectedSitterComment.IsDeleted = true;
+            _adminSteps.FindDeletedCommentByOrderIdTest(_orderId, _adminToken, expectedSitterComment);
         }
     }
 }
