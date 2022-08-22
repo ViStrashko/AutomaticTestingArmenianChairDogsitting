@@ -20,14 +20,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private OrderMappers _orderMappers;
         private AnimalMappers _animalMappers;
         private string _clientToken;
+        private string _alienClientToken;
         private string _sitterToken;
         private int _clientId;
+        private int _alienClientId;
         private int _sitterId;
         private int _animalId;
+        private int _alienAnimalId;
         private List<ClientsAnimalsResponseModel> _animals;
+        private List<ClientsAnimalsResponseModel> _alienAnimals;
         private ClientRegistrationRequestModel _clientModel;
+        private ClientRegistrationRequestModel _alienClientModel;
         private SitterRegistrationRequestModel _sitterModel;
         private AnimalRegistrationRequestModel _animalModel;
+        private AnimalRegistrationRequestModel _alienAnimalModel;
 
         public OrderingServicesTests()
         {
@@ -39,6 +45,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _orderMappers = new OrderMappers();
             _animalMappers = new AnimalMappers();
             _animals = new List<ClientsAnimalsResponseModel>();
+            _alienAnimals = new List<ClientsAnimalsResponseModel>();
         }
 
         [OneTimeSetUp]
@@ -63,6 +70,19 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
+            _alienClientModel = new ClientRegistrationRequestModel()
+            {
+                Name = "Саша",
+                LastName = "Ким",
+                Email = "kim@gmail.com",
+                Phone = "+79514125547",
+                Address = "ул. Итальянская, дом. 10",
+                Password = "11345678",
+                Promocode = "ADF8FGEL"
+            };
+            _alienClientId = _clientSteps.RegisterClientTest(_alienClientModel);
+            AuthRequestModel authAlienClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
+            _alienClientToken = _authorization.AuthorizeTest(authAlienClientModel);
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -95,13 +115,50 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 ClientId = _clientId,
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
+            _alienAnimalModel = new AnimalRegistrationRequestModel()
+            {
+                Name = "Люцифер",
+                Age = 5,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 5,
+                ClientId = _alienClientId,
+            };
+            _alienAnimalId = _clientSteps.RegisterAnimalToClientProfileTest(_alienAnimalModel, _alienClientToken);
             _animals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalId, _animalModel));
+            _alienAnimals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_alienAnimalId, _alienAnimalModel));
         }
 
         [TearDown]
         public void TearDown()
         {
             _clearingTables.ClearAllDB();
+        }
+
+        [Test]
+        public void OrderingServiceTrialWalk_WhenOrderModelIsCorrectAnd_ShouldOrderingServiceTrialWalk()
+        {
+            var date = DateTime.Now;
+            var priceTrialWalk = 0;
+            OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _alienClientId,
+                SitterId = _sitterId,
+                WorkDate = date,
+                Address = _alienClientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[3].Service,
+                IsTrial = true,
+                AnimalIds = new List<int>()
+                {
+                    _alienAnimalId,
+                }
+            };
+            var orderId = _clientSteps.RegisterOrderWalkTest(orderModel, _alienClientToken);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
+                (orderId, date, priceTrialWalk, _alienAnimals, orderModel, orderModel.Status);
+            _clientSteps.GetAllInfoOrderByIdTest(orderId, _alienClientToken, expectedOrder);
+            _clientSteps.FindAddedOrderInClientTest(_alienClientId, _alienClientToken, expectedOrder);
         }
 
         [Test]
