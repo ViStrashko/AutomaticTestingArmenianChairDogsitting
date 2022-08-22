@@ -226,23 +226,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.IsTrue(actualId > 0);
             return actualId;
         }
-
-        public List<CommentAllInfoResponseModel> FindAddedCommentByOrderIdTest(int id, string token, CommentAllInfoResponseModel expectedComment)
-        {
-            HttpContent content = _ordersClient.GetAllInfoCommentsByOrderId(id, token, HttpStatusCode.OK);
-            List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
-            CollectionAssert.Contains(actualComments, expectedComment);
-            return actualComments;
-        }
-
-        public List<CommentAllInfoResponseModel> FindDeletedCommentByOrderIdTest(int id, string token, CommentAllInfoResponseModel expectedComment)
-        {
-            HttpContent content = _ordersClient.GetAllInfoCommentsByOrderId(id, token, HttpStatusCode.OK);
-            List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
-            CollectionAssert.DoesNotContain(actualComments, expectedComment);
-            return actualComments;
-        }
-
+                
         public void UpdateOrderWalkByIdTest(int id, OrderWalkUpdateRequestModel model,  string token)
         {
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;

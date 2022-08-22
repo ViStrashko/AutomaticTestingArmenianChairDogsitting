@@ -12,12 +12,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
     {
         private ClientsClient _clientsClient;
         private SittersClient _sittersClient;
-
+        private OrdersClient _ordersClient;
 
         public AdminSteps()
         {
             _clientsClient = new ClientsClient();
             _sittersClient = new SittersClient();
+            _ordersClient = new OrdersClient();
         }
 
         public void RestoringClientProfileByClientIdTest(int id, string token)
@@ -62,6 +63,30 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<SittersGetAllResponseModel> actualSiterrs = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
             CollectionAssert.DoesNotContain(actualSiterrs, expectedSitter);
             return actualSiterrs;
+        }
+
+        public List<CommentAllInfoResponseModel> FindAddedCommentByOrderIdTest(int id, string token, CommentAllInfoResponseModel expectedComment)
+        {
+            HttpContent content = _ordersClient.GetAllInfoCommentsByOrderId(id, token, HttpStatusCode.OK);
+            List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.Contains(actualComments, expectedComment);
+            return actualComments;
+        }
+
+        public List<CommentAllInfoResponseModel> FindDeletedCommentByOrderIdTest(int id, string token, CommentAllInfoResponseModel expectedComment)
+        {
+            HttpContent content = _ordersClient.GetAllInfoCommentsByOrderId(id, token, HttpStatusCode.OK);
+            List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.DoesNotContain(actualComments, expectedComment);
+            return actualComments;
+        }
+
+        public List<CommentAllInfoResponseModel> ViewCommentByOrderIdTest(int id, string token, List<CommentAllInfoResponseModel> expectedComments)
+        {
+            HttpContent content = _ordersClient.GetAllInfoCommentsByOrderId(id, token, HttpStatusCode.OK);
+            List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.AreEquivalent(actualComments, expectedComments);
+            return actualComments;
         }
     }
 }
