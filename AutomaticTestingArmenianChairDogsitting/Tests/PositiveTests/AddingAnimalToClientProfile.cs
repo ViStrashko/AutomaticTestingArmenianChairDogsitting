@@ -63,7 +63,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId  = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId  = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalModel);
             _clientSteps.GetAllInfoAnimalByIdTest(animalId, _token, expectedAnimal);
@@ -78,7 +78,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalModel);
             expectedAnimal.Breed = Options.propertyBreedLarge;
@@ -90,7 +90,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel, AnimalUpdateRequestModel animalUpdateModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalUpdateModel);
@@ -102,7 +102,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel, AnimalUpdateRequestModel animalUpdateModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             _clientSteps.UpdateAnimalByIdTest(animalId, animalUpdateModel, _token);
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalUpdateRequestModelToAnimalAllInfoResponseModel
                 (animalId, animalUpdateModel);
@@ -115,7 +115,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             _clientSteps.DeleteAnimalByIdTest(animalId, _token);
             AnimalAllInfoResponseModel expectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToAnimalAllInfoResponseModel(animalId, animalModel);
             expectedAnimal.IsDeleted = true;
@@ -130,7 +130,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             (AnimalRegistrationRequestModel animalModel)
         {
             animalModel.ClientId = _clientId;
-            int animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
+            var animalId = _clientSteps.RegisterAnimalToClientProfileTest(animalModel, _token);
             _clientSteps.DeleteAnimalByIdTest(animalId, _token);
             ClientsAnimalsResponseModel shortExpectedAnimal = _animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(animalId, animalModel);
             _clientSteps.FindDeletedAnimalInClientProfileTest(_clientId, _token, shortExpectedAnimal);

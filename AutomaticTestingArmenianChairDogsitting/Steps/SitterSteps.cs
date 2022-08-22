@@ -13,6 +13,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
     public class SitterSteps
     {
         private SittersClient _sittersClient;
+        private OrdersClient _ordersClient;
 
         public SitterSteps()
         {
@@ -21,12 +22,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
         public int RegisterSitterTest(SitterRegistrationRequestModel model)
         {
-            //Given
             HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
-            //When
             HttpContent content = _sittersClient.RegisterSitter(model, expectedRegistrationCode);
             int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
-            //Then
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
             return actualId;
@@ -34,10 +32,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
         public SitterAllInfoResponseModel GetAllInfoSitterByIdTest(int id, string token, SitterAllInfoResponseModel expectedSitter)
         {
-            //When
             HttpContent content = _sittersClient.GetAllInfoSitterById(id, token, HttpStatusCode.OK);
             SitterAllInfoResponseModel actualSitter = JsonSerializer.Deserialize<SitterAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
-            //Then
             CollectionAssert.AreEqual(actualSitter.PriceCatalog, expectedSitter.PriceCatalog);
             Assert.AreEqual(expectedSitter, actualSitter);
             return actualSitter;
@@ -53,17 +49,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
 
         public void UpdateSitterTest(SitterUpdateRequestModel model, string token)
         {
-            //Given
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
-            //When
             _sittersClient.UpdateSitter(model, token, expectedUpdateCode);
         }
 
         public void DeleteSitterTest(string token)
         {
-            //Given
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
-            //When
             _sittersClient.DeleteSitter(token, expectedDeleteCode);
         }
 
@@ -86,6 +78,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
                 JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;            
             CollectionAssert.DoesNotContain(actualSitters, expectedSitter);
             return actualSitters;
+        }
+
+        public void UpdateOrderStatusByOrderIdTest(int id, int ststusUpdate, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
+            _ordersClient.UpdateOrderStatusByOrderId(id, ststusUpdate, token, expectedUpdateCode);
         }
     }
 }

@@ -17,8 +17,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private SitterSteps _sitterSteps;
         private ClearingTables _clearingTables;
         private AuthMappers _authMapper;
-        private CommentMappers _commentMapper;
+        private CommentMappers _commentMappers;
+        private OrderMappers _orderMappers;
+        private AnimalMappers _animalMappers;
         private string _clientToken;
+        private string _sitterToken;
+        private string _adminToken;
         private int _clientId;
         private int _sitterId;
         private int _animalId;
@@ -27,6 +31,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private SitterRegistrationRequestModel _sitterModel;
         private AnimalRegistrationRequestModel _animalModel;
         private OrderWalkRegistrationRequestModel _orderModel;
+        private List<ClientsAnimalsResponseModel> _animals;
 
         public LeaveACommentTests()
         {
@@ -35,7 +40,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _sitterSteps = new SitterSteps();
             _clearingTables = new ClearingTables();
             _authMapper = new AuthMappers();
-            _commentMapper = new CommentMappers();
+            _commentMappers = new CommentMappers();
+            _orderMappers = new OrderMappers();
+            _animalMappers = new AnimalMappers();
+            _animals = new List<ClientsAnimalsResponseModel>();
         }
 
         [OneTimeSetUp]
@@ -48,6 +56,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void SetUp()
         {
             var date = DateTime.Now;
+            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel()
+            { Email = Options.adminEmail, Password = Options.adminPassword });
             _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -74,12 +84,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
+                    new PriceCatalogRequestModel() { Service = 2, Price = 4000 },
+                    new PriceCatalogRequestModel() { Service = 3, Price = 800 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 }
                 }
             };
             _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
-            _authorization.AuthorizeTest(authSitterModel);
+            _sitterToken = _authorization.AuthorizeTest(authSitterModel);
             _animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Шарик",
@@ -90,7 +103,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 ClientId = _clientId,
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
-
+            _animals.Add(_animalMappers.MappAnimalRegistrationRequestModelToClientsAnimalsResponseModel(_animalId, _animalModel));
             _orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _clientId,
@@ -98,7 +111,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 WorkDate = date,
                 Address = _clientModel.Address,
                 District = 2,
-                Type = _sitterModel.PriceCatalog[0].Service,
+                Type = _sitterModel.PriceCatalog[3].Service,
                 IsTrial = false,
                 AnimalIds = new List<int>()
                 {
@@ -106,6 +119,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 }
             };
             _orderId = _clientSteps.RegisterOrderWalkTest(_orderModel, _clientToken);
+            OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
+                (_orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, _orderModel, _orderModel.Status);
+            OrderAllInfoResponseModel actualOrder = _clientSteps.GetAllInfoOrderByIdTest(_orderId, _clientToken, expectedOrder);
+            actualOrder.Status = 3;
         }
 
         [TearDown]
@@ -115,24 +132,49 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         }
 
         [TestCaseSource(typeof(LeaveCommentOnServiceByClient_WhenCommentModelIsCorrect_TestSource))]
-        public void LeaveCommentOnServiceByClient_WhenCommentModelIsCorrect_ShouldLeaveCommentOnServiceByClient
+        public void LeaveCommentOnServiceWalkByClient_WhenCommentModelIsCorrect_ShouldLeaveCommentOnServiceWalkByClient
             (CommentRegistrationRequestModel commentModel)
         {
-            int commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
-            CommentAllInfoResponseModel expectedComment = _commentMapper.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+            var commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
+            CommentAllInfoResponseModel expectedComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
-            _clientSteps.FindAddedCommentByOrderIdTest(_orderId, _clientToken, expectedComment);
+            _clientSteps.FindAddedCommentByOrderIdTest(_orderId, _adminToken, expectedComment);
         }
 
-        [TestCaseSource(typeof(DeleteCommentOnServiceByClient_WhenCommentIdIsCorrect_TestSource))]
-        public void DeleteCommentOnServiceByClient_WhenCommentIdIsCorrect_ShouldDeleteCommentOnServiceByClient
+        [TestCaseSource(typeof(LeaveCommentOnServiceByClient_WhenCommentModelIsCorrect_TestSource))]
+        public void DeleteCommentOnServiceWalkByClient_WhenCommentIdIsCorrect_ShouldDeleteCommentOnServiceWalkByClient
             (CommentRegistrationRequestModel commentModel)
         {
-            int commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
-            CommentAllInfoResponseModel expectedComment = _commentMapper.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+            var commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _clientToken);
+            CommentAllInfoResponseModel expectedComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
                 (commentId, _orderId, commentModel);
             _clientSteps.DeleteCommentByIdTest(commentId, _clientToken);
-            _clientSteps.FindDeletedCommentByOrderIdTest(_orderId, _clientToken, expectedComment);
+            expectedComment.IsDeleted = true;
+            _clientSteps.FindDeletedCommentByOrderIdTest(_orderId, _adminToken, expectedComment);
+        }
+
+        [TestCaseSource(typeof(LeaveCommentOnServiceBySitter_WhenCommentModelIsCorrect_TestSource))]
+        public void LeaveCommentOnServiceWalkBySitter_WhenCommentModelIsCorrect_ShouldLeaveCommentOnServiceWalkBySitter
+            (CommentRegistrationRequestModel commentModel)
+        {
+            var commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _sitterToken);
+            CommentAllInfoResponseModel expectedComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+                (commentId, _orderId, commentModel);
+            expectedComment.IsClient = false;
+            _clientSteps.FindAddedCommentByOrderIdTest(_orderId, _adminToken, expectedComment);
+        }
+
+        [TestCaseSource(typeof(LeaveCommentOnServiceBySitter_WhenCommentModelIsCorrect_TestSource))]
+        public void DeleteCommentOnServiceBySitter_WhenCommentIdIsCorrect_ShouldDeleteCommentOnServiceBySitter
+            (CommentRegistrationRequestModel commentModel)
+        {
+            var commentId = _clientSteps.RegisterCommentToOrderTest(_orderId, commentModel, _sitterToken);
+            CommentAllInfoResponseModel expectedComment = _commentMappers.MappCommentRegistrationRequestModelToCommentAllInfoResponseModel
+                (commentId, _orderId, commentModel);
+            _clientSteps.DeleteCommentByIdTest(commentId, _sitterToken);
+            expectedComment.IsClient = false;
+            expectedComment.IsDeleted = true;
+            _clientSteps.FindDeletedCommentByOrderIdTest(_orderId, _adminToken, expectedComment);
         }
     }
 }

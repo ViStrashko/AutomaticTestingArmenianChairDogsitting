@@ -23,7 +23,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
                 }
                 },
                 new SitterRegistrationRequestModel()
@@ -39,7 +39,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 600 },
                 }
                 },
                 new SitterRegistrationRequestModel()
@@ -55,7 +55,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 550 },
                 }
                 },
                 new SitterRegistrationRequestModel()
@@ -71,7 +71,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     Description = "Description",
                     PriceCatalog = new List<PriceCatalogRequestModel>()
                     {
-                        new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                        new PriceCatalogRequestModel() { Service = 4, Price = 650 },
                     }
                 }
             };
@@ -95,7 +95,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
                 }
             };
         }

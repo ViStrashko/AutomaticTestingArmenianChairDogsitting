@@ -16,29 +16,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         }
         public string AuthorizeTest(AuthRequestModel authModel)
         {
-            //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.OK;
-            //When
             HttpContent content = _authClient.Authorize(authModel, expectedAuthCode);
             string actualToken = content.ReadAsStringAsync().Result;
-            //Then
             Assert.NotNull(actualToken);
             return actualToken;
         }
 
         public void AuthorizeWhenPasswordOrEmailIsNotCorrectNegativeTest(AuthRequestModel authModel)
         {
-            //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.UnprocessableEntity;
-            //When
             _authClient.Authorize(authModel, expectedAuthCode);
         }
 
         public void AuthorizeWhenAuthenticationFailedNegativeTest(AuthRequestModel authModel)
         {
-            //Given
             HttpStatusCode expectedAuthCode = HttpStatusCode.Unauthorized;
-            //When
             _authClient.Authorize(authModel, expectedAuthCode);
         }
     }
