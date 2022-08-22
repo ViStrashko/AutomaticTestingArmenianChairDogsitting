@@ -85,5 +85,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedUpdateCode = HttpStatusCode.NoContent;
             _ordersClient.UpdateOrderStatusByOrderId(id, ststusUpdate, token, expectedUpdateCode);
         }
+
+        public int RegisterCommentToOrderTest(int id, CommentRegistrationRequestModel model, string token)
+        {
+            HttpStatusCode expectedRegistrationCode = HttpStatusCode.Created;
+            HttpContent content = _ordersClient.RegisterCommentToOrder(id, model, token, expectedRegistrationCode);
+            int actualId = Convert.ToInt32(content.ReadAsStringAsync().Result);
+            Assert.NotNull(actualId);
+            Assert.IsTrue(actualId > 0);
+            return actualId;
+        }
     }
 }
