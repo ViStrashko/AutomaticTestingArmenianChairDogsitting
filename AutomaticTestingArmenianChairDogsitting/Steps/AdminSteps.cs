@@ -13,12 +13,14 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         private ClientsClient _clientsClient;
         private SittersClient _sittersClient;
         private OrdersClient _ordersClient;
+        private CommentsClient _commentsClient;
 
         public AdminSteps()
         {
             _clientsClient = new ClientsClient();
             _sittersClient = new SittersClient();
             _ordersClient = new OrdersClient();
+            _commentsClient = new CommentsClient();
         }
 
         public void RestoringClientProfileByClientIdTest(int id, string token)
@@ -87,6 +89,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             List<CommentAllInfoResponseModel> actualComments = JsonSerializer.Deserialize<List<CommentAllInfoResponseModel>>(content.ReadAsStringAsync().Result)!;
             CollectionAssert.AreEquivalent(actualComments, expectedComments);
             return actualComments;
+        }
+
+        public void DeleteCommentByIdTest(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+            _commentsClient.DeleteCommentById(id, token, expectedDeleteCode);
         }
     }
 }

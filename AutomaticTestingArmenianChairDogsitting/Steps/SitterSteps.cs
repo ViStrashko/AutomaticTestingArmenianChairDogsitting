@@ -14,10 +14,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
     {
         private SittersClient _sittersClient;
         private OrdersClient _ordersClient;
+        private CommentsClient _commentsClient;
 
         public SitterSteps()
         {
             _sittersClient = new SittersClient();
+            _ordersClient = new OrdersClient();
+            _commentsClient = new CommentsClient();
         }
 
         public int RegisterSitterTest(SitterRegistrationRequestModel model)
@@ -94,6 +97,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             Assert.NotNull(actualId);
             Assert.IsTrue(actualId > 0);
             return actualId;
+        }
+
+        public void DeleteCommentByIdTest(int id, string token)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
+            _commentsClient.DeleteCommentById(id, token, expectedDeleteCode);
         }
     }
 }
