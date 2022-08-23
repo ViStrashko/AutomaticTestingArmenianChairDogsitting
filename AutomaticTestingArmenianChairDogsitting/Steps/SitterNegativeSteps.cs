@@ -7,6 +7,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
     public class SitterNegativeSteps
     {
         private SittersClient _sittersClient;
+        private OrdersClient _ordersClient;
 
         public SitterNegativeSteps()
         {
@@ -123,6 +124,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpStatusCode expectedCode = HttpStatusCode.NotFound;
             _sittersClient.GetAllInfoSitterById(id, token, expectedCode);
+        }
+
+        public void PerformServiceForDifferentClientsSimultaneouslyNegativeTest(int id, int ststusUpdate, string token)
+        {
+            HttpStatusCode expectedUpdateCode = HttpStatusCode.BadRequest;
+            _ordersClient.UpdateOrderStatusByOrderId(id, ststusUpdate, token, expectedUpdateCode);
         }
     }
 }
