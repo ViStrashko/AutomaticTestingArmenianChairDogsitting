@@ -277,5 +277,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
             _ordersClient.RegisterOrderWalk(model, token, expectedCode);
         }
+
+        public void OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(OrderWalkRegistrationRequestModel model, string token)
+        {
+            HttpStatusCode expectedCode = HttpStatusCode.UnprocessableEntity;
+            _ordersClient.RegisterOrderWalk(model, token, expectedCode);
+        }
     }
 }
