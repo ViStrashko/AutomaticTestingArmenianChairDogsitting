@@ -32,7 +32,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private SitterRegistrationRequestModel _sitterModel;
         private SitterRegistrationRequestModel _alienSitterModel;
         private AnimalRegistrationRequestModel _animalModel;
-        DateTime date = DateTime.Now;;
+        DateTime date = DateTime.Now;
 
         public OrderingServicesNegativeTests()
         {
@@ -183,6 +183,46 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             };
             _clientNegativeSteps.OrderingServicesWhenTwoServicesForSameDogNegativeTest(orderWalkModel, _clientToken);
             _clientNegativeSteps.OrderingServicesWhenTwoServicesForSameDogNegativeTest(twoOrderWalkModel, _clientToken);
+        }
+
+        [Test]
+        public void OrderingServicesNegativeTest_WhenPastOrderServiceDateAndTime_ShouldGetHttpStatusCodeUnprocessableEntity
+            (ClientUpdateRequestModel clientUpdateModel)
+        {
+            var pastDate = DateTime.Now;
+            pastDate = pastDate.AddDays(-1);
+            var pastTime = DateTime.Now;
+            pastTime = pastTime.AddHours(-2);
+            OrderWalkRegistrationRequestModel orderWalkModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                WorkDate = pastDate,
+                Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[2].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _animalId,
+                }
+            };
+            OrderWalkRegistrationRequestModel twoOrderWalkModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                WorkDate = pastTime,
+                Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[2].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _animalId,
+                }
+            };
+            _clientNegativeSteps.OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(orderWalkModel, _clientToken);
+            _clientNegativeSteps.OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(twoOrderWalkModel, _clientToken);
         }
     }
 }
