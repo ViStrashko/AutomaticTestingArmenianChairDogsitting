@@ -30,7 +30,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private int _clientId;
         private int _alienClientId;        
         private int _sitterId;
-        private int _alienSitterId;
         private int _animalId;
         private ClientRegistrationRequestModel _clientModel;
         private ClientRegistrationRequestModel _alienClientModel;
@@ -125,7 +124,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                     new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
                 }
             };
-            _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
+            _sitterSteps.RegisterSitterTest(_alienSitterModel);
             AuthRequestModel authAlienSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_alienSitterModel);
             _alienSitterToken = _authorization.AuthorizeTest(authAlienSitterModel);
             _animalModel = new AnimalRegistrationRequestModel()

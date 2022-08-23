@@ -17,21 +17,23 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private SitterNegativeSteps _sitterNegativeSteps;
         private ClearingTables _clearingTables;
         private AuthMappers _authMapper;
-        private ClientMappers _clientMappers;
-        private SitterMappers _sitterMappers;
-        private AnimalMappers _animalMappers;
-        private string _adminToken;
         private string _clientToken;
+        private string _alienClientToken;
         private string _sitterToken;
-        private string _alienSitterToken;
         private int _clientId;
+        private int _alienClientId;
         private int _sitterId;
         private int _alienSitterId;
         private int _animalId;
+        private int _alienAnimalId;
+        private int _orderId;
+        private int _alienOrderId;
         private ClientRegistrationRequestModel _clientModel;
+        private ClientRegistrationRequestModel _alienClientModel;
         private SitterRegistrationRequestModel _sitterModel;
         private SitterRegistrationRequestModel _alienSitterModel;
         private AnimalRegistrationRequestModel _animalModel;
+        private AnimalRegistrationRequestModel _alienAnimalModel;
         DateTime date = DateTime.Now;
 
         public OrderingServicesNegativeTests()
@@ -43,9 +45,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _sitterNegativeSteps = new SitterNegativeSteps();
             _clearingTables = new ClearingTables();
             _authMapper = new AuthMappers();
-            _clientMappers = new ClientMappers();
-            _sitterMappers = new SitterMappers();
-            _animalMappers = new AnimalMappers();
         }
 
         [OneTimeSetUp]
@@ -57,8 +56,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         [SetUp]
         public void SetUp()
         {            
-            _adminToken = _authorization.AuthorizeTest(new AuthRequestModel()
-            { Email = Options.adminEmail, Password = Options.adminPassword });
             _clientModel = new ClientRegistrationRequestModel()
             {
                 Name = "Вася",
@@ -72,6 +69,19 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientId = _clientSteps.RegisterClientTest(_clientModel);
             AuthRequestModel authClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_clientModel);
             _clientToken = _authorization.AuthorizeTest(authClientModel);
+            _alienClientModel = new ClientRegistrationRequestModel()
+            {
+                Name = "Валера",
+                LastName = "Валерич",
+                Email = "valera@gmail.com",
+                Phone = "+79514147895",
+                Address = "ул. Прямая, дом. 1",
+                Password = "12234567",
+                Promocode = ""
+            };
+            _alienClientId = _clientSteps.RegisterClientTest(_alienClientModel);
+            AuthRequestModel authAlienClientModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(_alienClientModel);
+            _alienClientToken = _authorization.AuthorizeTest(authAlienClientModel);
             _sitterModel = new SitterRegistrationRequestModel()
             {
                 Name = "Валера",
@@ -112,8 +122,6 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 }
             };
             _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
-            AuthRequestModel authAlienSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_alienSitterModel);
-            _alienSitterToken = _authorization.AuthorizeTest(authAlienSitterModel);
             _animalModel = new AnimalRegistrationRequestModel()
             {
                 Name = "Бука",
@@ -124,6 +132,72 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 ClientId = _clientId,
             };
             _animalId = _clientSteps.RegisterAnimalToClientProfileTest(_animalModel, _clientToken);
+            _alienAnimalModel = new AnimalRegistrationRequestModel()
+            {
+                Name = "Saw",
+                Age = 7,
+                RecommendationsForCare = "Играть осторожно",
+                Breed = "Доберман",
+                Size = 5,
+                ClientId = _alienClientId,
+            };
+            _alienAnimalId = _clientSteps.RegisterAnimalToClientProfileTest(_alienAnimalModel, _alienClientToken);
+            OrderWalkRegistrationRequestModel orderWalkModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _sitterId,
+                WorkDate = date,
+                Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[2].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _animalId,
+                }
+            };
+            _orderId = _clientSteps.RegisterOrderWalkTest(orderWalkModel, _clientToken);
+            OrderWalkRegistrationRequestModel alienOrderWalkModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _alienClientId,
+                SitterId = _sitterId,
+                WorkDate = date,
+                Address = _alienClientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[2].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _alienAnimalId,
+                }
+            };
+            _alienOrderId = _clientSteps.RegisterOrderWalkTest(alienOrderWalkModel, _alienClientToken);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _clearingTables.ClearAllDB();
+        }
+
+        //Client
+        [Test]
+        public void OrderingServicesNegativeTest_WhenTwoServicesForSameDog_ShouldGetHttpStatusCodeBadRequest()
+        {           
+            OrderWalkRegistrationRequestModel orderWalkModel = new OrderWalkRegistrationRequestModel()
+            {
+                ClienId = _clientId,
+                SitterId = _alienSitterId,
+                WorkDate = date,
+                Address = _clientModel.Address,
+                District = 2,
+                Type = _sitterModel.PriceCatalog[1].Service,
+                IsTrial = false,
+                AnimalIds = new List<int>()
+                {
+                    _animalId,
+                }
+            };
             OrderOverexposeRegistrationRequestModel orderOverexposeModel = new OrderOverexposeRegistrationRequestModel()
             {
                 ClienId = _clientId,
@@ -139,55 +213,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                     _animalId,
                 }
             };
-            _clientSteps.RegisterOrderOverexposeTest(orderOverexposeModel, _clientToken);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _clearingTables.ClearAllDB();
-        }
-
-        //Client
-        [Test]
-        public void OrderingServicesNegativeTest_WhenTwoServicesForSameDog_ShouldGetHttpStatusCodeBadRequest
-            (ClientUpdateRequestModel clientUpdateModel)
-        {
-            OrderWalkRegistrationRequestModel orderWalkModel = new OrderWalkRegistrationRequestModel()
-            {
-                ClienId = _clientId,
-                SitterId = _sitterId,
-                WorkDate = date,
-                Address = _clientModel.Address,
-                District = 2,
-                Type = _sitterModel.PriceCatalog[2].Service,
-                IsTrial = false,
-                AnimalIds = new List<int>()
-                {
-                    _animalId,
-                }
-            };
-            OrderWalkRegistrationRequestModel twoOrderWalkModel = new OrderWalkRegistrationRequestModel()
-            {
-                ClienId = _clientId,
-                SitterId = _alienSitterId,
-                WorkDate = date,
-                Address = _clientModel.Address,
-                District = 2,
-                Type = _sitterModel.PriceCatalog[1].Service,
-                IsTrial = false,
-                AnimalIds = new List<int>()
-                {
-                    _animalId,
-                }
-            };
-            _clientNegativeSteps.OrderingServicesWhenTwoServicesForSameDogNegativeTest(orderWalkModel, _clientToken);
-            _clientNegativeSteps.OrderingServicesWhenTwoServicesForSameDogNegativeTest(twoOrderWalkModel, _clientToken);
+            _clientNegativeSteps.OrderingServicesWhenTwoServicesForSameDogNegativeTest(orderWalkModel, orderOverexposeModel, _clientToken);
         }
 
         [Test]
-        public void OrderingServicesNegativeTest_WhenPastOrderServiceDateAndTime_ShouldGetHttpStatusCodeUnprocessableEntity
-            (ClientUpdateRequestModel clientUpdateModel)
+        public void OrderingServicesNegativeTest_WhenPastOrderServiceDateAndTime_ShouldGetHttpStatusCodeUnprocessableEntity()
         {
             var pastDate = DateTime.Now;
             pastDate = pastDate.AddDays(-1);
@@ -223,6 +253,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             };
             _clientNegativeSteps.OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(orderWalkModel, _clientToken);
             _clientNegativeSteps.OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(twoOrderWalkModel, _clientToken);
+        }
+
+        //Sitter
+        [Test]
+        public void PerformServiceNegativeTest_ForDifferentClientsSimultaneously_ShouldGetHttpStatusCodeBadRequest()
+        {
+            var ststus = 2;
+            _sitterSteps.UpdateOrderStatusByOrderIdTest(_orderId, ststus, _sitterToken);
+            _sitterNegativeSteps.PerformServiceForDifferentClientsSimultaneouslyNegativeTest(_alienOrderId, ststus, _sitterToken);
         }
     }
 }

@@ -272,10 +272,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient.GetAnimalsByClientId(id, token, expectedCode);
         }
 
-        public void OrderingServicesWhenTwoServicesForSameDogNegativeTest(OrderWalkRegistrationRequestModel model, string token)
+        public void OrderingServicesWhenTwoServicesForSameDogNegativeTest
+            (OrderWalkRegistrationRequestModel orderWalkModel, OrderOverexposeRegistrationRequestModel orderOverexposeModel, string token)
         {
             HttpStatusCode expectedCode = HttpStatusCode.BadRequest;
-            _ordersClient.RegisterOrderWalk(model, token, expectedCode);
+            _ordersClient.RegisterOrderWalk(orderWalkModel, token, expectedCode);
+            _ordersClient.RegisterOrderOverexpose(orderOverexposeModel, token, expectedCode);
         }
 
         public void OrderingServicesWhenPastOrderServiceDateAndTimeNegativeTest(OrderWalkRegistrationRequestModel model, string token)
