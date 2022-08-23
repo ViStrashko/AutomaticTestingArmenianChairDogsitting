@@ -10,5 +10,6 @@
         public const string Schedule = $"{Host}/Schedule";
         public const string Sitters = $"{Host}/Sitters";
         public const string Сomments = $"{Host}/Сomments";
+        public const string Search = $"{Host}/Search";
     }
 }

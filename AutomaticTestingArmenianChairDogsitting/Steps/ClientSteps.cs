@@ -16,6 +16,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         private AnimalsClient _animalsClient;
         private OrdersClient _ordersClient;
         private CommentsClient _commentsClient;
+        private SearchClient _searchClient;
 
         public ClientSteps()
         {
@@ -23,6 +24,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
             _animalsClient = new AnimalsClient();
             _ordersClient = new OrdersClient();
             _commentsClient = new CommentsClient();
+            _searchClient = new SearchClient();
         }
 
         public int RegisterClientTest(ClientRegistrationRequestModel model)
@@ -261,6 +263,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpStatusCode expectedDeleteCode = HttpStatusCode.NoContent;
             _commentsClient.DeleteCommentById(id, token, expectedDeleteCode);
+        }
+
+        public List<SittersGetAllResponseModel> SearchSittersTest(SearchRequestModel model, string token, List<SittersGetAllResponseModel> expectedSitters)
+        {
+            HttpStatusCode expectedDeleteCode = HttpStatusCode.OK;
+            HttpContent content = _searchClient.SearchSitters(model, token, expectedDeleteCode);
+            List<SittersGetAllResponseModel> actualSitters = JsonSerializer.Deserialize<List<SittersGetAllResponseModel>>(content.ReadAsStringAsync().Result)!;
+            CollectionAssert.AreEqual(actualSitters, expectedSitters);
+            return actualSitters;
         }
     }
 }

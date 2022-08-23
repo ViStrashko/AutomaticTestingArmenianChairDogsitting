@@ -8,7 +8,7 @@ using AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSource
 
 namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
 {
-    public class AddingAnimalToClientProfile
+    public class AddingAnimalToClientProfileTests
     {
         private Authorizations _authorization;
         private ClientSteps _clientSteps;
@@ -19,7 +19,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private int _clientId;
         private ClientRegistrationRequestModel _clientModel;
 
-        public AddingAnimalToClientProfile()
+        public AddingAnimalToClientProfileTests()
         {
             _authorization = new Authorizations();
             _clientSteps = new ClientSteps();
