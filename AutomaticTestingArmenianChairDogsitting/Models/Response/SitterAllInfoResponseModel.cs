@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Response
@@ -35,6 +36,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("priceCatalog")]
         public List<PriceCatalogResponseModel> PriceCatalog { get; set; }
 
+        [JsonPropertyName("registrationDate")]
+        public DateTime RegistrationDate { get; set; }
+
         [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
@@ -66,12 +70,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
                    Description == model.Description &&
                    Sex == model.Sex &&
                    Email == model.Email &&
+                   RegistrationDate.Date == model.RegistrationDate.Date &&
                    IsDeleted == model.IsDeleted;
         }
 
         public override string ToString()
         {
-            return $"{Id} {Name} {LastName} {Phone} {Age} {Experience} {Description} {Sex} {Email} {IsDeleted}";
+            return $"{Id} {Name} {LastName} {Phone} {Age} {Experience} {Description} {Sex} {Email} {RegistrationDate} {IsDeleted}";
         }
     }
 }

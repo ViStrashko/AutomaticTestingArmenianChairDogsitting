@@ -126,7 +126,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Orders}/{id}/walk"),
+                RequestUri = new System.Uri($"{Urls.Orders}/walk/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -142,7 +142,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Orders}/{id}/overexpose"),
+                RequestUri = new System.Uri($"{Urls.Orders}/overexpose/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -158,7 +158,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Orders}/{id}/daily-sitting"),
+                RequestUri = new System.Uri($"{Urls.Orders}/daily-sitting/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);
@@ -174,7 +174,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Clients
             HttpRequestMessage message = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = new System.Uri($"{Urls.Orders}/{id}/sitting-for-a-day"),
+                RequestUri = new System.Uri($"{Urls.Orders}/sitting-for-a-day/{id}"),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
             HttpResponseMessage response = client.Send(message);

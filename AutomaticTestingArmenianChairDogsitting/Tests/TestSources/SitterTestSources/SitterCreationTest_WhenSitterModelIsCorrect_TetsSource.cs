@@ -21,7 +21,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ClientTestSo
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
                 }
             };
         }

@@ -105,8 +105,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [Test]
         public void RestoringSitterProfileBySitterIdTest_WhenSitterIdIsCorrect_ShouldRestoringSitterProfile()
         {
+            var date = DateTime.Now;
             SittersGetAllResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel
-                (_sitterId, _sitterModel);
+                (_sitterId, date, _sitterModel);
             _sitterSteps.DeleteSitterTest(_sitterToken);
             _adminSteps.FindDeletedSitterProfileInListTest(_adminToken, expectedSitter);
             _adminSteps.RestoreSittersProfileBySitterIdTest(_sitterId, _adminToken);
@@ -116,8 +117,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void RestoreSittersProfileTest_ByAdmin_ShouldRestoreProfile(List<SitterRegistrationRequestModel> sitters)
         {
+            var date = DateTime.Now;
             SitterAllInfoResponseModel expectedSitter =
-                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
+                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, date, _sitterModel);
             SitterAllInfoResponseModel expectedDeletedSitter = new SitterAllInfoResponseModel()
             {
                 Age = expectedSitter.Age,
@@ -130,15 +132,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                 Name = expectedSitter.Name,
                 LastName = expectedSitter.LastName,
                 Sex = expectedSitter.Sex,
+                RegistrationDate = expectedSitter.RegistrationDate,
                 IsDeleted = true
             };
             SittersGetAllResponseModel expectedSitterInAllSitters =
-                _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(_sitterId, _sitterModel);
+                _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(_sitterId, date, _sitterModel);
             List<SittersGetAllResponseModel> expectedAllSitters = new List<SittersGetAllResponseModel>();
             foreach (var sitter in sitters)
             {
                 expectedAllSitters.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(
-                        _sitterSteps.RegisterSitterTest(sitter), sitter));
+                        _sitterSteps.RegisterSitterTest(sitter), date, sitter));
             }
             _sitterSteps.DeleteSitterTest(_sitterToken);
             _sitterSteps.CheckThatAllSittersDoesNotContainsDeletedSitterTest(_clientToken, expectedSitterInAllSitters);
@@ -156,7 +159,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             ClientsGetAllResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientsGetAllResponseModel
                 (_clientId, date, _clientModel);
             SittersGetAllResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel
-                (_sitterId, _sitterModel);
+                (_sitterId, date, _sitterModel);
             _adminSteps.DeleteClientByAdminTest(_clientId, _adminToken);
             _adminSteps.FindDeletedClientProfileInListTest(_adminToken, expectedClient);
             _adminSteps.DeleteSitterByAdminTest(_sitterId, _adminToken);

@@ -58,10 +58,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void SitterCreationTest_WhenSitterModelIsCorrect_ShouldCreateSitter(SitterRegistrationRequestModel sitterModel)
         {
             var sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
+            var date = DateTime.Now;
             AuthRequestModel authModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(sitterModel);
             var token = _authorization.AuthorizeTest(authModel);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
-                (sitterId, sitterModel);
+                (sitterId, date, sitterModel);
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, token, expectedSitter);
         }
     }

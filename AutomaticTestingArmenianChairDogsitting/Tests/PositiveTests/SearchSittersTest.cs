@@ -104,7 +104,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             foreach (var sitter in sitters)
             {
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
-                sittersList.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(sitterId, sitter));
+                sittersList.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(sitterId, date, sitter));
             }
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {

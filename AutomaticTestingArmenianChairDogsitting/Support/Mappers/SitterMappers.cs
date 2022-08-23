@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutomaticTestingArmenianChairDogsitting.Models.Request;
 using AutomaticTestingArmenianChairDogsitting.Models.Response;
+using System;
 using System.Collections.Generic;
 
 namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
@@ -8,7 +9,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
     public class SitterMappers
     {
         public SitterAllInfoResponseModel MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
-            (int id, SitterRegistrationRequestModel model)
+            (int id, DateTime date, SitterRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -18,29 +19,33 @@ namespace AutomaticTestingArmenianChairDogsitting.Support.Mappers
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SitterAllInfoResponseModel>(model);
             responseModel.Id = id;
+            responseModel.RegistrationDate = date;
             responseModel.IsDeleted = false;
             return responseModel;
         }
 
         public SitterAllInfoResponseModel MappSitterUpdateRequestModelToSitterAllInfoResponseModel
-            (int id, string email, List<PriceCatalogRequestModel> priceCatalog, SitterUpdateRequestModel model)
+            (int id, DateTime date, string email, List<PriceCatalogRequestModel> priceCatalog, SitterUpdateRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterUpdateRequestModel, SitterAllInfoResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SitterAllInfoResponseModel>(model);
             responseModel.Id = id;
+            responseModel.RegistrationDate = date;
             responseModel.Email = email;
             responseModel.PriceCatalog = MappPriceCatalogRequestModelToPriceCatalogResponseModel(priceCatalog);
             responseModel.IsDeleted = false;
             return responseModel;
         }
 
-        public SittersGetAllResponseModel MappSitterRegistrationModelToSittersGetAllResponseModel(int id, SitterRegistrationRequestModel model)
+        public SittersGetAllResponseModel MappSitterRegistrationModelToSittersGetAllResponseModel
+            (int id, DateTime date, SitterRegistrationRequestModel model)
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SitterRegistrationRequestModel, SittersGetAllResponseModel>());
             Mapper mapper = new Mapper(config);
             var responseModel = mapper.Map<SittersGetAllResponseModel>(model);
             responseModel.Id = id;
+            responseModel.RegistrationDate = date;
             return responseModel;
         }
 

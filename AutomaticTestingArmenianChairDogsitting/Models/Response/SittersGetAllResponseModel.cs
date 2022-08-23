@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace AutomaticTestingArmenianChairDogsitting.Models.Response
 {
@@ -16,18 +17,22 @@ namespace AutomaticTestingArmenianChairDogsitting.Models.Response
         [JsonPropertyName("experience")]
         public int Experience { get; set; }
 
+        [JsonPropertyName("registrationDate")]
+        public DateTime RegistrationDate { get; set; }
+
         public override bool Equals(object? obj)
         {
             return obj is SittersGetAllResponseModel model &&
                    Id == model.Id &&
                    Name == model.Name &&
                    LastName == model.LastName &&
-                   Experience == model.Experience;
+                   Experience == model.Experience &&
+                   RegistrationDate.Date == model.RegistrationDate.Date;
         }
 
         public override string ToString()
         {
-            return $"{Id} {Name} {LastName} {Experience}";
+            return $"{Id} {Name} {LastName} {Experience} {RegistrationDate}";
         }
     }
 }

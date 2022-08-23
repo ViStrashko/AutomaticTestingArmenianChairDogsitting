@@ -125,18 +125,20 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(EditingSitterProfileTest_WhenSitterModelIsCorrect_TestSource))]
         public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
+            var date = DateTime.Now;
             _sitterSteps.UpdateSitterTest(sitterUpdateModel, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel
-                (_sitterId, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
+                (_sitterId, date, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
 
         [Test]
         public void DeleteSitterProfileTest_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
         {
+            var date = DateTime.Now;
             _sitterSteps.DeleteSitterTest(_sitterToken);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
-                (_sitterId, _sitterModel);
+                (_sitterId, date, _sitterModel);
             expectedSitter.IsDeleted = true;
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
@@ -158,9 +160,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(ChangingSittersPriceCatalogTest_WhenModelIsCorrect_TestSource))]
         public void ChangingSittersPriceCatalogTest_WhenModelIsCorrect_ShouldChangePrices(PriceCatalogUpdateModel newPrices)
         {
+            var date = DateTime.Now;
             _sitterSteps.UpdatePriceCatalogTest(newPrices, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = 
-                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _sitterModel);
+                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, date, _sitterModel);
             expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
