@@ -120,26 +120,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 {
                     new PriceCatalogRequestModel() { Service = 1, Price = 500 },
                 }
-            };
+            };           
             yield return new SitterRegistrationRequestModel()
             {
                 Name = "Миша7",
-                LastName = "Пет",
-                Phone = "+79514125547",
-                Email = "pet0@gmail.com",
-                Password = "12345678",
-                Age = 20,
-                Experience = 1,
-                Sex = 1,
-                Description = "",
-                PriceCatalog = new List<PriceCatalogRequestModel>()
-                {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
-                }
-            };
-            yield return new SitterRegistrationRequestModel()
-            {
-                Name = "Миша8",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -155,7 +139,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша9",
+                Name = "Миша8",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -188,7 +172,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect age
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша10",
+                Name = "Миша9",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -204,7 +188,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша11",
+                Name = "Миша10",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -221,7 +205,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect experience
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша12",
+                Name = "Миша11",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -238,7 +222,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect sex
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша13",
+                Name = "Миша12",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -254,7 +238,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша14",
+                Name = "Миша13",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -270,7 +254,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша15",
+                Name = "Миша14",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -287,7 +271,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect service
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша16",
+                Name = "Миша15",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -303,7 +287,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша17",
+                Name = "Миша16",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -319,7 +303,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             };
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша18",
+                Name = "Миша17",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -336,7 +320,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect price
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша19",
+                Name = "Миша18",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
@@ -353,7 +337,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
             //Incorrect difference between age and experience > 14
             yield return new SitterRegistrationRequestModel()
             {
-                Name = "Миша20",
+                Name = "Миша19",
                 LastName = "Пет",
                 Phone = "+79514125547",
                 Email = "pet0@gmail.com",
