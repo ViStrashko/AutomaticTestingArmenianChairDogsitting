@@ -102,7 +102,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 4500 },
                 }
 
             };
@@ -122,7 +122,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
                 Description = "Description",
                 PriceCatalog = new List<PriceCatalogRequestModel>()
                 {
-                    new PriceCatalogRequestModel() { Service = 1, Price = 500 },
+                    new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
                 }
             };
             _alienSitterId = _sitterSteps.RegisterSitterTest(_alienSitterModel);
@@ -146,7 +146,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clearingTables.ClearAllDB();
         }
 
-        //Clients
+        //Client
         //Client endpoints
         [TestCaseSource(typeof(EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyIsEmpty_TestSource))]
         public void EditingClientProfileNegativeTest_WhenUpdatedClientsPropertyIsEmpty_ShouldGetHttpStatusCodeUnprocessableEntity
@@ -247,7 +247,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             _clientNegativeSteps.RestoreAnimalWhenAnimalIdIsNotCorrectNegativeTest(id, _clientToken);
         }
 
-        //Sitters
+        //Sitter
         //Sitter endpoints
         [TestCaseSource(typeof(EditingSittersPrifileNegativeTest_WhenSitterModelIsNotCorrect_TestSource))]
         public void EditingSittersPrifileNegativeTest_WhenSitterModelIsNotCorrect_ShouldGetHttpStatusUnprocessableEntity
