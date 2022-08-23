@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSources
+namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.SearchSittersTestSources
 {
-    public class GetAllSittersByAnyRoleTestSource : IEnumerable
+    internal class SearchSittersTest_WhenUserModelIsCorrectAndSearchRequestModelIsCorrect_TestSource : IEnumerable
     {
         public IEnumerator GetEnumerator()
         {
@@ -84,27 +84,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.ViewTestSour
                     }
                 }
             };
-            yield return sitters;
-        }
-    }
-    public class GetAllInfoSitterTestSource : IEnumerable
-    {
-        public IEnumerator GetEnumerator()
-        {
-            yield return new SitterRegistrationRequestModel()
+            yield return new object[]
             {
-                Name = "Валера",
-                LastName = "Пет",
-                Phone = "+79514125547",
-                Email = "pet@gmail.com",
-                Password = "12345678",
-                Age = 20,
-                Experience = 1,
-                Sex = 1,
-                Description = "Description",
-                PriceCatalog = new List<PriceCatalogRequestModel>()
+                sitters,
+                new CommentRegistrationRequestModel()
                 {
-                    new PriceCatalogRequestModel() { Service = 4, Price = 500 },
+                    Rating = 5,
+                    Text = "Собачка была под хорошим присмотром, и я не порвала себе сердце от беспокойства за неё.",
                 }
             };
         }

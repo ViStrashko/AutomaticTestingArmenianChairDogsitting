@@ -124,7 +124,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             };
             _orderId = _clientSteps.RegisterOrderWalkTest(_orderModel, _clientToken);
             OrderAllInfoResponseModel expectedOrder = _orderMappers.MappOrderWalkRegistrationRequestModelToOrderAllInfoResponseModel
-                (_orderId, date, _sitterModel.PriceCatalog[3].Price, _animals, _orderModel, _orderModel.Status);
+                (_orderId, _orderModel.WorkDate, _sitterModel.PriceCatalog[3].Price, _animals, _orderModel, _orderModel.Status);
             OrderAllInfoResponseModel actualOrder = _clientSteps.GetAllInfoOrderByIdTest(_orderId, _clientToken, expectedOrder);
             actualOrder.Status = 3;
         }
