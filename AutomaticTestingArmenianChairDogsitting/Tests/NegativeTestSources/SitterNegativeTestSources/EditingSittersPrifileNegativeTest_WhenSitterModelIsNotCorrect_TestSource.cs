@@ -57,17 +57,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTestSources.Sitt
                 Experience = 2,
                 Description = "Ya Vova",
                 Sex = 1
-            };
-            yield return new SitterUpdateRequestModel()
-            {
-                Name = "Vova4",
-                LastName = "Blinov",
-                Phone = "81234567890",
-                Age = 20,
-                Experience = 2,
-                Description = "",
-                Sex = 1
-            };
+            };            
             yield return new SitterUpdateRequestModel()
             {
                 Name = "Vova5",
