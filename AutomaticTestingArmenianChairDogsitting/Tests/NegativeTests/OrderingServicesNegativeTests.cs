@@ -34,7 +34,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
         private SitterRegistrationRequestModel _alienSitterModel;
         private AnimalRegistrationRequestModel _animalModel;
         private AnimalRegistrationRequestModel _alienAnimalModel;
-        DateTime date = DateTime.Now;
+        private DateTime _date = DateTime.Now;
 
         public OrderingServicesNegativeTests()
         {
@@ -146,7 +146,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                WorkDate = date,
+                WorkDate = _date,
                 Address = _clientModel.Address,
                 District = 2,
                 Type = _sitterModel.PriceCatalog[2].Service,
@@ -161,7 +161,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             {
                 ClienId = _alienClientId,
                 SitterId = _sitterId,
-                WorkDate = date,
+                WorkDate = _date,
                 Address = _alienClientModel.Address,
                 District = 2,
                 Type = _sitterModel.PriceCatalog[2].Service,
@@ -188,10 +188,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             {
                 ClienId = _clientId,
                 SitterId = _alienSitterId,
-                WorkDate = date,
+                WorkDate = _date,
                 Address = _clientModel.Address,
                 District = 2,
-                Type = _sitterModel.PriceCatalog[1].Service,
+                Type = _alienSitterModel.PriceCatalog[1].Service,
                 IsTrial = false,
                 AnimalIds = new List<int>()
                 {
@@ -202,7 +202,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.NegativeTests
             {
                 ClienId = _clientId,
                 SitterId = _sitterId,
-                WorkDate = date,
+                WorkDate = _date,
                 Address = _clientModel.Address,
                 District = 2,
                 Type = _sitterModel.PriceCatalog[1].Service,

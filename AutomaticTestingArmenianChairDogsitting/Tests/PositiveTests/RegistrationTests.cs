@@ -18,6 +18,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private AuthMappers _authMapper;
         private ClientMappers _clientMappers;
         private SitterMappers _sitterMappers;
+        private DateTime _date = DateTime.Now;
 
         public RegistrationTests()
         {
@@ -46,11 +47,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void ClientCreationTest_WhenClientModelIsCorrect_ShouldCreateClient(ClientRegistrationRequestModel clientModel)
         {
             var clientId = _clientSteps.RegisterClientTest(clientModel);
-            var date = DateTime.Now;
             AuthRequestModel authModel = _authMapper.MappClientRegistrationRequestModelToAuthRequestModel(clientModel);
             var token = _authorization.AuthorizeTest(authModel);
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
-                (clientId, date, clientModel);
+                (clientId, _date, clientModel);
             _clientSteps.GetAllInfoClientByIdTest(clientId, token, expectedClient);
         }
 
@@ -58,11 +58,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void SitterCreationTest_WhenSitterModelIsCorrect_ShouldCreateSitter(SitterRegistrationRequestModel sitterModel)
         {
             var sitterId = _sitterSteps.RegisterSitterTest(sitterModel);
-            var date = DateTime.Now;
             AuthRequestModel authModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(sitterModel);
             var token = _authorization.AuthorizeTest(authModel);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
-                (sitterId, date, sitterModel);
+                (sitterId, _date, sitterModel);
             _sitterSteps.GetAllInfoSitterByIdTest(sitterId, token, expectedSitter);
         }
     }
