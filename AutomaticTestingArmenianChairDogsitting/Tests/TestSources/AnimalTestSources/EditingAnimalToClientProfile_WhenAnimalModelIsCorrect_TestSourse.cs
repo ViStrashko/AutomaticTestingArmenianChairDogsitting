@@ -7,24 +7,13 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.TestSources.AnimalTestSo
     {
         public IEnumerator GetEnumerator()
         {
-            yield return new object[]
+            yield return new AnimalUpdateRequestModel()
             {
-                new AnimalRegistrationRequestModel()
-                {
-                    Name = "Шарик",
-                    Age = 1,
-                    RecommendationsForCare = "Играть осторожно",
-                    Breed = "Доберман",
-                    Size = 5,
-                },
-                new AnimalUpdateRequestModel()
-                {
-                    Name = "Шарик",
-                    Age = 1,
-                    RecommendationsForCare = "Играть осторожно, мыть лапы тщательно",
-                    Breed = "Доберман",
-                    Size = 5,
-                },
+                Name = "Шарик",
+                Age = 1,
+                RecommendationsForCare = "Играть осторожно, мыть лапы тщательно",
+                Breed = "Доберман",
+                Size = 5,
             };
         }
     }

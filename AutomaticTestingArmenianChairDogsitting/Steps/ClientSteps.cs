@@ -17,6 +17,12 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         private OrdersClient _ordersClient;
         private CommentsClient _commentsClient;
         private SearchClient _searchClient;
+        private DateTime _oneActualTime = DateTime.Now.AddSeconds(1);
+        private DateTime _twoActualTime = DateTime.Now.AddSeconds(2);
+        private DateTime _threeActualTime = DateTime.Now.AddSeconds(3);
+        private DateTime _fourActualTime = DateTime.Now.AddSeconds(4);
+        private DateTime _fiveActualTime = DateTime.Now.AddSeconds(5);
+
 
         public ClientSteps()
         {
@@ -179,6 +185,15 @@ namespace AutomaticTestingArmenianChairDogsitting.Steps
         {
             HttpContent content = _ordersClient.GetAllInfoOrderById(id, token, HttpStatusCode.OK);
             OrderAllInfoResponseModel actualOrder = JsonSerializer.Deserialize<OrderAllInfoResponseModel>(content.ReadAsStringAsync().Result)!;
+            if(actualOrder.WorkDate == _oneActualTime || actualOrder.WorkDate == _twoActualTime || actualOrder.WorkDate == _threeActualTime
+               || actualOrder.WorkDate == _fourActualTime || actualOrder.WorkDate == _fiveActualTime
+               || actualOrder.DateUpdated == expectedOrder.DateUpdated.AddSeconds(1) || actualOrder.DateUpdated == expectedOrder.DateUpdated.AddSeconds(2)
+               || actualOrder.DateUpdated == expectedOrder.DateUpdated.AddSeconds(3) || actualOrder.DateUpdated == expectedOrder.DateUpdated.AddSeconds(4)
+               || actualOrder.DateUpdated == expectedOrder.DateUpdated.AddSeconds(5))
+            {
+                actualOrder.WorkDate = expectedOrder.WorkDate;
+                actualOrder.DateUpdated = expectedOrder.DateUpdated;
+            }
             Assert.AreEqual(expectedOrder, actualOrder);
             return actualOrder;
         }

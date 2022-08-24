@@ -26,6 +26,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private int _sitterId;
         private ClientRegistrationRequestModel _clientModel;
         private SitterRegistrationRequestModel _sitterModel;
+        private DateTime _date = DateTime.Now;
 
         public EditingAProfileTests()
         {
@@ -91,9 +92,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void EditingClientProfileTest_WhenClientModelIsCorrect_ShouldEditingClientProfile(ClientUpdateRequestModel clientUpdateModel)
         {
             _clientSteps.UpdateClientTest(clientUpdateModel, _clientToken);
-            var date = DateTime.Now;
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientUpdateRequestModelToClientAllInfoResponseModel
-                (_clientId, date, _clientModel.Email, clientUpdateModel);
+                (_clientId, _date, _clientModel.Email, clientUpdateModel);
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
 
@@ -101,9 +101,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         public void DeleteClientProfileTest_WhenClientIdIsCorrect_ShouldDeletingClientProfile()
         {
             _clientSteps.DeleteClientTest(_clientToken);
-            var date = DateTime.Now;
             ClientAllInfoResponseModel expectedClient = _clientMappers.MappClientRegistrationRequestModelToClientAllInfoResponseModel
-                (_clientId, date, _clientModel);
+                (_clientId, _date, _clientModel);
             expectedClient.IsDeleted = true;
             _clientSteps.GetAllInfoClientByIdTest(_clientId, _clientToken, expectedClient);
         }
@@ -125,20 +124,18 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(EditingSitterProfileTest_WhenSitterModelIsCorrect_TestSource))]
         public void EditingSitterProfileTest_WhenSitterModelIsCorrect_ShouldEditingSitterProfile(SitterUpdateRequestModel sitterUpdateModel)
         {
-            var date = DateTime.Now;
             _sitterSteps.UpdateSitterTest(sitterUpdateModel, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterUpdateRequestModelToSitterAllInfoResponseModel
-                (_sitterId, date, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
+                (_sitterId, _date, _sitterModel.Email, _sitterModel.PriceCatalog, sitterUpdateModel);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
 
         [Test]
         public void DeleteSitterProfileTest_WhenSitterIdIsCorrect_ShouldDeletingSitterProfile()
         {
-            var date = DateTime.Now;
             _sitterSteps.DeleteSitterTest(_sitterToken);
             SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel
-                (_sitterId, date, _sitterModel);
+                (_sitterId, _date, _sitterModel);
             expectedSitter.IsDeleted = true;
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }
@@ -160,10 +157,9 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(ChangingSittersPriceCatalogTest_WhenModelIsCorrect_TestSource))]
         public void ChangingSittersPriceCatalogTest_WhenModelIsCorrect_ShouldChangePrices(PriceCatalogUpdateModel newPrices)
         {
-            var date = DateTime.Now;
             _sitterSteps.UpdatePriceCatalogTest(newPrices, _sitterToken);
             SitterAllInfoResponseModel expectedSitter = 
-                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, date, _sitterModel);
+                _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _date, _sitterModel);
             expectedSitter.PriceCatalog = _sitterMappers.MappPriceCatalogRequestModelToPriceCatalogResponseModel(newPrices.PriceCatalog);
             _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _sitterToken, expectedSitter);
         }

@@ -22,8 +22,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private string _adminToken;
         private string _clientToken;
         private string _sitterToken;
-        ClientRegistrationRequestModel _clientModel;
-        SitterRegistrationRequestModel _sitterModel;
+        private int _sitterId;
+        private ClientRegistrationRequestModel _clientModel;
+        private SitterRegistrationRequestModel _sitterModel;
+        private SitterAllInfoResponseModel _expectedSitter;
+        private DateTime _date = DateTime.Now;
 
         public ViewTests()
         {
@@ -75,10 +78,10 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
                     new PriceCatalogRequestModel() { Service = 1, Price = 5000 },
                 }
             };
-            _sitterSteps.RegisterSitterTest(_sitterModel);
+            _sitterId = _sitterSteps.RegisterSitterTest(_sitterModel);
             AuthRequestModel authSitterModel = _authMapper.MappSitterRegistrationRequestModelToAuthRequestModel(_sitterModel);
             _sitterToken = _authorization.AuthorizeTest(authSitterModel);
-
+            _expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(_sitterId, _date, _sitterModel);
         }
 
         [TearDown]
@@ -90,54 +93,49 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
         public void GetAllSittesTest_ByAllRoles_ShouldReturnAllSitters(List<SitterRegistrationRequestModel> sitters)
         {
-            var date = DateTime.Now;
             List<SittersGetAllResponseModel> expectedSitters = new List<SittersGetAllResponseModel>();
             foreach( var sitter in sitters)
             {
-                int sitterId = _sitterSteps.RegisterSitterTest(sitter);
-                expectedSitters.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(sitterId, date, sitter));
+                var sitterId = _sitterSteps.RegisterSitterTest(sitter);
+                expectedSitters.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(sitterId, _date, sitter));
             }
-            var sitterToken = _authorization.AuthorizeTest(new AuthRequestModel { Email = sitters[0].Email, Password = sitters[0].Password });
             _sitterSteps.GetAllInfoAllSittersTest(_anonimToken, expectedSitters);
             _sitterSteps.GetAllInfoAllSittersTest(_clientToken, expectedSitters);
-            _sitterSteps.GetAllInfoAllSittersTest(sitterToken, expectedSitters);
+            _sitterSteps.GetAllInfoAllSittersTest(_sitterToken, expectedSitters);
             _sitterSteps.GetAllInfoAllSittersTest(_adminToken, expectedSitters);
         }
 
-        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
-        public void GetAllInfoAboutSitter_ByAnonim_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        [Test]
+        public void GetAllInfoAboutSitter_ByAnonim_ShouldReturnAllInfoAboutCurrentSitter()
         {
-            var date = DateTime.Now;
-            var sitterId = _sitterSteps.RegisterSitterTest(sitter);
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, date, sitter);
-            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _anonimToken, expectedSitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _anonimToken, _expectedSitter);
         }
 
-        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
-        public void GetAllInfoAboutSitter_ByClient_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        [Test]
+        public void GetAllInfoAboutSitter_ByClient_ShouldReturnAllInfoAboutCurrentSitter()
         {
-            var date = DateTime.Now;
-            var sitterId = _sitterSteps.RegisterSitterTest(sitter);
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, date, sitter);
-            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _clientToken, expectedSitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _clientToken, _expectedSitter);
         }
 
-        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
-        public void GetAllInfoAboutSitter_ByAdmin_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        [Test]
+        public void GetAllInfoAboutSitter_ByAdmin_ShouldReturnAllInfoAboutCurrentSitter()
         {
-            var date = DateTime.Now;
-            var sitterId = _sitterSteps.RegisterSitterTest(sitter);
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, date, sitter);
-            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _adminToken, expectedSitter);
+            _sitterSteps.GetAllInfoSitterByIdTest(_sitterId, _adminToken, _expectedSitter);
         }
 
-        [TestCaseSource(typeof(GetAllInfoSitterTestSource))]
-        public void GetAllInfoAboutSitter_BySitter_ShouldReturnAllInfoAboutCurrentSitter(SitterRegistrationRequestModel sitter)
+        [TestCaseSource(typeof(GetAllSittersByAnyRoleTestSource))]
+        public void GetAllInfoAboutSitter_BySitter_ShouldReturnAllInfoAboutCurrentSitter(List<SitterRegistrationRequestModel> sitters)
         {
-            var date = DateTime.Now;
-            var sitterId = _sitterSteps.RegisterSitterTest(sitter);
-            SitterAllInfoResponseModel expectedSitter = _sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, date, sitter);
-            _sitterSteps.GetAllInfoSitterByIdTest(sitterId, _sitterToken, expectedSitter);
+            List<SitterAllInfoResponseModel> expectedSitters = new List<SitterAllInfoResponseModel>();
+            foreach (var sitter in sitters)
+            {
+                var sitterId = _sitterSteps.RegisterSitterTest(sitter);
+                expectedSitters.Add(_sitterMappers.MappSitterRegistrationRequestModelToSitterAllInfoResponseModel(sitterId, _date, sitter));
+            }
+            foreach (var sitter in expectedSitters)
+            {
+                _sitterSteps.GetAllInfoSitterByIdTest(sitter.Id, _sitterToken, sitter);
+            }
         }
     }
 }
