@@ -24,10 +24,11 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
         private string _alienClientToken;
         private int _alienClientId;
         private int _animalId;
-        ClientRegistrationRequestModel _clientModel;
-        ClientRegistrationRequestModel _alienClientModel;
-        AnimalRegistrationRequestModel _animalModel;
+        private ClientRegistrationRequestModel _clientModel;
+        private ClientRegistrationRequestModel _alienClientModel;
+        private AnimalRegistrationRequestModel _animalModel;
         private List<ClientsAnimalsResponseModel> _animals;
+        private List<int> _sittersId;
 
         public SearchSittersTest()
         {
@@ -39,6 +40,8 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             _clearingTables = new ClearingTables();
             _sitterMappers = new SitterMappers();
             _authMapper = new AuthMappers();
+            _animals = new List<ClientsAnimalsResponseModel>();
+            _sittersId = new List<int>();
         }
 
         [OneTimeSetUp]
@@ -67,7 +70,7 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             {
                 Name = "Николай",
                 LastName = "Петров",
-                Email = "petrov@gmail.com",
+                Email = "pet555@gmail.com",
                 Phone = "89514425547",
                 Address = "ул. Пражская, дом. 15",
                 Password = "18885678",
@@ -105,15 +108,16 @@ namespace AutomaticTestingArmenianChairDogsitting.Tests.PositiveTests
             {
                 int sitterId = _sitterSteps.RegisterSitterTest(sitter);
                 sittersList.Add(_sitterMappers.MappSitterRegistrationModelToSittersGetAllResponseModel(sitterId, date, sitter));
+                _sittersId.Add(sitterId);
             }
             OrderWalkRegistrationRequestModel orderModel = new OrderWalkRegistrationRequestModel()
             {
                 ClienId = _alienClientId,
-                SitterId = _sitterSteps.RegisterSitterTest(sitters[0]),
+                SitterId = _sittersId[0],
                 WorkDate = date,
                 Address = _alienClientModel.Address,
                 District = 2,
-                Type = sitters[0].PriceCatalog[3].Service,
+                Type = sitters[0].PriceCatalog[2].Service,
                 IsTrial = false,
                 AnimalIds = new List<int>()
                 {
